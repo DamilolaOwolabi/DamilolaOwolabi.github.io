@@ -1,0 +1,20 @@
+// assets/css/style.scss
+
+#p5-container {
+    // Set a fixed height for the p5.js container
+    height: 50vh; // 50% of the viewport height
+    // Set a background color for the p5.js container
+    background-color: #fafafa;
+    // Center the canvas within the container
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // Add a border with rounded corners
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    // Add a box shadow for a subtle effect
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    // Add some margin and padding for spacing
+    margin: 20px auto;
+    padding: 10px;
+}

@@ -1,0 +1,1 @@
+function setup(){createCanvas(windowWidth,windowHeight/2).parent("p5-container"),background(240)}function draw(){fill(100,150,200,50),noStroke(),ellipse(mouseX,mouseY,50,50)}function windowResized(){resizeCanvas(windowWidth,windowHeight/2)}

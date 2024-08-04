@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top 10 Billionaires</title>
+<style>
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    background-color: #aaa;
+    color: white;
+    cursor: pointer;
+}
+.bar {
+    fill: steelblue;
+}
+.flag {
+    height: 30px;
+    width: 50px;
+}
+#controls {
+    margin-top: auto;
+}
+svg {
+    border: 1px solid black;
+}
+</style>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+<div class="container">
+<svg id="chart" width="800" height="600"></svg>
+<div id="controls">
+    <button id="pauseButton" class="button">Pause</button>
+    <button id="playButton" class="button">Play</button>
+    <button id="stepButton" class="button">Step</button>
+</div>
+</div>
+<script>
+let years = [];
+let billionaires = {};
+let companySymbols = {};
+let currentIndex = 0;
+let top10 = [];
+let previousTop10 = [];
+let previousLengths = {};
+let lerpAmount = 0.0;
+const transitionDelay = 2000;
+let isPaused = false;
+
+class Billionaire {
+    constructor(name, netWorth, nationality, sourceWealth) {
+    this.name = name;
+    this.netWorth = netWorth;
+    this.nationality = nationality;
+    this.sourceWealth = sourceWealth;
+    }
+}
+
+function loadData() {
+    d3.csv("assets/img/DS_6390_Exam_1/Image/cleaned_billionaires(1).csv").then(data => {
+    data.forEach(row => {
+        const year = +row.year;
+        if (!years.includes(year)) {
+        years.push(year);
+        billionaires[year] = [];
+        }
+        const netWorth = parseNetWorth(row.net_worth_cleaned);
+        const name = row.name;
+        const nationality = row.nationality;
+        const sourceWealth = row.source_wealth;
+
+        billionaires[year].push(new Billionaire(name, netWorth, nationality, sourceWealth));
+    });
+    years.sort((a, b) => a - b);
+    initializeChart();
+    }).catch(error => console.error('Error loading CSV:', error));
+}
+
+function parseNetWorth(netWorthStr) {
+    return parseFloat(netWorthStr.replace("$", "").replace("B", ""));
+}
+
+function initializeChart() {
+    d3.select("#pauseButton").on("click", () => isPaused = true);
+    d3.select("#playButton").on("click", () => isPaused = false);
+    d3.select("#stepButton").on("click", () => {
+    isPaused = true;
+    lerpAmount = 0.0;
+    previousTop10 = top10.slice();
+    currentIndex = (currentIndex + 1) % years.length;
+    });
+
+    d3.interval(() => {
+    if (!isPaused) {
+        lerpAmount += 0.005;
+        if (lerpAmount >= 1) {
+        lerpAmount = 0.0;
+        previousTop10 = top10.slice();
+        currentIndex = (currentIndex + 1) % years.length;
+        }
+        updateChart();
+    }
+    }, 1000 / 60);
+}
+
+function updateChart() {
+    const currentYear = years[currentIndex];
+    top10 = billionaires[currentYear].slice(0, 10);
+
+    const svg = d3.select("#chart");
+    svg.selectAll("*").remove();
+    svg.append("text")
+    .attr("x", 400)
+    .attr("y", 15)
+    .attr("text-anchor", "middle")
+    .style("font-size", "40px")
+    .text("Top 10 Billionaires by Year");
+
+    svg.append("text")
+    .attr("x", 400)
+    .attr("y", 50)
+    .attr("text-anchor", "middle")
+    .style("font-size", "32px")
+    .text(currentYear);
+
+    const barWidth = 800 / 3;
+    const barHeight = 600 / 12;
+    const xOffset = 200;
+    const yOffset = 100;
+
+    top10.forEach((billionaire, i) => {
+    const barLength = d3.scaleLinear()
+        .domain([0, d3.max(top10, d => d.netWorth)])
+        .range([0, barWidth])(billionaire.netWorth);
+
+    svg.append("rect")
+        .attr("x", xOffset)
+        .attr("y", yOffset + i * barHeight)
+        .attr("width", barLength)
+        .attr("height", barHeight / 2)
+        .attr("class", "bar");
+
+    svg.append("text")
+        .attr("x", xOffset - 10)
+        .attr("y", yOffset + i * barHeight + barHeight / 4)
+        .attr("text-anchor", "end")
+        .style("font-size", "16px")
+        .text(billionaire.name);
+
+    svg.append("text")
+        .attr("x", xOffset + barLength + 20)
+        .attr("y", yOffset + i * barHeight + barHeight / 4)
+        .style("font-size", "16px")
+        .text(`$${billionaire.netWorth.toFixed(1)}B`);
+
+    if (companySymbols[billionaire.sourceWealth]) {
+        svg.append("image")
+        .attr("x", xOffset + barLength + 60)
+        .attr("y", yOffset + i * barHeight + barHeight / 4 - 15)
+        .attr("width", 50)
+        .attr("height", 30)
+        .attr("href", companySymbols[billionaire.sourceWealth]);
+    }
+
+    drawFlag(svg, xOffset + 10, yOffset + i * barHeight - barHeight / 2, barLength, barHeight / 2, billionaire.nationality);
+    });
+}
+
+function drawFlag(svg, x, y, w, h, nationality) {
+    // Add SVG elements for each flag
+    // Example for USA flag
+    if (nationality === "United States") {
+    svg.append("rect").attr("x", x).attr("y", y).attr("width", w).attr("height", h).attr("fill", "white");
+    svg.append("rect").attr("x", x).attr("y", y).attr("width", w * 2 / 5).attr("height", h * 7 / 13).attr("fill", "blue");
+    // Add more elements for the USA flag
+    }
+    // Repeat for other flags...
+}
+
+function loadCompanySymbols() {
+    // Assuming you have these images in the assets folder
+    companySymbols["Amazon"] = "assets/img/DS_6390_Exam_1/Image/amazon_logo.png";
+    companySymbols["Tesla, SpaceX"] = "assets/img/DS_6390_Exam_1/Image/tesla_spacex_logo.png";
+    companySymbols["LVMH"] = "assets/img/DS_6390_Exam_1/Image/lvmh_logo.png";
+    companySymbols["Microsoft"] = "assets/img/DS_6390_Exam_1/Image/microsoft_logo.png";
+    companySymbols["Facebook"] = "assets/img/DS_6390_Exam_1/Image/facebook_logo.png";
+    companySymbols["Berkshire Hathaway"] = "assets/img/DS_6390_Exam_1/Image/berkshire_hathaway_logo.png";
+    companySymbols["Oracle Corporation"] = "assets/img/DS_6390_Exam_1/Image/oracle_logo.png";
+    companySymbols["Alphabet Inc."] = "assets/img/DS_6390_Exam_1/Image/alphabet_inc_logo.png";
+    companySymbols["Reliance Industries"] = "assets/img/DS_6390_Exam_1/Image/reliance_industries_logo.png";
+    companySymbols["Inditex, Zara"] = "assets/img/DS_6390_Exam_1/Image/inditex_zara_logo.png";
+    companySymbols["Walmart"] = "assets/img/DS_6390_Exam_1/Image/walmart_logo.png";
+    companySymbols["América Móvil, Grupo Carso"] = "assets/img/DS_6390_Exam_1/Image/america_movil_grupo_carso_logo.png";
+    companySymbols["Diversified"] = "assets/img/DS_6390_Exam_1/Image/diversified_logo.png";
+    companySymbols["Bloomberg L.P."] = "assets/img/DS_6390_Exam_1/Image/bloomberg_lp_logo.png";
+    companySymbols["Koch Industries"] = "assets/img/DS_6390_Exam_1/Image/koch_industries_logo.png";
+    companySymbols["Inditex"] = "assets/img/DS_6390_Exam_1/Image/inditex_logo.png";
+    companySymbols["L'Oreal"] = "assets/img/DS_6390_Exam_1/Image/loreal_logo.png";
+    companySymbols["Las Vegas Sands"] = "assets/img/DS_6390_Exam_1/Image/las_vegas_sands_logo.png";
+    companySymbols["Cheung Kong Holdings"] = "assets/img/DS_6390_Exam_1/Image/cheung_kong_holdings_logo.png";
+    companySymbols["LVMH Moët Hennessy • Louis Vuitton"] = "assets/img/DS_6390_Exam_1/Image/lvmh_moet_hennessy_louis_vuitton_logo.png";
+    companySymbols["EBX Group"] = "assets/img/DS_6390_Exam_1/Image/ebx_group_logo.png";
+    companySymbols["H&M"] = "assets/img/DS_6390_Exam_1/Image/hm_logo.png";
+    companySymbols["Aldi"] = "assets/img/DS_6390_Exam_1/Image/aldi_logo.png";
+    companySymbols["Arcelor Mittal"] = "assets/img/DS_6390_Exam_1/Image/arcelor_mittal_logo.png";
+    companySymbols["Aldi Süd"] = "assets/img/DS_6390_Exam_1/Image/aldi_sud_logo.png";
+    companySymbols["IKEA"] = "assets/img/DS_6390_Exam_1/Image/ikea_logo.png";
+    companySymbols["Aldi Nord, Trader Joe's"] = "assets/img/DS_6390_Exam_1/Image/aldi_nord_trader_joes_logo.png";
+    companySymbols["Anil Dhirubhai Ambani Group"] = "assets/img/DS_6390_Exam_1/Image/anil_dhirubhai_ambani_group_logo.png";
+    companySymbols["DLF Group"] = "assets/img/DS_6390_Exam_1/Image/dlf_group_logo.png";
+    companySymbols["Rusal"] = "assets/img/DS_6390_Exam_1/Image/rusal_logo.png";
+    companySymbols["Thomson Corporation"] = "assets/img/DS_6390_Exam_1/Image/thomson_corporation_logo.png";
+    companySymbols["Mittal Steel Company"] = "assets/img/DS_6390_Exam_1/Image/mittal_steel_company_logo.png";
+    companySymbols["Kingdom Holding Company"] = "assets/img/DS_6390_Exam_1/Image/kingdom_holding_company_logo.png";
+    companySymbols["Softbank Capital, SoftBank Mobile"] = "assets/img/DS_6390_Exam_1/Image/softbank_capital_softbank_mobile_logo.png";
+    companySymbols["Dell"] = "assets/img/DS_6390_Exam_1/Image/dell_logo.png";
+    companySymbols["The Thomson Corporation"] = "assets/img/DS_6390_Exam_1/Image/the_thomson_corporation_logo.png";
+    // Add more companies and their logos here
+}
+
+loadData();
+loadCompanySymbols();
+</script>
+</body>
+</html>

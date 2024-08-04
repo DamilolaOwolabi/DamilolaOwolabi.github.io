@@ -1,0 +1,201 @@
+name,net_worth,nationality,year,source_wealth,net_worth_cleaned
+Jeff Bezos,177 ,United States,2021,Amazon,$177.0B
+Elon Musk,151 ,United States,2021,"Tesla, SpaceX",$151.0B
+Bernard Arnault & family,150 ,France,2021,LVMH,$150.0B
+Bill Gates,124 ,United States,2021,Microsoft,$124.0B
+Mark Zuckerberg,97 ,United States,2021,Facebook,$97.0B
+Warren Buffett,96 ,United States,2021,Berkshire Hathaway,$96.0B
+Larry Ellison,93 ,United States,2021,Oracle Corporation,$93.0B
+Larry Page,91.5,United States,2021,Alphabet Inc.,$91.5B
+Sergey Brin,89 ,United States,2021,Alphabet Inc.,$89.0B
+Mukesh Ambani,84.5,India,2021,Reliance Industries,$84.5B
+Jeff Bezos,113 ,United States,2020,Amazon,$113.0B
+Bill Gates,98 ,United States,2020,Microsoft,$98.0B
+Bernard Arnault & family,76 ,France,2020,LVMH,$76.0B
+Warren Buffett,67.5,United States,2020,Berkshire Hathaway,$67.5B
+Larry Ellison,59 ,United States,2020,Oracle Corporation,$59.0B
+Amancio Ortega,55.1,Spain,2020,"Inditex, Zara",$55.1B
+Mark Zuckerberg,54.7,United States,2020,Facebook,$54.7B
+Jim Walton,54.6,United States,2020,Walmart,$54.6B
+Alice Walton,54.4,United States,2020,Walmart,$54.4B
+S. Robson Walton,54.1,United States,2020,Walmart,$54.1B
+Jeff Bezos,131 ,United States,2019,Amazon,$131.0B
+Bill Gates,96.5,United States,2019,Microsoft,$96.5B
+Warren Buffett,82.5,United States,2019,Berkshire Hathaway,$82.5B
+Bernard Arnault,76 ,France,2019,LVMH,$76.0B
+Carlos Slim,64 ,Mexico,2019,"América Móvil, Grupo Carso",$64.0B
+Amancio Ortega,62.7,Spain,2019,"Inditex, Zara",$62.7B
+Larry Ellison,62.5,United States,2019,Oracle Corporation,$62.5B
+Mark Zuckerberg,62.3,United States,2019,Facebook,$62.3B
+Michael Bloomberg,55.5,United States,2019,Bloomberg L.P.,$55.5B
+Larry Page,50.8,United States,2019,Alphabet Inc.,$50.8B
+Jeff Bezos,112 ,United States,2018,Amazon,$112.0B
+Bill Gates,90 ,United States,2018,Microsoft,$90.0B
+Warren Buffett,84 ,United States,2018,Berkshire Hathaway,$84.0B
+Bernard Arnault,72 ,France,2018,LVMH,$72.0B
+Mark Zuckerberg,71,United States,2018,Facebook,$71.0B
+Amancio Ortega,70 ,Spain,2018,"Inditex, Zara",$70.0B
+Carlos Slim,67.1,Mexico,2018,"América Móvil, Grupo Carso",$67.1B
+Charles Koch,60 ,United States,2018,Koch Industries,$60.0B
+David Koch,60 ,United States,2018,Koch Industries,$60.0B
+Larry Ellison,58.5,United States,2018,Oracle Corporation,$58.5B
+Bill Gates,86,United States,2017,Microsoft,$86.0B
+Warren Buffett,75.6,United States,2017,Berkshire Hathaway,$75.6B
+Jeff Bezos,72.8,United States,2017,Amazon,$72.8B
+Amancio Ortega,71.3,Spain,2017,"Inditex, Zara",$71.3B
+Mark Zuckerberg,56,United States,2017,Facebook,$56.0B
+Carlos Slim,54.5,Mexico,2017,"América Móvil, Grupo Carso",$54.5B
+Larry Ellison,52.2,United States,2017,Oracle Corporation,$52.2B
+Charles Koch,48.3,United States,2017,Koch Industries,$48.3B
+David Koch,48.3,United States,2017,Koch Industries,$48.3B
+Michael Bloomberg,47.5,United States,2017,Bloomberg L.P.,$47.5B
+Bill Gates,75,United States,2016,Microsoft,$75.0B
+Amancio Ortega,67,Spain,2016,Inditex,$67.0B
+Warren Buffett,60.8,United States,2016,Berkshire Hathaway,$60.8B
+Carlos Slim,50,Mexico,2016,"América Móvil, Grupo Carso",$50.0B
+Jeff Bezos,45.2,United States,2016,Amazon,$45.2B
+Mark Zuckerberg,44.6,United States,2016,Facebook,$44.6B
+Larry Ellison,43.6,United States,2016,Oracle Corporation,$43.6B
+Michael Bloomberg,40,United States,2016,Bloomberg L.P.,$40.0B
+Charles Koch,39.6,United States,2016,Koch Industries,$39.6B
+David Koch,39.6,United States,2016,Koch Industries,$39.6B
+Bill Gates,79.2,United States,2015,Microsoft,$79.2B
+Carlos Slim,77.1,Mexico,2015,"América Móvil, Grupo Carso",$77.1B
+Warren Buffett,72.7,United States,2015,Berkshire Hathaway,$72.7B
+Amancio Ortega,64.5,Spain,2015,Inditex,$64.5B
+Larry Ellison,54.3,United States,2015,Oracle Corporation,$54.3B
+Charles Koch,42.9,United States,2015,Koch Industries,$42.9B
+David Koch,42.9,United States,2015,Koch Industries,$42.9B
+Christy Walton,41.7,United States,2015,Walmart,$41.7B
+Jim Walton,40.6,United States,2015,Walmart,$40.6B
+Liliane Bettencourt,40.1,France,2015,L'Oreal,$40.1B
+Bill Gates,76,United States,2014,Microsoft,$76.0B
+Carlos Slim & family,72,Mexico,2014,"América Móvil, Grupo Carso",$72.0B
+Amancio Ortega,64,Spain,2014,Inditex,$64.0B
+Warren Buffett,58.2,United States,2014,Berkshire Hathaway,$58.2B
+Larry Ellison,48,United States,2014,Oracle Corporation,$48.0B
+Charles Koch,40,United States,2014,Koch Industries,$40.0B
+David Koch,40,United States,2014,Koch Industries,$40.0B
+Sheldon Adelson,38,United States,2014,Las Vegas Sands,$38.0B
+Christy Walton & family,36.7,United States,2014,Walmart,$36.7B
+Jim Walton,34.7,United States,2014,Walmart,$34.7B
+Carlos Slim & family,73,Mexico,2013,"América Móvil, Grupo Carso",$73.0B
+Bill Gates,67,United States,2013,Microsoft,$67.0B
+Amancio Ortega,57,Spain,2013,Inditex Group,$57.0B
+Warren Buffett,53.5,United States,2013,Berkshire Hathaway,$53.5B
+Larry Ellison,43,United States,2013,Oracle Corporation,$43.0B
+Charles Koch,34,United States,2013,Koch Industries,$34.0B
+David Koch,34,United States,2013,Koch Industries,$34.0B
+Li Ka-shing,31,Hong Kong,2013,Cheung Kong Holdings,$31.0B
+Liliane Bettencourt & family,30,France,2013,L'Oréal,$30.0B
+Bernard Arnault,29,France,2013,LVMH,$29.0B
+Carlos Slim & family,69,Mexico,2012,"América Móvil, Grupo Carso",$69.0B
+Bill Gates,61,United States,2012,Microsoft,$61.0B
+Warren Buffett,44,United States,2012,Berkshire Hathaway,$44.0B
+Bernard Arnault,41,France,2012,LVMH,$41.0B
+Amancio Ortega,37.5,Spain,2012,Inditex Group,$37.5B
+Larry Ellison,36,United States,2012,Oracle Corporation,$36.0B
+Eike Batista,30,Brazil,2012,EBX Group,$30.0B
+Stefan Persson,26,Sweden,2012,H&M,$26.0B
+Li Ka-shing,25.5,Hong Kong,2012,Cheung Kong Holdings,$25.5B
+Karl Albrecht,25.4,Germany,2012,Aldi,$25.4B
+Carlos Slim & family,74,Mexico,2011,"América Móvil, Grupo Carso",$74.0B
+Bill Gates,56,United States,2011,Microsoft,$56.0B
+Warren Buffett,50,United States,2011,Berkshire Hathaway,$50.0B
+Bernard Arnault,41,France,2011,LVMH,$41.0B
+Larry Ellison,39.5,United States,2011,Oracle Corporation,$39.5B
+Lakshmi Mittal,31.1,India,2011,Arcelor Mittal,$31.1B
+Amancio Ortega,31,Spain,2011,Inditex Group,$31.0B
+Eike Batista,30,Brazil,2011,EBX Group,$30.0B
+Mukesh Ambani,27,India,2011,Reliance Industries,$27.0B
+Christy Walton & family,26.5,United States,2011,Walmart,$26.5B
+Carlos Slim & family,53.5,Mexico,2010,"América Móvil, Grupo Carso",$53.5B
+Bill Gates,53,United States,2010,Microsoft,$53.0B
+Warren Buffett,47,United States,2010,Berkshire Hathaway,$47.0B
+Mukesh Ambani,29,India,2010,Reliance Industries,$29.0B
+Lakshmi Mittal,28.7,India,2010,Arcelor Mittal,$28.7B
+Larry Ellison,28,United States,2010,Oracle Corporation,$28.0B
+Bernard Arnault,27.5,France,2010,LVMH,$27.5B
+Eike Batista,27,Brazil,2010,EBX Group,$27.0B
+Amancio Ortega,25,Spain,2010,Inditex Group,$25.0B
+Karl Albrecht,23.5,Germany,2010,Aldi Süd,$23.5B
+Bill Gates,40,United States,2009,Microsoft,$40.0B
+Warren Buffett,37,United States,2009,Berkshire Hathaway,$37.0B
+Carlos Slim,35,Mexico,2009,"América Móvil, Grupo Carso",$35.0B
+Larry Ellison,22.5,United States,2009,Oracle Corporation,$22.5B
+Ingvar Kamprad,22,Sweden,2009,IKEA,$22.0B
+Karl Albrecht,21.5,Germany,2009,Aldi,$21.5B
+Mukesh Ambani,19.5,India,2009,Reliance Industries,$19.5B
+Lakshmi Mittal,19.3,India,2009,Arcelor Mittal,$19.3B
+Theo Albrecht,18.8,Germany,2009,"Aldi Nord, Trader Joe's",$18.8B
+Amancio Ortega,18.3,Spain,2009,Inditex Group,$18.3B
+Warren  Buffett,62,United States,2008,Berkshire Hathaway,$62.0B
+Carlos Slim,60,Mexico,2008,"América Móvil, Grupo Carso",$60.0B
+Bill Gates,58,United States,2008,Microsoft,$58.0B
+Lakshmi Mittal,45,India,2008,Arcelor Mittal,$45.0B
+Mukesh Ambani,43,India,2008,Reliance Industries,$43.0B
+Anil Ambani,42,India,2008,Anil Dhirubhai Ambani Group,$42.0B
+Ingvar Kamprad,31,Sweden,2008,IKEA,$31.0B
+Kushal Pal Singh,30,India,2008,DLF Group,$30.0B
+Oleg Deripaska,28,Russia,2008,Rusal,$28.0B
+Karl   Albrecht,27,Germany,2008,Aldi Süd,$27.0B
+Bill Gates,56,United States,2007,Microsoft,$56.0B
+Warren Buffett,52,United States,2007,Berkshire Hathaway,$52.0B
+Carlos Slim,49,Mexico,2007,"América Móvil, Grupo Carso",$49.0B
+Ingvar Kamprad,33,Sweden,2007,IKEA,$33.0B
+Lakshmi Mittal,32,India,2007,Arcelor Mittal,$32.0B
+Sheldon Adelson,26.5,United States,2007,Las Vegas Sands,$26.5B
+Bernard Arnault,26,France,2007,LVMH,$26.0B
+Amancio Ortega,24,Spain,2007,Inditex Group,$24.0B
+Li Ka-shing,23,Hong Kong,2007,"Cheung Kong Holdings, Hutchison Whampoa",$23.0B
+David Thomson,22,Canada,2007,Thomson Corporation,$22.0B
+Bill Gates,52,United States,2006,Microsoft,$52.0B
+Warren Buffett,42,United States,2006,Berkshire Hathaway,$42.0B
+Carlos Slim,30,Mexico,2006,"América Móvil, Grupo Carso",$30.0B
+Ingvar Kamprad,28,Sweden,2006,IKEA,$28.0B
+Lakshmi Mittal,23.5,India,2006,Mittal Steel Company,$23.5B
+Paul Allen,22,United States,2006,Microsoft,$22.0B
+Bernard Arnault,21.5,France,2006,LVMH,$21.5B
+Al-Waleed bin Talal,20,Saudi Arabia,2006,Kingdom Holding Company,$20.0B
+Kenneth Thomson,19.6,Canada,2006,Thomson Corporation,$19.6B
+Li Ka-shing,18.8,Hong Kong,2006,"Cheung Kong Group, Hutchison Whampoa",$18.8B
+Bill Gates,46.5,United States,2005,Microsoft,$46.5B
+Warren Buffett,44,United States,2005,Berkshire Hathaway,$44.0B
+Lakshmi Mittal,25,India,2005,Mittal Steel Company,$25.0B
+Carlos Slim,23.8,Mexico,2005,"América Móvil, Grupo Carso",$23.8B
+Al-Waleed bin Talal,23.7,Saudi Arabia,2005,Kingdom Holding Company,$23.7B
+Ingvar Kamprad,23,Sweden,2005,IKEA,$23.0B
+Paul Allen,21,United States,2005,Microsoft,$21.0B
+Karl Albrecht,18.5,Germany,2005,Aldi,$18.5B
+Larry Ellison,18.4,United States,2005,Oracle Corporation,$18.4B
+S. Robson Walton,18.3,United States,2005,Walmart,$18.3B
+Bill Gates,46.6,United States,2004,Microsoft,$46.6B
+Warren Buffett,42.9,United States,2004,Berkshire Hathaway,$42.9B
+Karl Albrecht,23,Germany,2004,Aldi,$23.0B
+Al-Waleed bin Talal,21.5,Saudi Arabia,2004,Kingdom Holding Company,$21.5B
+Paul Allen,21,United States,2004,Microsoft,$21.0B
+Alice Walton*,20,United States,2004,Wal-Mart,$20.0B
+Helen Walton*,20,United States,2004,Wal-Mart,$20.0B
+Jim Walton*,20,United States,2004,Wal-Mart,$20.0B
+John Walton*,20,United States,2004,Wal-Mart,$20.0B
+S. Robson Walton*,20,United States,2004,Wal-Mart,$20.0B
+Bill Gates,52.8,United States,2003,Microsoft,$52.8B
+Warren Buffett,35,United States,2003,Berkshire Hathaway,$35.0B
+Karl and Theo Albrecht,26.8,Germany,2003,Aldi,$26.8B
+Paul Allen,25.2,United States,2003,Microsoft,$25.2B
+Larry Ellison,23.5,United States,2003,Oracle Corporation,$23.5B
+Jim Walton*,20.8,United States,2003,Wal-Mart,$20.8B
+John Walton*,20.7,United States,2003,Wal-Mart,$20.7B
+Alice Walton*,20.5,United States,2003,Wal-Mart,$20.5B
+S. Robson Walton*,20.5,United States,2003,Wal-Mart,$20.5B
+Helen Walton*,20.5,United States,2003,Wal-Mart,$20.5B
+Bill Gates,60,United States,2002,Microsoft,$60.0B
+Larry Ellison,47,United States,2002,Oracle Corporation,$47.0B
+Paul Allen,28,United States,2002,Microsoft,$28.0B
+Warren Buffett,25.6,United States,2002,Berkshire Hathaway,$25.6B
+Karl and Theo Albrecht,20,Germany,2002,Aldi,$20.0B
+Al-Waleed bin Talal,20,Saudi Arabia,2002,Kingdom Holding Company,$20.0B
+S. Robson Walton,20,United States,2002,Wal-Mart,$20.0B
+Masayoshi Son,19.4,Japan,2002,"Softbank Capital, SoftBank Mobile",$19.4B
+Michael Dell,19.1,United States,2002,Dell,$19.1B
+Kenneth Thomson,16.1,Canada,2002,The Thomson Corporation,$16.1B

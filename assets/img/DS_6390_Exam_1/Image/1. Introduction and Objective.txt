@@ -1,0 +1,4 @@
+1. Introduction and Objective
+Objective: The goal of this visualization is to dynamically display the top 10 billionaires each year, illustrating changes in their rankings and net worth over time.
+Data Source: The visualization uses a cleaned CSV file containing data on billionaires, including their names, net worth, nationality, source of wealth, and the year of their ranking.
+Motivation: Understanding the shifts in wealth and the rise of different industries and regions over time. This can provide insights into economic trends and the impact of technological advancements and globalization.

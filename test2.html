@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top 10 Billionaires</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .bar {
+      fill: steelblue;
+    }
+    .label {
+      font-size: 12px;
+    }
+    .button {
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .button:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div id="chart"></div>
+  <div>
+    <button class="button" id="pauseButton">Pause</button>
+    <button class="button" id="playButton">Play</button>
+    <button class="button" id="stepButton">Step</button>
+  </div>
+  <script>
+    let data;
+    let years = [];
+    let billionaires = {};
+    let currentIndex = 0;
+    let top10 = [];
+    let previousTop10 = [];
+    let previousLengths = {};
+    let lerpAmount = 0.0;
+    let isPaused = false;
+    let transitionDelay = 2000;
+    let svg;
+
+    d3.csv("assets/img/DS_6390_Exam_1/Image/cleaned_billionaires(1).csv").then((csvData) => {
+      processData(csvData);
+      years.sort((a, b) => a - b);
+      initializeChart();
+      updateChart();
+    });
+
+    function processData(csvData) {
+      csvData.forEach(row => {
+        let year = +row.year;
+        if (!years.includes(year)) {
+          years.push(year);
+          billionaires[year] = [];
+        }
+        let netWorth = parseNetWorth(row.net_worth_cleaned);
+        billionaires[year].push({
+          name: row.name,
+          netWorth: netWorth,
+          nationality: row.nationality,
+          sourceWealth: row.source_wealth
+        });
+      });
+
+      years.forEach(year => {
+        billionaires[year].sort((a, b) => b.netWorth - a.netWorth);
+      });
+    }
+
+    function parseNetWorth(netWorthStr) {
+      return +netWorthStr.replace("$", "").replace("B", "");
+    }
+
+    function initializeChart() {
+      const width = 800;
+      const height = 600;
+
+      svg = d3.select("#chart")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+    }
+
+    function updateChart() {
+      const width = 800;
+      const height = 600;
+      const barHeight = height / 12;
+      const barWidth = width / 3;
+      const xOffset = 200;
+      const yOffset = 100;
+
+      if (years.length === 0) return;
+
+      const currentYear = years[currentIndex];
+      top10 = billionaires[currentYear].slice(0, 10);
+
+      const maxWorth = d3.max(Object.values(billionaires).flat(), d => d.netWorth);
+
+      svg.selectAll(".bar").data(top10).join(
+        enter => enter.append("rect")
+          .attr("class", "bar")
+          .attr("x", xOffset)
+          .attr("y", (d, i) => yOffset + i * barHeight)
+          .attr("width", d => (d.netWorth / maxWorth) * barWidth)
+          .attr("height", barHeight / 2)
+          .attr("fill", "steelblue"),
+        update => update
+          .transition().duration(1000)
+          .attr("width", d => (d.netWorth / maxWorth) * barWidth)
+      );
+
+      svg.selectAll(".label").data(top10).join(
+        enter => enter.append("text")
+          .attr("class", "label")
+          .attr("x", d => xOffset + (d.netWorth / maxWorth) * barWidth + 10)
+          .attr("y", (d, i) => yOffset + i * barHeight + barHeight / 4)
+          .text(d => `${d.name} - $${d.netWorth}B`),
+        update => update
+          .transition().duration(1000)
+          .attr("x", d => xOffset + (d.netWorth / maxWorth) * barWidth + 10)
+          .text(d => `${d.name} - $${d.netWorth}B`)
+      );
+
+      if (!isPaused) {
+        lerpAmount += 0.005;
+        if (lerpAmount >= 1) {
+          lerpAmount = 0.0;
+          previousTop10 = top10.slice();
+          previousLengths = {};
+          top10.forEach(b => previousLengths[b.name] = (b.netWorth / maxWorth) * barWidth);
+          currentIndex++;
+          if (currentIndex >= years.length) {
+            currentIndex = 0;
+          }
+        }
+        setTimeout(updateChart, 1000 / 60);
+      }
+    }
+
+    function pause() {
+      isPaused = true;
+    }
+
+    function play() {
+      isPaused = false;
+      updateChart();
+    }
+
+    function step() {
+      isPaused = true;
+      lerpAmount = 0.0;
+      previousTop10 = top10.slice();
+      currentIndex++;
+      if (currentIndex >= years.length) {
+        currentIndex = 0;
+      }
+      updateChart();
+    }
+
+    document.getElementById("pauseButton").addEventListener("click", pause);
+    document.getElementById("playButton").addEventListener("click", play);
+    document.getElementById("stepButton").addEventListener("click", step);
+  </script>
+</body>
+</html>

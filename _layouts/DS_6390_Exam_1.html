@@ -1,0 +1,19 @@
+<!-- In _layouts/default.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+    <div class="post">
+    {{ content }}
+    </div>
+
+    <!-- Include p5.js sketch script -->
+    <script src="{{ '/assets/js/sketch.js' | relative_url }}"></script>
+</body>
+</html>

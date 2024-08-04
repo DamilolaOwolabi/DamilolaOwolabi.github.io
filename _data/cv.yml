@@ -1,0 +1,92 @@
+- title: General Information
+  type: map
+  contents:
+    - name: Full Name
+      value: Owolabi E. Oluwadamilola
+    - name: Date of Birth
+      value: 26th April 1998
+    - name: Languages
+      value: English, Yoruba
+
+- title: Education
+  type: time_table
+  contents:
+    - title: Msc.in Data Science
+      institution: Southern Methodist University, Dallas, TX
+      year: Aug. 2023 - Aug 2025
+      
+    - title: BSc. in Electrical Engineering
+      institution: Texas A&M University, College Station, TX
+      year: Aug. 2019 - May 2022
+
+    - title: Associate of Science in Engineering Science
+      institution: Houston Community College, Houston, TX
+      year: Aug. 2017 - Aug. 2019
+
+
+- title: Experience
+  type: time_table
+  contents:
+    - title: Electrical Estimator
+      institution: Ferreira Co. - PGE, Irvine, CA, US
+      year: May 2023 - Apr. 2024
+      description:
+        - Estimated costs for materials and labor required for electrical engineering and infrastructure projects.
+        - Completed all projects on time and within budget, with an average satisfaction rating of 98%.
+        - Proven ability to complete projects accurately and efficiently, as evidenced by completing 40 projects to date with zero errors.
+        - Leveraged Electrical Estimating Software, Pole Simulations, and AutoCAD to generate accurate and timely estimates for projects.
+        - Reduced project costs 10% by identifying and eliminating unnecessary materials use and labor.
+
+    - title: Student Technician
+      institution: Texas A&M University's Student Computing Center, College Station, TX, US
+      year: Nov. 2021 - May 2022
+      description:
+        - Provided efficient backup support to the IT team by responding to help desk clients, ensuring timely resolution of technical issues.
+        - Ensured 98%+ of the facility’s computing systems were available by performing weekly system checks and software updates.
+        - Provided technical support and troubleshooting for 50+ lab users weekly, with an average resolution time of 5 minutes per issue.
+        - Maintained 100% operational printers and reduced downtime 25% through proactive maintenance and repairs
+
+    - title: System IP Intern
+      institution: Arm Ltd., Austin, TX, US
+      year: Jun. 2021 - Aug. 2021
+      description:
+        - Created and presented a visual representation of simulation run results for customer feedback using PowerPoint and Excel, resulting in a 65% increase in customer satisfaction.
+        - Conducted performance analysis on Arm System IP using various tools like Excel, Python, and PowerPoint, identifying key performance metrics and recommendations for improvement
+        - Diagnosed, troubleshot, and resolved an average of 4 crashed simulation runs per week using engineering principles and problem-solving skills, reducing system downtime by 90%
+        - Collaborated with fellow interns to develop a Python script that automated the collection and analysis of data from simulation run results, utilizing Linux, Excel, and SQL; improved data processing efficiency by 40% and enabled more accurate performance metrics analysis
+
+    - title: Research intern
+      institution: Rice University's Polymer Engineering Laboratory, Houston, TX, US
+      year: May 2019 - Aug. 2019
+      description: 
+        - Performed statistical analysis on data and results, using tools like Microsoft Excel and Python, which identified trends and patterns leading to a 20% improvement in the accuracy of the results.
+        - Attended weekly meetings with the research professor, to give recent updates on the project status, results, and findings.
+        - Conducted daily fabrications and tests of the active film to generate data for the experiment, resulting in the collection of over 250 data points.
+        - Presented the results of my research to a team of five judges, resulting in an 85% approval rating and recognition for outstanding research and presentation skills.
+
+- title: Honors and Awards
+  type: time_table
+  contents:
+    - year: Summer 2019
+      items:
+        - Aggie Research Program Certificate
+    - year: Summer 2021
+      items:
+        - ARM Hacjathon Certificate of Participation
+
+- title: Academic Interests
+  type: nested_list
+  contents:
+    - title: Topic 1.
+      items:
+        - Description 1.
+        - Description 2.
+    - title: Topic 2.
+      items:
+        - Description 1.
+        - Description 2.
+
+- title: Other Interests
+  type: list
+  contents:
+    - <u>Hobbies:</u> Hobby 1, Hobby 2, etc.

@@ -1,0 +1,5 @@
+link: https://george-gca.github.io/blog/2022/running-local-al-folio/
+
+rbenv local 3.3.3
+
+bundle exec jekyll serve --lsi

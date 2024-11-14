@@ -3,3 +3,11 @@ link: https://george-gca.github.io/blog/2022/running-local-al-folio/
 rbenv local 3.3.3
 
 bundle exec jekyll serve --lsi
+
+
+#loading to github
+- git status #Ensure Your Repository is Clean
+- git add . # Add All Changes
+- git commit -m "<commit message>" 
+- git remote add origin https://github.com/DamilolaOwolabi.github.io.git
+

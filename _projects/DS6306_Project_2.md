@@ -10,12 +10,10 @@ category: school
 
 Please try out my interactive Rshinyapp to experience my model’s prediction rate : [RShiny](https://oluwadamilolaowolabi.shinyapps.io/DS_6372_Project_2/)
 
-Here is the link to other files related to the project in my GitHub Repository: [GitHub](https://github.com/DamilolaOwolabi/DS-6371-Project)
-
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/hwyr3ZPVgIQ?si=OlWzfU2HNfsL_NWf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="800" height="400" src="https://www.youtube.com/embed/hwyr3ZPVgIQ?si=OlWzfU2HNfsL_NWf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 </div>
 
@@ -23,6 +21,19 @@ Here is the link to other files related to the project in my GitHub Repository: 
     Here is the Youtube Video of my presentation.
 </div>
 
+
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <iframe src="https://smu365-my.sharepoint.com/personal/oowolabi_smu_edu/_layouts/15/Doc.aspx?sourcedoc={57ab9aa8-cdc7-4ce6-b06c-692dd7b14265}&amp;action=embedview&amp;wdAr=1.7777777777777777" width="800px" height="400px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
+    </div>
+</div>
+
+
+
+<div class="caption">
+    Here is my powerpoint presentation.
+</div>
 
 
 
@@ -1322,3 +1333,14 @@ comparing accuracy, sensitivity and specificity metric for both KNN and naive ba
 - Try to improve sensitivity values for the classification model.
 - Explore other variables that might affect the classification and prediction model.
 - Try using other classification techniques to predict my model likeSupport Vector Machine (SVM) or RandomForest
+
+
+## RELEVANT FILES
+
+Here are the list of relevant files related to the project
+- [Project Description](https://github.com/DamilolaOwolabi/DS_6306_Project_2/blob/main/CaseStudy2%20Spring%202024.docx)
+- csv files
+  - [Attrition.csv file](https://github.com/DamilolaOwolabi/DS_6306_Project_2/blob/main/Case2PredictionsOwolabi%20Attrition.csv)
+  - [Salary.csv file](https://github.com/DamilolaOwolabi/DS_6306_Project_2/blob/main/Case2PredictionsOwolabi%20Salary.csv)
+- [Project's pdf file](https://github.com/DamilolaOwolabi/DS_6306_Project_2/blob/main/DS%206306%20Final%20Project%202.pdf)
+- [Project's Rmd File](https://github.com/DamilolaOwolabi/DS_6306_Project_2/blob/main/DS6306_Project_2.Rmd)

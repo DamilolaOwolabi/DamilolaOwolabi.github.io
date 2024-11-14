@@ -2,7 +2,7 @@
 layout: page
 title: Cotton Drone Analysis
 description: This project involves the development of a drone-based precision agriculture system to automate data collection and analysis for cotton crops.
-img: assets/img/Cotton_Drone_analysis/cotton_drone.jpg
+img: assets/img/Cotton_Drone_Analysis/cotton_drone.jpg
 importance: 1
 category: other
 ---
@@ -15,7 +15,7 @@ category: other
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Cotton_Drone_analysis/PowerPoint_Presentation-1.png" title="Poster Presentation" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/Cotton_Drone_Analysis/PowerPoint_Presentation-1.png" title="Poster Presentation" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 

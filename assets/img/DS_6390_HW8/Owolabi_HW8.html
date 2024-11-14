@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Planetary Motion</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+    body {
+    background-color: black;
+    color: white;
+    }
+    .star {
+    fill: white;
+    }
+    .orbit {
+    stroke: #969696;
+    stroke-width: 1px;
+    fill: none;
+    }
+    .planet {
+    stroke: none;
+    }
+    .label {
+    fill: white;
+    text-anchor: middle;
+    }
+    .sun {
+    fill: orange;
+    }
+    .moon {
+    fill: #969696;
+    stroke: none;
+    }
+</style>
+</head>
+<body>
+<svg id="solar-system" width="800" height="800"></svg>
+<script>
+    const width = 800;
+    const height = 800;
+    const svg = d3.select("#solar-system")
+                .attr("width", width)
+                .attr("height", height);
+
+    const planetNames = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"];
+    const planetDistances = [60, 90, 120, 150, 200, 250, 300, 350];
+    const planetSpeeds = [0.0159, 0.011, 0.0099, 0.0080, 0.0044, 0.0032, 0.0023, 0.0018];
+    const planetColors = ["#C8C8C8", "#FFCC00", "#0066CC", "#FF3333", "#FF9933", "#FFCC99", "#3399FF", "#3333FF"];
+    const moonData = [
+      0, // Mercury: No moons
+      0, // Venus: No moons
+      1, // Earth: 1 moon
+      2, // Mars: 2 moons
+      79, // Jupiter: 79 moons (only a few will be shown)
+      83, // Saturn: 83 moons (only a few will be shown)
+      27, // Uranus: 27 moons (only a few will be shown)
+      14  // Neptune: 14 moons (only a few will be shown)
+    ];
+
+    const starCount = 200;
+    const stars = d3.range(starCount).map(() => ({
+      x: Math.random() * width,
+      y: Math.random() * height
+    }));
+
+    let planetAngles = new Array(planetNames.length).fill(0);
+
+    // Draw stars
+    svg.selectAll(".star")
+    .data(stars)
+    .enter()
+    .append("circle")
+    .attr("class", "star")
+    .attr("cx", d => d.x)
+    .attr("cy", d => d.y)
+    .attr("r", 2);
+
+    // Draw sun
+    svg.append("circle")
+    .attr("class", "sun")
+    .attr("cx", width / 2)
+    .attr("cy", height / 2)
+    .attr("r", 30);
+
+    svg.append("text")
+    .attr("class", "label")
+    .attr("x", width / 2)
+    .attr("y", height / 2 - 35)
+    .text("Sun");
+
+    function draw() {
+    svg.selectAll(".orbit").remove();
+    svg.selectAll(".planet").remove();
+    svg.selectAll(".label").filter(d => d !== "Sun").remove();
+    svg.selectAll(".moon").remove();
+
+    planetNames.forEach((planet, i) => {
+        const angle = planetAngles[i];
+        const distance = planetDistances[i];
+        const x = Math.cos(angle) * distance + width / 2;
+        const y = Math.sin(angle) * distance + height / 2;
+
+        // Draw orbit
+        svg.append("ellipse")
+        .attr("class", "orbit")
+        .attr("cx", width / 2)
+        .attr("cy", height / 2)
+        .attr("rx", distance)
+        .attr("ry", distance);
+
+        // Draw planet
+        svg.append("circle")
+        .attr("class", "planet")
+        .attr("cx", x)
+        .attr("cy", y)
+        .attr("r", 10)
+        .attr("fill", planetColors[i]);
+
+        // Draw label
+        svg.append("text")
+        .attr("class", "label")
+        .attr("x", x)
+        .attr("y", y - 15)
+        .text(planet);
+
+        // Draw moons
+        for (let j = 0; j < Math.min(moonData[i], 5); j++) {
+          const moonAngle = (Date.now() / 100 + j * 72) % 360;
+          const moonDistance = 25 + j * 10;
+          const moonX = x + Math.cos(moonAngle) * moonDistance;
+          const moonY = y + Math.sin(moonAngle) * moonDistance;
+
+        svg.append("circle")
+            .attr("class", "moon")
+            .attr("cx", moonX)
+            .attr("cy", moonY)
+            .attr("r", 4);
+        }
+
+        // Update angle for next frame
+        planetAngles[i] += planetSpeeds[i];
+    });
+    }
+
+    d3.timer(draw);
+</script>
+</body>
+</html>

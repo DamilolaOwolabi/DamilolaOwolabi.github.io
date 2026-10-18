@@ -1,0 +1,14 @@
+# Placeholder so GitHub can find "Deploy site" on the default branch (main).
+# The ERCOT job starts it with `gh workflow run deploy.yml --ref master`, and GitHub
+# then runs the real workflow from the master branch, where the site lives.
+# This copy has no push trigger, so nothing on main ever deploys.
+name: Deploy site
+
+on:
+  workflow_dispatch:
+
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "The real deploy workflow lives on the master branch."

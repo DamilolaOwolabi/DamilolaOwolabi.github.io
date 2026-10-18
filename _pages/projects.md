@@ -12,16 +12,18 @@ featured: [Wind_Energy_MARL, Cotton_Drone_Analysis, Organic_Photovoltaics]
 
 <!-- pages/projects.md -->
 
+<div class="project-filter" hidden></div>
+
 <!-- Featured projects (pick them with `featured:` in the front matter above) -->
 {% if page.featured %}
-<section class="featured-projects" aria-labelledby="featured-heading">
+<section class="featured-projects" data-reveal aria-labelledby="featured-heading">
   <h2 class="section-label" id="featured-heading">Featured</h2>
   <div class="featured-grid">
   {% for name in page.featured %}
     {% assign fp_matches = site.projects | where_exp: "p", "p.path contains name" %}
     {% assign fp = fp_matches | first %}
     {% if fp %}
-    <a class="featured-card" href="{% if fp.redirect %}{{ fp.redirect }}{% else %}{{ fp.url | relative_url }}{% endif %}">
+    <a class="featured-card" data-tools="{{ fp.tools | join: '|' }}" data-name="{{ fp.title | escape }}" href="{% if fp.redirect %}{{ fp.redirect }}{% else %}{{ fp.url | relative_url }}{% endif %}">
       {% if fp.img %}
       <div class="featured-media">
         {% include figure.liquid loading="eager" path=fp.img sizes="(min-width: 768px) 420px, 92vw" alt=fp.title class="featured-img" %}
@@ -42,7 +44,7 @@ featured: [Wind_Energy_MARL, Cotton_Drone_Analysis, Organic_Photovoltaics]
   {% endfor %}
   </div>
 </section>
-<h2 class="section-label">All projects</h2>
+<h2 class="section-label all-projects-label">All projects</h2>
 {% endif %}
 
 <div class="projects">
@@ -98,3 +100,5 @@ featured: [Wind_Energy_MARL, Cotton_Drone_Analysis, Organic_Photovoltaics]
   {% endif %}
 {% endif %}
 </div>
+
+<script defer src="{{ '/assets/js/site.js' | relative_url | bust_file_cache }}"></script>

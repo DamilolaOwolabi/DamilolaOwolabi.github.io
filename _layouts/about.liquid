@@ -61,43 +61,88 @@ layout: default
     {% endif %}
   </section>
 
+  {% if page.glance %}
+    <dl class="glance" aria-label="At a glance">
+      {% for fact in page.glance %}
+        <div class="glance-item">
+          <dt>{{ fact.label }}</dt>
+          <dd>{{ fact.value }}</dd>
+        </div>
+      {% endfor %}
+    </dl>
+  {% endif %}
+
   <article class="about-body">
+    <h2 class="section-label">About</h2>
     {{ content }}
-
-    <!-- News -->
-    {% if page.announcements and page.announcements.enabled %}
-      <h2>
-        <a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a>
-      </h2>
-      {% include news.liquid limit=true %}
-    {% endif %}
-
-    <!-- Latest posts -->
-    {% if page.latest_posts and page.latest_posts.enabled %}
-      <h2>
-        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
-      </h2>
-      {% include latest_posts.liquid %}
-    {% endif %}
-
-    <!-- Selected papers -->
-    {% if page.selected_papers %}
-      <h2>
-        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a>
-      </h2>
-      {% include selected_papers.liquid %}
-    {% endif %}
-
-    {% if site.contact_note %}
-      <p class="about-contact-note">{{ site.contact_note }}</p>
-    {% endif %}
-
-    {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
-      {% if site.plugins contains 'al_newsletter' %}
-        {% include plugins/al_newsletter_form_center_margin.liquid %}
-      {% else %}
-        {% include newsletter.liquid center=true %}
-      {% endif %}
-    {% endif %}
   </article>
+
+  {% if page.skills %}
+    <section class="home-section" aria-labelledby="skills-heading">
+      <h2 class="section-label" id="skills-heading">Skills</h2>
+      <div class="skills-grid">
+        {% for group in page.skills %}
+          <div class="skill-group">
+            <h3>{{ group.group }}</h3>
+            <ul class="tool-chips">
+              {% for item in group.items %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  <!-- News -->
+  {% if page.announcements and page.announcements.enabled %}
+    <section class="home-section">
+      <h2 class="section-label"><a href="{{ '/news/' | relative_url }}">News</a></h2>
+      {% include news.liquid limit=true %}
+    </section>
+  {% endif %}
+
+  <!-- Latest posts -->
+  {% if page.latest_posts and page.latest_posts.enabled %}
+    <section class="home-section">
+      <h2 class="section-label"><a href="{{ '/blog/' | relative_url }}">Latest posts</a></h2>
+      {% include latest_posts.liquid %}
+    </section>
+  {% endif %}
+
+  <!-- Selected papers -->
+  {% if page.selected_papers %}
+    <section class="home-section">
+      <h2 class="section-label"><a href="{{ '/publications/' | relative_url }}">Selected publication</a></h2>
+      {% include selected_papers.liquid %}
+    </section>
+  {% endif %}
+
+  {% if page.contact %}
+    <section class="contact-cta" aria-labelledby="contact-heading">
+      <div>
+        <h2 id="contact-heading">{{ page.contact.heading }}</h2>
+        <p>{{ page.contact.text }}</p>
+      </div>
+      <div class="hero-actions">
+        {% if page.contact.email %}
+          <a class="hero-btn hero-btn-primary" href="mailto:{{ page.contact.email }}">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i><span>Email me</span>
+          </a>
+        {% endif %}
+        {% if page.contact.linkedin %}
+          <a class="hero-btn hero-btn-secondary" href="{{ page.contact.linkedin }}" target="_blank" rel="noopener">
+            <i class="fa-brands fa-linkedin" aria-hidden="true"></i><span>LinkedIn</span>
+          </a>
+        {% endif %}
+      </div>
+    </section>
+  {% endif %}
+
+  {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
+    {% if site.plugins contains 'al_newsletter' %}
+      {% include plugins/al_newsletter_form_center_margin.liquid %}
+    {% else %}
+      {% include newsletter.liquid center=true %}
+    {% endif %}
+  {% endif %}
 </div>

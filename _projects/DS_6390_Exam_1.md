@@ -5,6 +5,7 @@ description: The project aims to dynamically display the top 10 billionaires ove
 img: assets/img/DS_6390_Exam_1/Thumbnail/DS_6390_Exam_1_Thumbnail.jpeg
 importance: 4
 category: school
+tools: [Processing.js, Animation, Data viz]
 ---
 
 #### **Project Overview**

@@ -5,6 +5,7 @@ description: The project aims to predict the sale prices of homes in Ames, Iowa 
 img: assets/img/DS_6371_Final_Project/Thumbnail/DS_6371_Final_Project_Thumbnail.jpeg
 importance: 2
 category: school
+tools: [R, SAS, Regression, Shiny]
 ---
 
 

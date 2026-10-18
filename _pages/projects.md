@@ -30,6 +30,11 @@ featured: [Cotton_Drone_Analysis, Organic_Photovoltaics, DS6371_Final_Project]
       <div class="featured-body">
         <h3 class="featured-title">{{ fp.title }}</h3>
         <p class="featured-desc">{{ fp.description | truncate: 150 }}</p>
+        {% if fp.tools %}
+        <ul class="tool-chips" aria-label="Tools used">
+          {% for tool in fp.tools limit: 5 %}<li>{{ tool }}</li>{% endfor %}
+        </ul>
+        {% endif %}
         <span class="featured-link">Read case study <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
       </div>
     </a>

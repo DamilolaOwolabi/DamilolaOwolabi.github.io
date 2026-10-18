@@ -5,6 +5,7 @@ description: Gamerpedia is a project designed to simplify the process of video g
 img: assets/img/DS_7330_Final_Term_Project/download.png
 importance: 11
 category: school
+tools: [Python, Django, MySQL, Machine learning]
 ---
 
 ## **Project Overview**

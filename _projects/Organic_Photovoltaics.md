@@ -5,6 +5,7 @@ description: This research project focuses on improving the mechanical propertie
 img: assets/img/Organic_Photovoltaics/thumbnail.jpg
 importance: 2
 category: other
+tools: [Research, Python, Excel, Publication]
 ---
 
 ## **Project Overview**

@@ -220,8 +220,7 @@ button:focus-visible,
   grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--space-12);
   align-items: center;
-  padding: var(--space-12) 0 var(--space-12);
-  border-bottom: 1px solid var(--global-divider-color);
+  padding: var(--space-12) 0 var(--space-8);
   margin-bottom: var(--space-12);
 }
 
@@ -305,7 +304,7 @@ button:focus-visible,
   color: var(--global-hover-text-color) !important;
 }
 
-.hero-btn-primary i {
+.hero .hero-btn-primary i {
   order: 2;
   font-size: 0.85em;
 }
@@ -365,8 +364,21 @@ button:focus-visible,
 }
 
 .about-body {
-  max-width: 68ch;
   font-size: 1.075rem;
+}
+
+.about-body p {
+  max-width: 68ch;
+}
+
+/* Publication venue badge: compact pill instead of a full-width bar on mobile */
+.publications abbr.badge {
+  width: auto !important;
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  border-radius: 999px;
+  padding: 4px 10px;
 }
 
 .about-body p {
@@ -407,6 +419,160 @@ button:focus-visible,
   .hero-btn {
     flex: 1 1 auto;
     justify-content: center;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Home: at a glance, skills, contact
+ * ------------------------------------------------------------------------- */
+.about-page .hero {
+  margin-bottom: var(--space-8);
+}
+
+.glance {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: 0 0 var(--space-12);
+  border: 1px solid var(--global-divider-color);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+  overflow: hidden;
+}
+
+.glance-item {
+  padding: var(--space-4) var(--space-6);
+  border-left: 1px solid var(--global-divider-color);
+}
+
+.glance-item:first-child {
+  border-left: 0;
+}
+
+.glance dt {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--global-text-color-light);
+  margin-bottom: var(--space-1);
+}
+
+.glance dd {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--global-text-color);
+}
+
+.about-body .section-label,
+.home-section .section-label {
+  margin-top: 0;
+}
+
+.section-label a {
+  color: inherit !important;
+  text-decoration: none;
+}
+
+.home-section {
+  margin-top: var(--space-12);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6) var(--space-8);
+}
+
+.skill-group h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 var(--space-3);
+}
+
+.tool-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+  margin: var(--space-3) 0 0;
+}
+
+.tool-chips li {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--global-divider-color);
+  background: var(--global-card-bg-color);
+  color: var(--global-text-color);
+  white-space: nowrap;
+}
+
+.skill-group .tool-chips {
+  margin-top: 0;
+}
+
+.contact-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-top: var(--space-16);
+  padding: var(--space-8);
+  border-radius: var(--radius-lg);
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--global-theme-color) 20%, var(--global-divider-color));
+}
+
+.contact-cta h2 {
+  font-size: var(--text-xl);
+  margin: 0 0 var(--space-2);
+}
+
+.contact-cta p {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--global-text-color-light);
+}
+
+.contact-cta .hero-actions {
+  margin: 0;
+}
+
+.contact-cta .hero-btn-secondary {
+  background: var(--global-bg-color);
+}
+
+@media (max-width: 767px) {
+  .glance {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .glance-item:nth-child(3) {
+    border-left: 0;
+  }
+
+  .glance-item:nth-child(n + 3) {
+    border-top: 1px solid var(--global-divider-color);
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-cta {
+    padding: var(--space-6);
+  }
+
+  .contact-cta .hero-actions {
+    width: 100%;
   }
 }
 

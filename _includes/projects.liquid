@@ -1,0 +1,31 @@
+{% comment %}
+  Local override of al_folio_core's project card.
+  Adds a row of tool chips from each project's `tools:` front matter.
+{% endcomment %}
+<div class="col">
+  <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}">
+    <div class="card h-100 hoverable">
+      {% if project.img %}
+        {%
+          include figure.liquid
+          loading="lazy"
+          path=project.img
+          sizes="(min-width: 768px) 300px, 92vw"
+          alt=project.title
+          class="card-img-top"
+        %}
+      {% endif %}
+      <div class="card-body">
+        <h2 class="card-title">{{ project.title }}</h2>
+        <p class="card-text">{{ project.description }}</p>
+        {% if project.tools %}
+          <ul class="tool-chips" aria-label="Tools used">
+            {% for tool in project.tools limit: 4 %}
+              <li>{{ tool }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    </div>
+  </a>
+</div>

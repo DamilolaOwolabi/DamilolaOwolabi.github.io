@@ -5,6 +5,7 @@ description: The purpose of the project is to analyse the IBU and ABV % of diffe
 img: assets/img/DS_6306_Project1/Thunbnails/budweiser.jpeg
 importance: 3
 category: school
+tools: [R, ggplot2, KNN, EDA]
 ---
 
 

@@ -5,6 +5,7 @@ description: This project involves the development of a drone-based precision ag
 img: assets/img/Cotton_Drone_Analysis/cotton_drone.jpg
 importance: 1
 category: other
+tools: [Python, Django, Raspberry Pi, Google Cloud, Machine learning]
 ---
 
 ## **Project Overview**

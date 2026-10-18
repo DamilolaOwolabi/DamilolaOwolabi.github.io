@@ -2,14 +2,44 @@
 layout: page
 title: projects
 permalink: /projects/
-description: A growing collection of my cool projects.
+description: Data science, engineering, and research work, from predictive models to interactive visualizations.
 nav: true
 nav_order: 1
 display_categories: [school, fun, other]
 horizontal: false
+featured: [Cotton_Drone_Analysis, Organic_Photovoltaics, DS6371_Final_Project]
 ---
 
 <!-- pages/projects.md -->
+
+<!-- Featured projects (pick them with `featured:` in the front matter above) -->
+{% if page.featured %}
+<section class="featured-projects" aria-labelledby="featured-heading">
+  <h2 class="section-label" id="featured-heading">Featured</h2>
+  <div class="featured-grid">
+  {% for name in page.featured %}
+    {% assign fp_matches = site.projects | where_exp: "p", "p.path contains name" %}
+    {% assign fp = fp_matches | first %}
+    {% if fp %}
+    <a class="featured-card" href="{% if fp.redirect %}{{ fp.redirect }}{% else %}{{ fp.url | relative_url }}{% endif %}">
+      {% if fp.img %}
+      <div class="featured-media">
+        {% include figure.liquid loading="eager" path=fp.img sizes="(min-width: 768px) 420px, 92vw" alt=fp.title class="featured-img" %}
+      </div>
+      {% endif %}
+      <div class="featured-body">
+        <h3 class="featured-title">{{ fp.title }}</h3>
+        <p class="featured-desc">{{ fp.description | truncate: 150 }}</p>
+        <span class="featured-link">Read case study <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+      </div>
+    </a>
+    {% endif %}
+  {% endfor %}
+  </div>
+</section>
+<h2 class="section-label">All projects</h2>
+{% endif %}
+
 <div class="projects">
 {% if site.enable_project_categories and page.display_categories %}
   <!-- Display categorized projects -->

@@ -1,13 +1,15 @@
 ---
 layout: page
-permalink: /courses/
-title: courses
-description: This pae Highlights the courses i have taken over the course of my Data Science Journey
+permalink: /teaching/
+title: teaching
+description: Course materials, schedules, and resources for classes taught.
 nav: false
 nav_order: 6
+calendar: true
 ---
 
-# Currently in Progress
-For now, this page is assumed to be a static description of your courses. You can convert it to a collection similar to `_projects/` so that you can have a dedicated page for each course.
+This page displays a collection of courses with detailed schedules, materials, and resources. You can organize your courses by years, terms, or topics.
 
-Organize your courses by years, topics, or universities, however you like!
+{% include calendar.liquid calendar_id='test@gmail.com' timezone='Asia/Shanghai' %}
+
+{% include courses.liquid %}

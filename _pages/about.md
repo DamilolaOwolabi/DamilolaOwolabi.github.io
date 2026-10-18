@@ -2,23 +2,59 @@
 layout: about
 title: about
 permalink: /
-subtitle: "<a href='#'>Affiliations</a>: SMU. TAMU."
+description: Oluwadamilola (Dammy) Owolabi, electrical engineer and data scientist in Houston, TX, focused on energy and grid analytics.
+
+hero:
+  eyebrow: Dammy · Houston, TX
+  tagline: Energy & grid analytics. Electrical engineer with an MS in Data Science.
+  buttons:
+    - label: View projects
+      url: /projects/
+      icon: fa-solid fa-arrow-right
+    - label: Download resume
+      url: /assets/pdf/Oluwadamilola_Owolabi_Resume.pdf
+      icon: fa-solid fa-file-arrow-down
+      download: true
 
 profile:
-  align: right
   image: Profilepic.jpg
-  image_circular: true # crops the image to make it circular
-  more_info: >
-    <p>owolabidamilola2014@gmail.com </p>
-    <p>Katy, TX 77449</p>
+  alt: Portrait of Oluwadamilola Owolabi
 
-news: false # includes a list of news items
-selected_papers: false # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
+# Quick facts shown right under the hero
+glance:
+  - label: Current role
+    value: Associate Distribution Engineer, Leidos
+  - label: Education
+    value: MS Data Science, SMU · BS Electrical Engineering, Texas A&M
+  - label: Focus
+    value: Energy analytics, grid analytics, quantitative roles
+  - label: Based in
+    value: Houston, TX
+
+# Skill groups shown on the home page (keep in sync with the CV)
+skills:
+  - group: Data & programming
+    items: [Python, SQL, R, C++, Excel / Power Query]
+  - group: Analytics & visualization
+    items: [Power BI, Tableau, D3.js, Statistical modeling, Machine learning]
+  - group: Power systems
+    items: [Load calculations, Short circuit analysis, Duct bank design, PowerWorld, PSS/E, MATLAB/Simulink]
+  - group: Tools & platforms
+    items: [AutoCAD, GIS/ESRI, SAP, Jira, AWS, Git/GitHub]
+
+contact:
+  heading: Let's talk
+  text: I'm interested in energy analytics, grid analytics, and data science work. The fastest way to reach me is email.
+  email: owolabidamilola2014@gmail.com
+  linkedin: https://www.linkedin.com/in/oluwadamilola-owolabi-ebenezer-345800137
+
+news: false
+selected_papers: true # shows papers marked selected={true} in _bibliography/papers.bib
+social: true # includes social icons in the hero
 ---
 
-Oluwadamilola Owolabi, popularly known as 'Dammy' is a Graduate student at Southern Methodist University (SMU) pursuing a Master of Science degree in Data Science. He spent most of his budding years in Lagos, Nigeria, before moving to Houston, TX to pursue his college education. His background includes Electrical Engineering, cloud platforms, Research, and Data Science and Analytics. Dammy is fueled by his passion in uncovering stories and predictions though numbers and datasets. He consider himself a self proclaimed 'detective of Numbers' eager to uncover trends and predictions using statistical models and data manipulation techniques. His knowledge and experience grows daily as he slowly gains valuable skills and understanding towards being a professional data scientist
+I'm an Associate Distribution Engineer at **Leidos** in Houston, where I support major investor-owned utility clients on medium- and low-voltage distribution design. My work covers load calculations, short circuit analysis, underground duct bank engineering, and QA/QC on design packages.
 
-Dammy's hunger for knowledge and passion in learning data science, has led to him working on different projects related to analyzing and predicting different datasets. His most recent one includes generating an efficient prediction model for insurance companies. All Dammy's projects can be found in the **['Projects'](https://damilolaowolabi.github.io/projects/)**  section of this website.
+I hold a **BS in Electrical Engineering** from Texas A&M University and an **MS in Data Science** from Southern Methodist University. That pairing is where I do my best work: I know how the grid is built, and I know how to model the data it produces.
 
-Dammy believes in resourcefulness, hard work, passion and efficiency as key ingredients in building a succesful career. Please feel free to reach out to Dammy on linkedin \@ linkedin.com/in/oluwadamilola-owolabi-ebenezer-345800137 or email \@ [owolabidamilola2014\@gmail.com](mailto:owolabidamilola2014@gmail.com).
+I'm focused on **energy analytics, grid analytics, and quantitative roles** where engineering judgment meets data science. My [projects](/projects/) include a multi-agent reinforcement learning capstone on wind energy curtailment in ERCOT, predictive modeling, and drone-based crop analytics, and I co-authored a [peer-reviewed paper](/publications/) on organic photovoltaics.

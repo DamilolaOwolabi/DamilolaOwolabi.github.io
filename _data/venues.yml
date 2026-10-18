@@ -1,9 +1,5 @@
-"AJP":
-  url: https://aapt.scitation.org/journal/ajp
-  color: "#00369f"
+# Venue badge colors for the publications page.
 
-"PhysRev":
-  url: https://journals.aps.org/
-
-"Vision":
-  color: "#009f36"
+"Adv. Opt. Mater.":
+  url: https://onlinelibrary.wiley.com/journal/21951071
+  color: "#1d4ed8"

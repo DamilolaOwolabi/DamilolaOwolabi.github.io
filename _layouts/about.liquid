@@ -1,80 +1,150 @@
 ---
 layout: default
 ---
-<div class="post">
-  <header class="post-header">
-    <h1 class="post-title">
-      {% if site.title == 'blank' %}
-        <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
-        {{ site.last_name }}
-      {% else %}
-        {{ site.title }}
+{% comment %}
+  Local override of al_folio_core's about layout.
+  Adds a hero (eyebrow, name, tagline, call-to-action buttons, social links)
+  driven by the `hero:` block in _pages/about.md. Everything below the hero
+  (news, latest posts, selected papers) behaves like the upstream layout.
+{% endcomment %}
+<div class="post about-page">
+  <section class="hero" aria-labelledby="hero-name">
+    <div class="hero-text">
+      {% if page.hero.eyebrow %}
+        <p class="hero-eyebrow">{{ page.hero.eyebrow }}</p>
       {% endif %}
-    </h1>
-    <p class="desc">{{ page.subtitle }}</p>
-  </header>
+      <h1 class="hero-name" id="hero-name">
+        {% if site.title == 'blank' -%}
+          {{- site.first_name }}
+          {{ site.last_name -}}
+        {%- else -%}
+          {{- site.title -}}
+        {%- endif %}
+      </h1>
+      {% if page.hero.tagline %}
+        <p class="hero-tagline">{{ page.hero.tagline }}</p>
+      {% endif %}
+      {% if page.hero.buttons %}
+        <div class="hero-actions">
+          {% for button in page.hero.buttons %}
+            {% if button.url contains '://' or button.url contains 'mailto:' %}
+              {% assign button_url = button.url %}
+            {% else %}
+              {% assign button_url = button.url | relative_url %}
+            {% endif %}
+            <a
+              class="hero-btn {% if forloop.first %}hero-btn-primary{% else %}hero-btn-secondary{% endif %}"
+              href="{{ button_url }}"
+              {% if button.download %}
+                download
+              {% endif %}
+            >
+              {% if button.icon %}<i class="{{ button.icon }}" aria-hidden="true"></i>{% endif %}
+              <span>{{ button.label }}</span>
+            </a>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% if page.social %}
+        <div class="hero-social" aria-label="Social links">{% social_links %}</div>
+      {% endif %}
+    </div>
 
-  <article>
-    {% if page.profile %}
-      <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
-        {% if page.profile.image %}
-          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          {% if page.profile.image_circular %}
-            {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
-          {% else %}
-            {% assign profile_image_class = 'img-fluid z-depth-1
-      rounded' %}
-          {% endif %}
-          {% capture sizes %}(min-width: {{site.max_width}}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
-      30vw, 95vw"{% endcapture %}
-          {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
-            cache_bust=true
-          %}
-        {% endif %}
-        {% if page.profile.more_info %}
-          <div class="more-info">{{ page.profile.more_info }}</div>
-        {% endif %}
+    {% if page.profile.image %}
+      <div class="hero-photo">
+        {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+        {%
+          include figure.liquid loading="eager" path=profile_image_path class="hero-photo-img" sizes="(min-width: 768px) 280px, 60vw"
+          alt=page.profile.alt cache_bust=true
+        %}
       </div>
     {% endif %}
+  </section>
 
-    <div class="clearfix">{{ content }}</div>
+  {% if page.glance %}
+    <dl class="glance" aria-label="At a glance">
+      {% for fact in page.glance %}
+        <div class="glance-item">
+          <dt>{{ fact.label }}</dt>
+          <dd>{{ fact.value }}</dd>
+        </div>
+      {% endfor %}
+    </dl>
+  {% endif %}
 
-    <!-- News -->
-    {% if page.news and site.announcements.enabled %}
-      <h2>
-        <a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a>
-      </h2>
-      {% include news.liquid limit=true %}
-    {% endif %}
-
-    <!-- Latest posts -->
-    {% if site.latest_posts.enabled %}
-      <h2>
-        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
-      </h2>
-      {% include latest_posts.liquid %}
-    {% endif %}
-
-    <!-- Selected papers -->
-    {% if page.selected_papers %}
-      <h2>
-        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a>
-      </h2>
-      {% include selected_papers.liquid %}
-    {% endif %}
-
-    <!-- Social -->
-    {% if page.social %}
-      <div class="social">
-        <div class="contact-icons">{% include social.liquid %}</div>
-
-        <div class="contact-note">{{ site.contact_note }}</div>
-      </div>
-    {% endif %}
-
-    {% if site.newsletter.enabled and site.footer_fixed %}
-      {% include scripts/newsletter.liquid center=true %}
-    {% endif %}
+  <article class="about-body">
+    <h2 class="section-label">About</h2>
+    {{ content }}
   </article>
+
+  {% if page.skills %}
+    <section class="home-section" aria-labelledby="skills-heading">
+      <h2 class="section-label" id="skills-heading">Skills</h2>
+      <div class="skills-grid">
+        {% for group in page.skills %}
+          <div class="skill-group">
+            <h3>{{ group.group }}</h3>
+            <ul class="tool-chips">
+              {% for item in group.items %}
+                <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  <!-- News -->
+  {% if page.announcements and page.announcements.enabled %}
+    <section class="home-section">
+      <h2 class="section-label"><a href="{{ '/news/' | relative_url }}">News</a></h2>
+      {% include news.liquid limit=true %}
+    </section>
+  {% endif %}
+
+  <!-- Latest posts -->
+  {% if page.latest_posts and page.latest_posts.enabled %}
+    <section class="home-section">
+      <h2 class="section-label"><a href="{{ '/blog/' | relative_url }}">Latest posts</a></h2>
+      {% include latest_posts.liquid %}
+    </section>
+  {% endif %}
+
+  <!-- Selected papers -->
+  {% if page.selected_papers %}
+    <section class="home-section">
+      <h2 class="section-label"><a href="{{ '/publications/' | relative_url }}">Selected publication</a></h2>
+      {% include selected_papers.liquid %}
+    </section>
+  {% endif %}
+
+  {% if page.contact %}
+    <section class="contact-cta" aria-labelledby="contact-heading">
+      <div>
+        <h2 id="contact-heading">{{ page.contact.heading }}</h2>
+        <p>{{ page.contact.text }}</p>
+      </div>
+      <div class="hero-actions">
+        {% if page.contact.email %}
+          <a class="hero-btn hero-btn-primary" href="mailto:{{ page.contact.email }}">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i><span>Email me</span>
+          </a>
+        {% endif %}
+        {% if page.contact.linkedin %}
+          <a class="hero-btn hero-btn-secondary" href="{{ page.contact.linkedin }}" target="_blank" rel="noopener">
+            <i class="fa-brands fa-linkedin" aria-hidden="true"></i><span>LinkedIn</span>
+          </a>
+        {% endif %}
+      </div>
+    </section>
+  {% endif %}
+
+  {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
+    {% if site.plugins contains 'al_newsletter' %}
+      {% include plugins/al_newsletter_form_center_margin.liquid %}
+    {% else %}
+      {% include newsletter.liquid center=true %}
+    {% endif %}
+  {% endif %}
 </div>

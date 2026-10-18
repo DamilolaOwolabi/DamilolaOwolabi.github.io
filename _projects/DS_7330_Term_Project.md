@@ -5,6 +5,7 @@ description: Gamerpedia is a project designed to simplify the process of video g
 img: assets/img/DS_7330_Final_Term_Project/download.png
 importance: 11
 category: school
+tools: [Python, Django, MySQL, Machine learning]
 ---
 
 ## **Project Overview**
@@ -16,7 +17,9 @@ category: school
 </div>
 
 ### **Objective**
+
 The goal of Gamerpedia is to enhance the gaming experience by:
+
 1. **Recommending video games** tailored to user preferences using a custom-built recommendation engine powered by Machine Learning algorithms and ChatGPT.
 2. Providing detailed information about video games, including:
    - Predicted playtime
@@ -24,10 +27,12 @@ The goal of Gamerpedia is to enhance the gaming experience by:
    - News, trailers, and top streamers
 
 ### **Motivation**
+
 - With a vast array of games available, users often hesitate to explore new titles due to the fear of wasting money on unappealing games.
 - Gamerpedia aims to address this issue by offering personalized recommendations and relevant game details, making the process easier and more enjoyable.
 
 ### **Powerpoint Presentation**
+
 Here’s the powerpoint presentation of the Project:
 
 <iframe src="https://smu365-my.sharepoint.com/personal/oowolabi_smu_edu/_layouts/15/Doc.aspx?sourcedoc={160c1808-2ba8-46d8-a7df-cc1761c17f63}&amp;action=embedview&amp;wdAr=1.7777777777777777" width="1000px" height="800px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
@@ -109,14 +114,17 @@ Here’s the powerpoint presentation of the Project:
 ## **Files**
 
 ### 1. **Project Proposal**
+
 - File: [Project Proposal](https://github.com/DamilolaOwolabi/DS_7330_Term_Project/blob/master/OwolabiProjectProposal.pdf)
 - Outlines the problem, objectives, methodology, and timeline for Gamerpedia.
 
 ### 2. **Final Research Paper**
+
 - File: [Final Research Paper](https://github.com/DamilolaOwolabi/DS_7330_Term_Project/blob/master/DS%207330%20PROJECT%20FINAL%20RESEARCH%20PAPER.pdf)
 - Details the solution methodology, database implementation, recommendation engine, and analysis.
 
 ### 3. **Final Presentation**
+
 - File: [Final Term Presentation](https://github.com/DamilolaOwolabi/DS_7330_Term_Project/blob/master/Owolabi_Final_Term_Presentation.pptx)
 - Highlights key results, future work, and project demo.
 

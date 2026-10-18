@@ -1,62 +1,73 @@
 {
   "basics": {
-    "name": "Owolabi E. Oluwadamilola",
-    "label": "Data Scientist",
+    "name": "Oluwadamilola (Dammy) Owolabi",
+    "label": "Associate Distribution Engineer | Data Scientist",
     "image": "",
     "email": "owolabidamilola2014@gmail.com",
-    "phone": "(281) 665-0534",
-    "url": "https://DamilolaOwolabi.github.io/al-folio/",
-    "summary": "Experienced data analyst with the ability to harness and gain insights from large structured, semi-structured, and unstructured datasets. Team-oriented individuals with strengths in analytical problem-solving and collaboration across diverse groups. Find great satisfaction in extracting insights from data that inform decision-making and drive growth. Excited about using Data Science, Statistical, and programming skills to develop and implement innovative data-driven scientific solutions.",
+    "url": "https://DamilolaOwolabi.github.io",
+    "summary": "Electrical engineer with an MS in Data Science who designs medium- and low-voltage distribution systems for major utilities. I combine power systems fundamentals (load calculations, short circuit analysis, underground duct bank design) with Python, SQL, R, and BI tools to turn engineering and operational data into decisions. Focused on energy analytics, grid analytics, and quantitative roles.",
     "location": {
-      "address": "",
-      "postalCode": "TX 77449",
-      "city": "Katy",
-      "countryCode": "US",
-      "region": "Texas"
+      "city": "Houston",
+      "region": "Texas",
+      "countryCode": "US"
     },
     "profiles": [
       {
         "network": "LinkedIn",
-        "username": "Oluwadamilola Owolabi",
+        "username": "oluwadamilola-owolabi-ebenezer-345800137",
         "url": "https://www.linkedin.com/in/oluwadamilola-owolabi-ebenezer-345800137"
+      },
+      {
+        "network": "GitHub",
+        "username": "DamilolaOwolabi",
+        "url": "https://github.com/DamilolaOwolabi"
       }
     ]
   },
   "work": [
     {
+      "name": "Leidos",
+      "location": "Houston, TX",
+      "position": "Associate Distribution Engineer",
+      "url": "https://www.leidos.com/",
+      "startDate": "2025",
+      "endDate": "",
+      "summary": "Medium- and low-voltage distribution design for major investor-owned utility clients.",
+      "highlights": [
+        "Performed load calculations, short circuit analysis, and conduit sizing and fill checks for MV/LV distribution designs.",
+        "Sized transformers, step banks, conductors, fuses, and poles, drafted design schematics, and engineered underground duct bank layouts.",
+        "Built material lists for designs and SAP work orders and ran estimate-versus-actual cost and material variance checks to find root causes.",
+        "Performed QA/QC on design packages, mentored newer designers, built a reusable team design template, and tracked work in Jira dashboards."
+      ]
+    },
+    {
       "name": "Ferreira Co. - PGE",
-      "location": "Irvine, TX",
+      "location": "Irvine, CA",
       "position": "Electrical Estimator",
       "url": "",
       "startDate": "2023-06-19",
       "endDate": "2024-04-26",
-      "summary": [
-                  "Estimated costs for materials and labor required for electrical engineering and infrastructure projects."
-                ],
-      "highlights": 
-      [
-        "Completed all projects on time and within budget, with an average satisfaction rating of 98%.",
-        "Proven ability to complete projects accurately and efficiently, as evidenced by completing 40 projects to date with zero errors.",
-        "Leveraged Electrical Estimating Software, Pole Simulations, and AutoCAD to generate accurate and timely estimates for projects.",
-        "Reduced project costs 10% by identifying and eliminating unnecessary materials use and labor."
+      "summary": "Cost estimating and service design for electrical distribution and infrastructure projects.",
+      "highlights": [
+        "Estimated material and labor costs for electrical distribution and infrastructure projects using estimating software, pole simulations, and AutoCAD.",
+        "Designed electrical service for residential solar and battery storage customers.",
+        "Cut material costs by about 10% per project, a few hundred dollars each, by removing unnecessary materials and labor from estimates.",
+        "Created SAP work orders and notifications, built material lists, and ran estimate-versus-actual variance checks."
       ]
     },
     {
-      "name": "Texas A&M University's Student Computing Center", 
+      "name": "Texas A&M University's Student Computing Center",
       "location": "College Station, TX",
       "position": "Student Technician",
       "url": "",
       "startDate": "2021-11-16",
       "endDate": "2022-05-26",
-      "summary": [
-                  "Worked as a tech support for the computer lab."
-                ],
-      "highlights": 
-      [
-        "Provided efficient backup support to the IT team by responding to help desk clients, ensuring timely resolution of technical issues.",
-        "Ensured 98% of the facility’s computing systems were available by performing weekly system checks and software updates.",
-        "Provided technical support and troubleshooting for 50+ lab users weekly, with an average resolution time of 5 minutes per issue.",
-        "Maintained 100% operational printers and reduced downtime 25% through proactive maintenance and repairs."
+      "summary": "Technical support for the university student computing center.",
+      "highlights": [
+        "Resolved help desk requests as backup support for the IT team.",
+        "Performed weekly system checks and software updates across lab computers.",
+        "Supported 50+ lab users each week with hardware and software troubleshooting.",
+        "Maintained lab printers through proactive repairs and upkeep."
       ]
     },
     {
@@ -66,15 +77,12 @@
       "url": "",
       "startDate": "2021-06-16",
       "endDate": "2021-08-26",
-      "summary": [
-                  "Worked with the System Verification and the Implementation team in building and testing ARM IP designs and simulations"
-                ],
-      "highlights": 
-      [
-        "Created and presented a visual representation of simulation run results for customer feedback using PowerPoint and Excel, resulting in a 65% increase in customer satisfaction.",
-        "Conducted performance analysis on Arm System IP using various tools like Excel, Python, and PowerPoint, identifying key performance metrics and recommendations for improvement.",
-        "Diagnosed, troubleshot, and resolved an average of 4 crashed simulation runs per week using engineering principles and problem-solving skills, reducing system downtime by 90%",
-        "Collaborated with fellow interns to develop a Python script that automated the collection and analysis of data from simulation run results, utilizing Linux, Excel, and SQL, thereby improving data processing efficiency by 40% and enabling more accurate performance metrics analysis"
+      "summary": "Worked with the System Verification and the Implementation team in building and testing ARM IP designs and simulations",
+      "highlights": [
+        "Wrote Python scripts with teammates to automate collection and analysis of simulation results using Linux, Excel, and SQL.",
+        "Cut weekly simulation processing time from about 20 hours to about 12 hours.",
+        "Diagnosed and resolved crashed simulation runs, reducing crashes from about 20 per week to about 2.",
+        "Analyzed System IP performance metrics in Python and Excel and presented results to stakeholders."
       ]
     },
     {
@@ -84,15 +92,12 @@
       "url": "",
       "startDate": "2019-05-16",
       "endDate": "2019-08-26",
-      "summary": [
-                  "Aided the research team in Fabricating test samples and performing statistical analysis."
-                ],
-      "highlights": 
-      [
-        "Performed statistical analysis on data and results, using tools like Microsoft Excel and Python, which identified trends and patterns leading to a 20% improvement in the accuracy of the results.",
-        "Attended weekly meetings with the research professor, to give recent updates on the project status, results, and findings.",
-        "Conducted daily fabrications and tests of the active film to generate data for the experiment, resulting in the collection of over 250 data points.",
-        "Presented the results of my research to a team of five judges, resulting in an 85% approval rating and recognition for outstanding research and presentation skills."
+      "summary": "Aided the research team in Fabricating test samples and performing statistical analysis.",
+      "highlights": [
+        "Fabricated and tested active-layer films for organic photovoltaics, collecting over 250 data points.",
+        "Performed statistical analysis of experimental results in Excel and Python.",
+        "Reported weekly progress and findings to the principal investigator.",
+        "Co-authored a peer-reviewed paper in Advanced Optical Materials (2020)."
       ]
     }
   ],
@@ -103,7 +108,7 @@
       "position": "Food Bank Volunteer",
       "url": "https://rccgpor.com/",
       "startDate": "2018-01-01",
-      "endDate": "Today",
+      "endDate": "",
       "summary": "Active member of the Houston Food Bank, RCCG POR division",
       "highlights": ["Been an active member for 6 years and counting.", "Distributed food to over 400 families"]
     },
@@ -115,9 +120,11 @@
       "startDate": "2021-06-01",
       "endDate": "2021-08-01",
       "summary": "Aided the Internship planning committee in organizing events to promote networking and socialization.",
-      "highlights": ["Aided in setting up and planning the weekly events for the committee", "Aided in organizing and coordinating the activities during the meeting sessions."]
+      "highlights": [
+        "Aided in setting up and planning the weekly events for the committee",
+        "Aided in organizing and coordinating the activities during the meeting sessions."
+      ]
     }
-
   ],
   "education": [
     {
@@ -125,14 +132,15 @@
       "location": "Dallas, Texas",
       "url": "https://www.smu.edu/",
       "area": "Data Science",
-      "studyType": "Masters' of Science",
+      "studyType": "Master of Science",
       "startDate": "2023-08-16",
       "endDate": "2025-08-02",
       "score": "",
       "courses": [
         "Introduction to Data Science",
         "Statistical Foundations for Data Science",
-        "Applied Statistics", "Data Visualization",
+        "Applied Statistics",
+        "Data Visualization",
         "File Organisation and Database Management"
       ]
     },
@@ -141,7 +149,7 @@
       "location": "College Station, Texas",
       "url": "https://www.tamu.edu/",
       "area": "Electrical Engineering",
-      "studyType": "Bachelors' of Science",
+      "studyType": "Bachelor of Science",
       "startDate": "2019-08-16",
       "endDate": "2022-05-02",
       "score": "",
@@ -158,7 +166,7 @@
       "location": "Houston, Texas",
       "url": "https://www.hccs.edu/",
       "area": "Engineering Science",
-      "studyType": "Associates of Science",
+      "studyType": "Associate of Science",
       "startDate": "2017-05-10",
       "endDate": "2019-05-12",
       "score": ""
@@ -188,35 +196,26 @@
       "validationNumber": "4CNEQLSLSNEQ1DWM",
       "issuer": "Amazon Web Services",
       "url": "https://aws.amazon.com/verification",
-      "icon": "fa-solid fa-location-dot"
+      "icon": "fa-solid fa-certificate"
     },
     {
       "name": "Aggie Research Certificate",
       "date": "2019-08-02",
       "issuer": "Texas A&M University",
       "url": "https://www.tamu.edu/",
-      "icon": "fa-solid fa-location-dot"
+      "icon": "fa-solid fa-certificate"
     }
   ],
   "publications": [
     {
       "name": "Improved Mechanical Durability of High-Performance OPVs Using Semi-Interpenetrating Networks",
-      "publisher": "Zhiqi Hu, Changxu Sun, Allen Lin, Joshua Jackson, Tanguy Terlier, Damilola Owolabi (Me), Hao Mei, Yilin Li, Yafei Wang, Siraj Sidhik, Fang Hao, Yan Yao, Aditya D. Mohite, Rafael Verduzco",
+      "publisher": "Advanced Optical Materials, 8(18), 2000516. Hu, Sun, Lin, Jackson, Terlier, Owolabi, et al.",
       "releaseDate": "2020-07-06",
       "url": "https://doi.org/10.1002/adom.202000516",
-      "summary": "Reseach regarding Organic Photovoltaics, a thin flexible device that converts solar radiation to electrical efficiency"
+      "summary": "Research on improving the mechanical durability of organic photovoltaics, thin flexible devices that convert sunlight into electricity."
     }
   ],
   "training": [
-    {
-      "institution": "Joisen Data Analysis",
-      "location": "Houston, Texas",
-      "url": "",
-      "area": "SQL, PowerBI",
-      "startDate": "2024-03-16",
-      "endDate": "2024-05-17",
-      "summary": "Acquired comprehensive Power BI and SQL skills, including data manipulation, visualization, and advanced analytics, enhancing my ability to transform complex data sets into actionable business insights."
-    },
     {
       "institution": "AWS SAA-CO03 Training",
       "location": "Houston, Texas",
@@ -229,30 +228,28 @@
   ],
   "skills": [
     {
-      "name": "Data Science",
-      "level": "Master",
-      "icon": "fa-solid fa-hashtag",
-      "keywords": [
-        "SQL",
-        "Python",
-        "Quantum Information",
-        "R",
-        "C++",
-        "JavaScript",
-        "HTML/CSS",
-        "Microsoft PowerPoint",
-        "Linux",
-        "Cloud Technologies: Google Cloud Services, AWS, Azure",
-        "Data Visualization",
-        "UI/UX Design",
-        "Data Analysis and Management",
-        "Machine Learning",
-        "Problem-Solving",
-        "Communication",
-        "Microsoft Excel",
-        "Statistical Techniques",
-        "Advanced Excel Techniques: Pivot Table, Dashboards, Formula"
-      ]
+      "name": "Data & Programming",
+      "level": "",
+      "icon": "fa-solid fa-code",
+      "keywords": ["Python", "SQL", "R", "C++", "Excel (pivot tables, XLOOKUP, Power Query, VBA)"]
+    },
+    {
+      "name": "Analytics & Visualization",
+      "level": "",
+      "icon": "fa-solid fa-chart-line",
+      "keywords": ["Power BI", "Tableau", "D3.js", "Statistical modeling", "Machine learning"]
+    },
+    {
+      "name": "Power Systems",
+      "level": "",
+      "icon": "fa-solid fa-bolt",
+      "keywords": ["Load calculations", "Short circuit analysis", "Underground duct bank design", "PowerWorld", "PSS/E", "PSCAD", "MATLAB/Simulink"]
+    },
+    {
+      "name": "Engineering & Enterprise Tools",
+      "level": "",
+      "icon": "fa-solid fa-screwdriver-wrench",
+      "keywords": ["AutoCAD", "GIS/ESRI", "SAP", "Jira", "AWS (EC2, S3, Lambda, SageMaker)", "Git/GitHub"]
     }
   ],
   "languages": [
@@ -269,25 +266,19 @@
   ],
   "interests": [
     {
-      "name": "Data Science",
+      "name": "Focus areas",
       "icon": "fa-solid fa-tag",
-      "keywords": [
-        "Business Analytics",
-        "Machine Learning",
-        "Data Analytics",
-        "Web Design",
-        "Cyber Security"
-      ]
+      "keywords": ["Energy analytics", "Grid analytics", "Energy markets", "Machine learning"]
     }
   ],
-  "references": [
-    {
-      "name": "",
-      "icon": "fa-solid fa-laptop",
-      "reference": ""
-    }
-  ],
+  "references": [],
   "projects": [
+    {
+      "name": "AI-Driven Optimization of Wind Energy Distribution in Texas (SMU capstone, first author)",
+      "summary": "Built a Python multi-agent reinforcement learning environment with wind, load, and flywheel storage agents trained with Deep Q-Networks on 2.7M+ ERCOT demand and wind generation records (2014 to 2025) to reduce wind curtailment and transmission congestion. Paper in draft.",
+      "highlights": ["Python", "Reinforcement learning", "DQN", "ERCOT data"],
+      "url": "https://damilolaowolabi.github.io/projects/Wind_Energy_MARL/"
+    },
     {
       "name": "House Price Analysis",
       "summary": "Predicted the sales price of homes in Ames, Iowa from existing data utilizing R, SAS, and statistical techniques.",
@@ -298,11 +289,11 @@
     },
     {
       "name": "Predicting Medical Expenses Among Smokers and Non-Smokers",
-      "summary": "Predicted the sales price of homes in Ames, Iowa from existing data utilizing R, SAS, and statistical techniques.",
+      "summary": "Regression analysis of medical expenses for smokers and non-smokers.",
       "highlights": ["R", "SAS", "Statistical Techniques"],
       "startDate": "2023-08-01",
       "endDate": "2023-12-01",
-      "url": "https://github.com/DamilolaOwolabi/DS-6372-PROJECT-1"
+      "url": "https://github.com/DamilolaOwolabi/DS-6372_PROJECT_2"
     },
     {
       "name": "Budweiser EDA",
@@ -321,7 +312,7 @@
       "url": ""
     },
     {
-      "name": "CC DRONE ANALYSIS",
+      "name": "Cotton Drone Analysis (Texas A&M senior design, project lead)",
       "summary": "Collaborated with a team of 4 engineering students to automate a process of data collection in cotton crops using drones.",
       "highlights": ["Python", "Django", "Front End & Backend Design", "Google Cloud Services"],
       "startDate": "2021-08-01",

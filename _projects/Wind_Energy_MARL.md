@@ -14,6 +14,8 @@ Texas produces more wind energy than any other state, yet a large share of it is
 
 This capstone, co-authored with Amer Waleed and advised by Ogbonnaya Bassey (Aspen Technology), proposes a **multi-agent reinforcement learning (MARL)** framework where grid participants act as learning agents that make dispatch decisions together. I'm first author on the paper, which is currently in draft.
 
+<a class="hero-btn hero-btn-secondary" href="{{ '/assets/pdf/Owolabi_Wind_Energy_MARL_Draft.pdf' | relative_url }}" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i><span>Read the draft paper (PDF)</span></a>
+
 #### **What I built**
 
 - **A simulated wind grid environment in Python** that exposes three kinds of agents: wind generation, load (demand response), and **flywheel energy storage** that buffers surplus wind.

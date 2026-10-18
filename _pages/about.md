@@ -11,9 +11,10 @@ hero:
     - label: View projects
       url: /projects/
       icon: fa-solid fa-arrow-right
-    - label: View CV
-      url: /cv/
-      icon: fa-solid fa-file-lines
+    - label: Download resume
+      url: /assets/pdf/Oluwadamilola_Owolabi_Resume.pdf
+      icon: fa-solid fa-file-arrow-down
+      download: true
 
 profile:
   image: Profilepic.jpg
@@ -56,4 +57,4 @@ I'm an Associate Distribution Engineer at **Leidos** in Houston, where I support
 
 I hold a **BS in Electrical Engineering** from Texas A&M University and an **MS in Data Science** from Southern Methodist University. That pairing is where I do my best work: I know how the grid is built, and I know how to model the data it produces.
 
-I'm focused on **energy analytics, grid analytics, and quantitative roles** where engineering judgment meets data science. My [projects](/projects/) range from predictive modeling and interactive visualization to drone-based crop analytics, and I co-authored a [peer-reviewed paper](/publications/) on organic photovoltaics.
+I'm focused on **energy analytics, grid analytics, and quantitative roles** where engineering judgment meets data science. My [projects](/projects/) include a multi-agent reinforcement learning capstone on wind energy curtailment in ERCOT, predictive modeling, and drone-based crop analytics, and I co-authored a [peer-reviewed paper](/publications/) on organic photovoltaics.

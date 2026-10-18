@@ -7,7 +7,7 @@ nav: true
 nav_order: 1
 display_categories: [school, fun, other]
 horizontal: false
-featured: [Cotton_Drone_Analysis, Organic_Photovoltaics, DS6371_Final_Project]
+featured: [Wind_Energy_MARL, Cotton_Drone_Analysis, Organic_Photovoltaics]
 ---
 
 <!-- pages/projects.md -->

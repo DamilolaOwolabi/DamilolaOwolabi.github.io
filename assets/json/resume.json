@@ -309,6 +309,17 @@
   "references": [],
   "projects": [
     {
+      "name": "AI-Driven Optimization of Wind Energy Distribution in Texas (SMU capstone, first author)",
+      "summary": "Built a Python multi-agent reinforcement learning environment with wind, load, and flywheel storage agents trained with Deep Q-Networks on 2.7M+ ERCOT demand and wind generation records (2014 to 2025) to reduce wind curtailment and transmission congestion. Paper in draft.",
+      "highlights": [
+        "Python",
+        "Reinforcement learning",
+        "DQN",
+        "ERCOT data"
+      ],
+      "url": "https://damilolaowolabi.github.io/projects/Wind_Energy_MARL/"
+    },
+    {
       "name": "House Price Analysis",
       "summary": "Predicted the sales price of homes in Ames, Iowa from existing data utilizing R, SAS, and statistical techniques.",
       "highlights": [

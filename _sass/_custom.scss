@@ -1570,7 +1570,7 @@ html[data-theme="dark"] {
 
 .case-glance dt {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -1666,5 +1666,169 @@ html[data-theme="dark"] {
   .reveal-ready [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Phone polish
+ * ------------------------------------------------------------------------- */
+
+/* iOS Safari zooms into inputs smaller than 16px; keep form text at 16px */
+.calc-form input,
+.calc-form select,
+.field select {
+  font-size: 16px;
+}
+
+/* Publication badge: a compact pill, never a full-width bar */
+.publications .abbr {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.publications abbr.badge {
+  align-self: flex-start;
+}
+
+/* Bigger, easier-to-tap publication buttons (DOI / Bib / HTML) */
+.publications .links .btn {
+  font-size: 0.8rem !important;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--space-3) !important;
+  margin: 0 var(--space-2) var(--space-2) 0;
+}
+
+/* CV contact table: wrap labels between words, break only long values */
+.table-cv td:first-child {
+  overflow-wrap: normal;
+  word-break: normal;
+  white-space: normal;
+}
+
+.cv .location {
+  font-size: 0.8rem;
+}
+
+.glance dt {
+  font-size: 0.75rem;
+}
+
+@media (max-width: 767px) {
+  /* Hamburger: full 44px tap target */
+  .navbar .navbar-toggler {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .post-title {
+    font-size: 1.9rem;
+  }
+
+  /* Phones have no Ctrl key: label the search button "Search" instead */
+  #search-toggle .nav-link {
+    font-size: 0 !important;
+    gap: var(--space-2);
+  }
+
+  #search-toggle .nav-link::before {
+    content: "Search";
+    font-size: 1rem;
+  }
+
+  #search-toggle .nav-link i {
+    font-size: 1rem;
+  }
+
+  /* Open menu: solid background so page content doesn't show through */
+  .navbar:has(.navbar-collapse.show) {
+    background-color: var(--global-bg-color);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: var(--shadow-md);
+  }
+
+  .navbar .navbar-collapse.show {
+    padding-bottom: var(--space-3);
+  }
+
+  .navbar .navbar-collapse .nav-link {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 1rem;
+  }
+
+  /* Hero grid: keep the network up by the photo, away from the text and buttons */
+  .hero-grid {
+    inset: 0 0 auto 0;
+    height: 220px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 80% at 60% 40%, #000 35%, transparent 80%);
+    mask-image: radial-gradient(ellipse 90% 80% at 60% 40%, #000 35%, transparent 80%);
+  }
+
+  .snapshot-more {
+    display: flex;
+    margin: var(--space-3) 0 0;
+    min-height: 44px;
+  }
+
+  .hero-social a {
+    margin-left: 0;
+    margin-right: var(--space-1);
+  }
+}
+
+@media (max-width: 480px) {
+  /* Quick facts: one fact per row, label on the left */
+  .glance {
+    grid-template-columns: 1fr;
+  }
+
+  .glance-item {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: var(--space-3);
+    align-items: baseline;
+    border-left: 0 !important;
+    border-top: 1px solid var(--global-divider-color);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .glance-item:first-child {
+    border-top: 0;
+  }
+
+  .glance dt {
+    margin: 0;
+  }
+
+  .case-glance {
+    grid-template-columns: 1fr;
+  }
+
+  .case-glance > div {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .hero-name {
+    font-size: 2.25rem;
+  }
+
+  .snapshot-card,
+  .dash-panel,
+  .calc {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+
+  .stat-value {
+    font-size: var(--text-lg);
+  }
+
+  .contact-cta {
+    margin-top: var(--space-12);
   }
 }

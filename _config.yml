@@ -42,7 +42,7 @@ protect_email: false
 # point external_services.github_profile_trophy_url at your instance, then set
 # enabled: true. See docs/CUSTOMIZE.md.
 repo_trophies:
-  enabled: true
+  enabled: false
   theme_light: flat # https://github.com/ryo-ma/github-profile-trophy
   theme_dark: gitdimmed # https://github.com/ryo-ma/github-profile-trophy
 
@@ -123,7 +123,7 @@ analytics:
   cronitor: # cronitor RUM analytics site ID (format: XXXXXXXXX)
   pirsch: # your Pirsch analytics site ID (length 32 characters)
   openpanel: # your Openpanel analytics client ID (format: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX)
-  cloudflare: # your Cloudflare Web Analytics beacon token (32 hex characters)
+  cloudflare: 16c0c3e0ae104a04a1b2da0ef635ce12 # Cloudflare Web Analytics beacon token
 enable_simple_analytics: false # Simple Analytics identifies a site by its domain, so it has no ID to set above
 
 # For Google Search Console, see https://support.google.com/webmasters/answer/9008080?hl=en#meta_tag_verification&zippy=%2Chtml-tag
@@ -219,6 +219,7 @@ kramdown:
 include: ["_pages"]
 exclude:
   - AGENTS.md
+  - HOW-TO-EDIT.md
   - al-folio-upgrade-report.md
   - bin/
   - CLAUDE.md

@@ -6,27 +6,44 @@ img: assets/img/Wind_Energy_MARL/thumbnail.jpg
 importance: 0
 category: school
 tools: [Python, Reinforcement learning, DQN, ERCOT data]
+featured: true
 ---
 
-#### **Overview**
-
-Texas produces more wind energy than any other state, yet a large share of it is curtailed because of transmission congestion and rule-based dispatch on the ERCOT grid. Forecasting models such as ARIMA, LSTM, and VAR predict supply and demand well, but they don't decide what the grid should _do_ in real time.
-
-This capstone, co-authored with Amer Waleed and advised by Ogbonnaya Bassey (Aspen Technology), proposes a **multi-agent reinforcement learning (MARL)** framework where grid participants act as learning agents that make dispatch decisions together. I'm first author on the paper, which is currently in draft.
+<dl class="case-glance">
+  <div><dt>Role</dt><dd>First author; built the simulation environment and agents</dd></div>
+  <div><dt>Co-authors</dt><dd>Amer Waleed (SMU), Ogbonnaya Bassey (Aspen Technology)</dd></div>
+  <div><dt>Context</dt><dd>SMU MS in Data Science capstone</dd></div>
+  <div><dt>Stack</dt><dd>Python 3.13, Deep Q-Networks, ERCOT data</dd></div>
+  <div><dt>Status</dt><dd>Paper in draft; quantified results in progress</dd></div>
+</dl>
 
 <a class="hero-btn hero-btn-secondary" href="{{ '/assets/pdf/Owolabi_Wind_Energy_MARL_Draft.pdf' | relative_url }}" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i><span>Read the draft paper (PDF)</span></a>
 
-#### **What I built**
+## The problem
 
-- **A simulated wind grid environment in Python** that exposes three kinds of agents: wind generation, load (demand response), and **flywheel energy storage** that buffers surplus wind.
-- **Deep Q-Network (DQN) agents** with individual reward signals for grid balance, curtailment, and storage operation, so each agent optimizes its own objective while the system stays balanced.
-- **A merged training dataset of 2.7 million+ records** combining ERCOT demand, load, and wind generation data from 2014 to 2025, pulled from ERCOT's official data portal.
-- **Training and evaluation**: agents trained for up to 100 episodes with epsilon decay from 1.0 to about 0.6 and early stopping, then evaluated on unseen data under high-wind periods, peak load surges, and storage constraints. Training ran on a 4-CPU, 32 GB compute node.
+Texas produces more wind energy than any other state, yet much of it is **curtailed**: generated but never delivered, because West Texas transmission gets congested and ERCOT's dispatch is largely rule-based. Forecasting models (ARIMA, LSTM, VAR) predict supply and demand well, but they don't decide what the grid should _do_ in the moment.
 
-#### **Why it matters**
+## My approach
 
-The goal is to move grid control from reactive to adaptive: agents that redirect surplus wind, use storage during congestion, and respond to ERCOT's nodal pricing, rather than wasting renewable energy that has already been generated. Quantified curtailment results are part of the ongoing work.
+I framed dispatch as a **multi-agent reinforcement learning (MARL)** problem: instead of one central controller, several grid participants learn their own policies while sharing the same environment.
 
-#### **Tools**
+- **Environment.** I built a simulated wind grid in Python with three kinds of agents: wind generation, load (demand response), and **flywheel energy storage** that can soak up surplus wind during congestion.
+- **Learning.** Each agent is a Deep Q-Network with its own reward signal for grid balance, curtailment, and storage operation, so agents pursue their own objectives while the system stays balanced.
+- **Data.** I merged ERCOT demand, load, and wind generation data from 2014 to 2025 into one training set of **2.7 million+ records**, pulled from ERCOT's official data portal.
+- **Training and testing.** Agents trained for up to 100 episodes (epsilon decaying from 1.0 to about 0.6, with early stopping) on a 4-CPU, 32 GB compute node, then were evaluated on unseen data under three stress cases: high-wind periods, peak load surges, and storage constraints.
 
-Python 3.13, reinforcement learning (DQN), ERCOT grid data, VS Code.
+## Results so far
+
+- A working multi-agent environment and training pipeline on real ERCOT history.
+- Agents trained and evaluated across the three stress scenarios.
+- The paper's projected outcome is a 30 to 50% reduction in curtailment; that number is a target from the literature, not yet a measured result, and I'll publish measured numbers here when the analysis is complete.
+
+## What I'd do next
+
+- Report measured curtailment and congestion results against a rule-based baseline.
+- Add ERCOT nodal prices to the reward so agents respond to market signals, as the paper proposes.
+- Try policy-gradient methods (PPO) alongside DQN for continuous dispatch decisions.
+
+## Tools
+
+Python 3.13 · reinforcement learning (DQN) · ERCOT grid data · VS Code

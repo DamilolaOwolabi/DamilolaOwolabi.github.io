@@ -9,6 +9,7 @@ layout: default
 {% endcomment %}
 <div class="post about-page">
   <section class="hero" aria-labelledby="hero-name">
+    <canvas class="hero-grid" aria-hidden="true"></canvas>
     <div class="hero-text">
       {% if page.hero.eyebrow %}
         <p class="hero-eyebrow">{{ page.hero.eyebrow }}</p>
@@ -62,7 +63,7 @@ layout: default
   </section>
 
   {% if page.glance %}
-    <dl class="glance" aria-label="At a glance">
+    <dl class="glance" aria-label="At a glance" data-reveal>
       {% for fact in page.glance %}
         <div class="glance-item">
           <dt>{{ fact.label }}</dt>
@@ -72,14 +73,100 @@ layout: default
     </dl>
   {% endif %}
 
-  <article class="about-body">
+  <article class="about-body" data-reveal>
     <h2 class="section-label">About</h2>
     {{ content }}
   </article>
 
+  {% if page.timeline %}
+    <section class="home-section" aria-labelledby="timeline-heading" data-reveal>
+      <h2 class="section-label" id="timeline-heading">Path so far</h2>
+      <ol class="timeline">
+        {% for item in page.timeline %}
+          <li class="timeline-item{% if item.current %} is-current{% endif %}">
+            <span class="timeline-when">{{ item.when }}</span>
+            <div class="timeline-body">
+              <h3>
+                {{ item.title }}
+                <span class="timeline-org">· {{ item.org }}</span>
+              </h3>
+              {% if item.note %}
+                <p>{{ item.note }}</p>
+              {% endif %}
+            </div>
+          </li>
+        {% endfor %}
+      </ol>
+    </section>
+  {% endif %}
+
+  {% assign ercot = site.data.ercot %}
+  {% if ercot and ercot.peak_gen_mw %}
+    <section class="home-section" aria-labelledby="grid-heading" data-reveal>
+      <h2 class="section-label" id="grid-heading">Texas grid snapshot</h2>
+      <div class="snapshot-card">
+        <div class="snapshot-head">
+          <p class="snapshot-title"><span class="live-dot" aria-hidden="true"></span>ERCOT · {{ ercot.day_label }}</p>
+          <p class="snapshot-sub">Refreshed daily from ERCOT's public fuel mix data</p>
+        </div>
+        <div class="snapshot-stats">
+          <div class="stat">
+            <span class="stat-value">{{ ercot.peak_gen_mw | divided_by: 1000.0 | round: 1 }} GW</span>
+            <span class="stat-label">Peak generation · {{ ercot.peak_time }}</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">{{ ercot.wind_share_pct }}%</span>
+            <span class="stat-label">From wind</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">{{ ercot.solar_share_pct }}%</span>
+            <span class="stat-label">From solar</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">{{ ercot.wind_peak_mw | divided_by: 1000.0 | round: 1 }} GW</span>
+            <span class="stat-label">Wind peak · {{ ercot.wind_peak_time }}</span>
+          </div>
+        </div>
+        {% if ercot.sparkline_path != '' %}
+          <figure class="snapshot-spark">
+            <svg viewBox="0 0 240 48" preserveAspectRatio="none" role="img" aria-label="Hourly generation across the day">
+              <path class="spark-area" d="{{ ercot.sparkline_path }} L237,45 L3,45 Z"></path>
+              <path class="spark-line" d="{{ ercot.sparkline_path }}"></path>
+            </svg>
+            <figcaption>Hourly generation, midnight to midnight</figcaption>
+          </figure>
+        {% endif %}
+        <div class="fuel-bar" role="img" aria-label="Fuel mix for the day">
+          {% for f in ercot.fuel_shares %}
+            <span class="fuel-seg fuel-{{ f.key }}" style="width: {{ f.pct }}%" title="{{ f.label }} {{ f.pct }}%"></span>
+          {% endfor %}
+        </div>
+        <ul class="fuel-legend">
+          {% for f in ercot.fuel_shares %}
+            <li>
+              <span class="fuel-dot fuel-{{ f.key }}" aria-hidden="true"></span>{{ f.label }}
+              {{ f.pct }}%
+            </li>
+          {% endfor %}
+        </ul>
+        <p class="snapshot-foot">
+          Source: <a href="{{ ercot.source_url }}" target="_blank" rel="noopener">{{ ercot.source }}</a>. Pulled each morning by a small Python job I
+          wrote that runs on GitHub Actions.
+          <a class="snapshot-more" href="{{ '/grid/' | relative_url }}"
+            >See the full dashboard <i class="fa-solid fa-arrow-right" aria-hidden="true"></i
+          ></a>
+        </p>
+      </div>
+    </section>
+  {% endif %}
+
   {% if page.skills %}
-    <section class="home-section" aria-labelledby="skills-heading">
+    <section class="home-section" aria-labelledby="skills-heading" data-reveal>
       <h2 class="section-label" id="skills-heading">Skills</h2>
+      <p class="skills-note">
+        Want to see the power systems side in action? Try my
+        <a href="{{ '/tools/' | relative_url }}">transformer sizing and fault current calculator</a>.
+      </p>
       <div class="skills-grid">
         {% for group in page.skills %}
           <div class="skill-group">
@@ -120,7 +207,7 @@ layout: default
   {% endif %}
 
   {% if page.contact %}
-    <section class="contact-cta" aria-labelledby="contact-heading">
+    <section class="contact-cta" aria-labelledby="contact-heading" data-reveal>
       <div>
         <h2 id="contact-heading">{{ page.contact.heading }}</h2>
         <p>{{ page.contact.text }}</p>
@@ -130,6 +217,9 @@ layout: default
           <a class="hero-btn hero-btn-primary" href="mailto:{{ page.contact.email }}">
             <i class="fa-solid fa-envelope" aria-hidden="true"></i><span>Email me</span>
           </a>
+          <button type="button" class="hero-btn hero-btn-secondary copy-email" data-email="{{ page.contact.email }}" hidden>
+            <i class="fa-regular fa-copy" aria-hidden="true"></i><span>Copy email</span>
+          </button>
         {% endif %}
         {% if page.contact.linkedin %}
           <a class="hero-btn hero-btn-secondary" href="{{ page.contact.linkedin }}" target="_blank" rel="noopener">
@@ -148,3 +238,5 @@ layout: default
     {% endif %}
   {% endif %}
 </div>
+
+<script defer src="{{ '/assets/js/site.js' | relative_url | bust_file_cache }}"></script>

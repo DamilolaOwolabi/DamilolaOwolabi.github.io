@@ -8,3 +8,5 @@ _posts/2015-10-20-math.md
 _data/citations.yml
 # Embedded interactive project pages (kept byte-for-byte)
 assets/img/**/*.html
+# Generated daily by bin/fetch_ercot_snapshot.py and bin/ercot_history.py
+_data/ercot*.json

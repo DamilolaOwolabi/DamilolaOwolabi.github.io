@@ -31,6 +31,34 @@ glance:
   - label: Based in
     value: Houston, TX
 
+# Career timeline shown on the home page (newest first)
+timeline:
+  - when: Sep 2025 to present
+    title: Associate Distribution Engineer
+    org: Leidos
+    note: MV/LV distribution design for major utilities
+    current: true
+  - when: Aug 2025
+    title: MS, Data Science
+    org: Southern Methodist University
+    note: Capstone on multi-agent reinforcement learning for ERCOT wind curtailment
+  - when: 2023 to 2024
+    title: Electrical Estimator
+    org: Ferreira Co.
+    note: Distribution cost estimating and solar/battery service design
+  - when: May 2022
+    title: BS, Electrical Engineering
+    org: Texas A&M University
+    note: Senior design lead, Cotton Drone Analysis
+  - when: Summer 2021
+    title: System IP Intern
+    org: Arm
+    note: Automated simulation analysis in Python
+  - when: Summer 2019
+    title: Research Intern
+    org: Rice University
+    note: Organic photovoltaics research, co-authored paper
+
 # Skill groups shown on the home page (keep in sync with the CV)
 skills:
   - group: Data & programming

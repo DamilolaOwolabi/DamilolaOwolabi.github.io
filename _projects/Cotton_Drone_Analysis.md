@@ -4,8 +4,9 @@ title: Cotton Drone Analysis
 description: This project involves the development of a drone-based precision agriculture system to automate data collection and analysis for cotton crops.
 img: assets/img/Cotton_Drone_Analysis/cotton_drone.jpg
 importance: 1
-category: other
+category: school
 tools: [Python, Django, Raspberry Pi, Google Cloud, Machine learning]
+featured: true
 ---
 
 <dl class="case-glance">

@@ -4,8 +4,9 @@ title: Understanding the Mechanical Properties of Thiolene Blended Active Layer 
 description: This research project focuses on improving the mechanical properties of organic photovoltaics (OPVs) by blending thiolene crosslinked networks with the active layer.
 img: assets/img/Organic_Photovoltaics/thumbnail.jpg
 importance: 2
-category: other
+category: research
 tools: [Research, Python, Excel, Publication]
+featured: true
 ---
 
 <dl class="case-glance">

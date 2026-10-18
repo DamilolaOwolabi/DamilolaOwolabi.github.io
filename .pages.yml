@@ -1,0 +1,152 @@
+# Pages CMS configuration (https://pagescms.org)
+# Lets you edit this site through a web form instead of code:
+# sign in at https://app.pagescms.org with GitHub, pick this repository, and edit.
+# Every save is a normal Git commit, so the site redeploys automatically.
+
+settings:
+  content:
+    # Keep any front matter the forms don't show (layout, permalink, etc.) when saving.
+    merge: true
+
+media:
+  - name: images
+    label: Images
+    input: assets/img
+    output: /assets/img
+    categories: [image]
+  - name: files
+    label: PDFs and documents
+    input: assets/pdf
+    output: /assets/pdf
+    categories: [document]
+
+content:
+  # ---------------------------------------------------------------- Projects
+  - name: projects
+    label: Projects
+    description: One entry per project. Featured projects appear at the top of the Projects page.
+    type: collection
+    path: _projects
+    filename: "{primary}.md"
+    view:
+      fields: [title, category, featured, importance]
+      primary: title
+    fields:
+      - name: layout
+        type: string
+        hidden: true
+        default: page
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Short summary
+        description: One or two sentences. Shown on the project card (about 150 characters fit).
+        type: text
+        required: true
+      - name: img
+        label: Thumbnail image
+        description: Shown on the project card. Landscape images look best (around 1600 × 1000).
+        type: image
+        options:
+          media: images
+          path: assets/img/projects
+      - name: category
+        label: Category
+        description: Which section of the Projects page it appears in.
+        type: select
+        default: personal
+        options:
+          values: [work, research, school, personal, other]
+      - name: tools
+        label: Tools and skills
+        description: Shown as chips on the card and used by the Projects filter (e.g. Python, SQL, Power BI).
+        type: string
+        list: true
+      - name: featured
+        label: Feature at the top of the Projects page
+        description: Up to three featured projects are shown, ordered by Sort order.
+        type: boolean
+        default: false
+      - name: importance
+        label: Sort order
+        description: Lower numbers appear first within a section (0 = first).
+        type: number
+        default: 5
+      - name: redirect
+        label: External link (optional)
+        description: If set, the card links straight here (for example a live app or a GitHub repo) instead of to a project page.
+        type: string
+      - name: body
+        label: Project write-up
+        description: "Suggested sections: The problem, My approach, Results, What I'd do next, Tools."
+        type: rich-text
+        options:
+          format: markdown
+          media: images
+          path: assets/img/projects
+
+  # ---------------------------------------------------------------- Home page
+  - name: about
+    label: Home page
+    description: Hero text, quick facts, timeline, skills, contact box, and the About text.
+    type: file
+    path: _pages/about.md
+    fields:
+      - name: hero
+        label: Hero
+        type: object
+        fields:
+          - name: eyebrow
+            label: Small label above your name
+            type: string
+          - name: tagline
+            label: Tagline
+            type: string
+          - name: buttons
+            label: Buttons
+            type: object
+            list: true
+            fields:
+              - { name: label, label: Label, type: string }
+              - { name: url, label: Link, type: string }
+              - { name: icon, label: "Icon (Font Awesome class, optional)", type: string }
+              - { name: download, label: Download link, type: boolean }
+      - name: glance
+        label: Quick facts
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Label, type: string }
+          - { name: value, label: Value, type: string }
+      - name: timeline
+        label: Career timeline (newest first)
+        type: object
+        list: true
+        fields:
+          - { name: when, label: When, type: string }
+          - { name: title, label: Role or degree, type: string }
+          - { name: org, label: Organization, type: string }
+          - { name: note, label: One-line note, type: string }
+          - { name: current, label: Current role, type: boolean }
+      - name: skills
+        label: Skill groups
+        type: object
+        list: true
+        fields:
+          - { name: group, label: Group name, type: string }
+          - { name: items, label: Skills, type: string, list: true }
+      - name: contact
+        label: Contact box
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - { name: text, label: Text, type: text }
+          - { name: email, label: Email, type: string }
+          - { name: linkedin, label: LinkedIn URL, type: string }
+      - name: body
+        label: About text
+        type: rich-text
+        options:
+          format: markdown

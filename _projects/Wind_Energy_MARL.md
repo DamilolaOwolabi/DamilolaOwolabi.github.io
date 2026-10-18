@@ -6,6 +6,7 @@ img: assets/img/Wind_Energy_MARL/thumbnail.jpg
 importance: 0
 category: school
 tools: [Python, Reinforcement learning, DQN, ERCOT data]
+featured: true
 ---
 
 <dl class="case-glance">

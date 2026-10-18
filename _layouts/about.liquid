@@ -152,6 +152,9 @@ layout: default
         <p class="snapshot-foot">
           Source: <a href="{{ ercot.source_url }}" target="_blank" rel="noopener">{{ ercot.source }}</a>. Pulled each morning by a small Python job I
           wrote that runs on GitHub Actions.
+          <a class="snapshot-more" href="{{ '/grid/' | relative_url }}"
+            >See the full dashboard <i class="fa-solid fa-arrow-right" aria-hidden="true"></i
+          ></a>
         </p>
       </div>
     </section>
@@ -160,6 +163,10 @@ layout: default
   {% if page.skills %}
     <section class="home-section" aria-labelledby="skills-heading" data-reveal>
       <h2 class="section-label" id="skills-heading">Skills</h2>
+      <p class="skills-note">
+        Want to see the power systems side in action? Try my
+        <a href="{{ '/tools/' | relative_url }}">transformer sizing and fault current calculator</a>.
+      </p>
       <div class="skills-grid">
         {% for group in page.skills %}
           <div class="skill-group">
@@ -210,6 +217,9 @@ layout: default
           <a class="hero-btn hero-btn-primary" href="mailto:{{ page.contact.email }}">
             <i class="fa-solid fa-envelope" aria-hidden="true"></i><span>Email me</span>
           </a>
+          <button type="button" class="hero-btn hero-btn-secondary copy-email" data-email="{{ page.contact.email }}" hidden>
+            <i class="fa-regular fa-copy" aria-hidden="true"></i><span>Copy email</span>
+          </button>
         {% endif %}
         {% if page.contact.linkedin %}
           <a class="hero-btn hero-btn-secondary" href="{{ page.contact.linkedin }}" target="_blank" rel="noopener">

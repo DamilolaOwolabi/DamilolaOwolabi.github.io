@@ -201,9 +201,14 @@ button:focus-visible,
 .post-title {
   font-size: var(--text-3xl);
   font-weight: 600 !important;
-  text-transform: capitalize;
   letter-spacing: -0.025em;
   margin-bottom: var(--space-2);
+}
+
+/* Page titles are lowercase in front matter (they double as nav labels);
+   capitalize only the first letter so project titles keep their own casing. */
+.post-title::first-letter {
+  text-transform: uppercase;
 }
 
 .post-description {
@@ -1174,5 +1179,492 @@ html[data-theme="dark"] {
 @media (prefers-reduced-motion: reduce) {
   .live-dot {
     animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * /grid/ dashboard
+ * ------------------------------------------------------------------------- */
+.dash-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.dash-range-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--global-text-color-light);
+  margin: 0;
+}
+
+.dash-ranges {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.dash-gap-note {
+  font-size: var(--text-sm);
+  color: var(--accent-soft-text);
+  background: var(--accent-soft);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-4);
+  margin: 0 0 var(--space-6);
+}
+
+.dash-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.dash-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-4) var(--space-6);
+  border: 1px solid var(--global-divider-color);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+}
+
+.dash-panel {
+  border: 1px solid var(--global-divider-color);
+  border-radius: var(--radius-lg);
+  background: var(--global-card-bg-color);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.dash-panel h2,
+.dash-method h2 {
+  font-size: var(--text-lg);
+  margin: 0 0 var(--space-1);
+}
+
+.dash-note {
+  font-size: var(--text-sm);
+  color: var(--global-text-color-light);
+  margin: 0 0 var(--space-4);
+}
+
+.dash-chart {
+  position: relative;
+  height: 300px;
+}
+
+.dash-insights ul {
+  margin: var(--space-3) 0 0;
+  padding-left: 1.2rem;
+}
+
+.dash-insights li {
+  margin-bottom: var(--space-2);
+}
+
+.dash-method {
+  margin-top: var(--space-8);
+  font-size: 0.95rem;
+  color: var(--global-text-color-light);
+}
+
+.dash-method p {
+  max-width: 72ch;
+}
+
+@media (max-width: 767px) {
+  .dash-kpis {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dash-kpi {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .dash-chart {
+    height: 240px;
+  }
+
+  .dash-panel {
+    padding: var(--space-4);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * /tools/ calculator
+ * ------------------------------------------------------------------------- */
+.calc {
+  border: 1px solid var(--global-divider-color);
+  border-radius: var(--radius-lg);
+  background: var(--global-card-bg-color);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-8);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-8);
+}
+
+.calc-head,
+.calc-formulas {
+  grid-column: 1 / -1;
+}
+
+.calc-head h2 {
+  font-size: var(--text-xl);
+  margin: 0 0 var(--space-2);
+}
+
+.calc-head p {
+  color: var(--global-text-color-light);
+  margin: 0;
+  max-width: 70ch;
+}
+
+.calc-form fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0 0 var(--space-6);
+}
+
+.calc-form legend {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--global-text-color-light);
+  margin-bottom: var(--space-3);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: var(--space-4);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.field select,
+.input-unit {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  border: 1px solid var(--global-divider-color);
+  border-radius: var(--radius-md);
+  background: var(--global-bg-color);
+  color: var(--global-text-color);
+  font: inherit;
+  font-weight: 400;
+}
+
+.field select {
+  padding: 0 var(--space-3);
+}
+
+.input-unit input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  padding: 0 var(--space-3);
+  height: 42px;
+}
+
+.input-unit input:focus {
+  outline: none;
+}
+
+.input-unit:focus-within,
+.field select:focus {
+  outline: 2px solid var(--global-theme-color);
+  outline-offset: 1px;
+}
+
+.input-unit em {
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--global-text-color-light);
+  padding: 0 var(--space-3);
+  border-left: 1px solid var(--global-divider-color);
+}
+
+.field-hint {
+  font-size: 0.8rem;
+  color: var(--global-text-color-light);
+  margin: calc(-1 * var(--space-2)) 0 0;
+}
+
+.seg {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: var(--radius-md);
+  background: var(--surface-muted);
+  border: 1px solid var(--global-divider-color);
+  margin-bottom: var(--space-4);
+}
+
+.seg label {
+  position: relative;
+  cursor: pointer;
+  margin: 0;
+}
+
+.seg input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.seg span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 var(--space-4);
+  border-radius: calc(var(--radius-md) - 3px);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--global-text-color-light);
+}
+
+.seg input:checked + span {
+  background: var(--global-card-bg-color);
+  color: var(--global-text-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.seg input:focus-visible + span {
+  outline: 2px solid var(--global-theme-color);
+}
+
+.calc-results {
+  align-self: start;
+  position: sticky;
+  top: 80px;
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+  border: 1px solid var(--global-divider-color);
+  padding: var(--space-6);
+}
+
+.result-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: var(--space-4);
+  margin-bottom: var(--space-4);
+  border-bottom: 1px solid var(--global-divider-color);
+}
+
+.result-label,
+.result-grid dt {
+  font-size: 0.8rem;
+  color: var(--global-text-color-light);
+}
+
+.result-big {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--global-theme-color);
+  font-variant-numeric: tabular-nums;
+}
+
+.result-sub {
+  font-size: 0.85rem;
+  color: var(--global-text-color-light);
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.result-grid dd {
+  margin: 2px 0 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.result-wide {
+  grid-column: 1 / -1;
+}
+
+.calc-warn {
+  margin: var(--space-4) 0 0;
+  font-size: 0.85rem;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, #f59e0b 14%, transparent);
+  color: var(--global-text-color);
+}
+
+.calc-formulas {
+  border-top: 1px solid var(--global-divider-color);
+  padding-top: var(--space-4);
+  font-size: 0.92rem;
+}
+
+.calc-formulas summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.calc-formulas ul {
+  margin-top: var(--space-3);
+  color: var(--global-text-color-light);
+}
+
+.calc-disclaimer {
+  font-size: 0.82rem;
+  color: var(--global-text-color-light);
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .calc {
+    grid-template-columns: 1fr;
+    padding: var(--space-6) var(--space-4);
+    gap: var(--space-6);
+  }
+
+  .calc-results {
+    position: static;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Case study pages
+ * ------------------------------------------------------------------------- */
+.case-glance {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0;
+  margin: 0 0 var(--space-6);
+  border: 1px solid var(--global-divider-color);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+  overflow: hidden;
+}
+
+.case-glance > div {
+  padding: var(--space-4) var(--space-6);
+  border-right: 1px solid var(--global-divider-color);
+  border-bottom: 1px solid var(--global-divider-color);
+  margin-right: -1px;
+  margin-bottom: -1px;
+}
+
+.case-glance dt {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--global-text-color-light);
+  margin-bottom: var(--space-1);
+}
+
+.case-glance dd {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.case-glance ~ h2 {
+  font-size: var(--text-xl);
+  margin-top: var(--space-12);
+  margin-bottom: var(--space-4);
+}
+
+.case-glance ~ ul li {
+  margin-bottom: var(--space-2);
+}
+
+/* ---------------------------------------------------------------------------
+ * Small extras: dashboard link, skills note, 404, print
+ * ------------------------------------------------------------------------- */
+.snapshot-more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-left: var(--space-2);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.skills-note {
+  font-size: 0.95rem;
+  color: var(--global-text-color-light);
+  margin: 0 0 var(--space-6);
+}
+
+.copy-email {
+  font: inherit;
+  font-family: var(--font-display);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.notfound {
+  padding: var(--space-8) 0;
+}
+
+.notfound-code {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 14vw, 8rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  margin: 0 0 var(--space-4);
+  background: linear-gradient(120deg, var(--global-theme-color), #f59e0b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media print {
+  #navbar,
+  footer,
+  .hero-grid,
+  #toc-sidebar,
+  .contact-cta,
+  .hero-actions,
+  #back-to-top,
+  .progress-container,
+  progress {
+    display: none !important;
+  }
+
+  body {
+    padding: 0 !important;
+    color: #000;
+    background: #fff;
+  }
+
+  .card,
+  .snapshot-card,
+  .dash-panel {
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+
+  .reveal-ready [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

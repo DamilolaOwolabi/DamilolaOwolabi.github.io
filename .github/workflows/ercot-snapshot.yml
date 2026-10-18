@@ -1,7 +1,8 @@
 name: Update ERCOT grid snapshot
 
-# Refreshes _data/ercot.json (the "Texas grid snapshot" card on the home page)
-# once a day with the previous day's ERCOT fuel mix, then redeploys the site.
+# Once a day: refreshes _data/ercot.json (the home page "Texas grid snapshot" card),
+# appends the day to _data/ercot_history.json (the /grid/ dashboard), merges in any
+# newly published days from ERCOT's settlement Fuel Mix Report, then redeploys.
 
 on:
   schedule:
@@ -30,21 +31,27 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install dependencies
+        run: pip install openpyxl
+
       - name: Fetch ERCOT snapshot
         run: python3 bin/fetch_ercot_snapshot.py
+
+      - name: Merge ERCOT settlement report
+        run: python3 bin/ercot_history.py refresh
 
       - name: Commit if changed
         id: commit
         run: |
-          if git diff --quiet -- _data/ercot.json; then
+          if git diff --quiet -- _data/ercot.json _data/ercot_history.json; then
             echo "No change in snapshot."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add _data/ercot.json
-          git commit -m "Update ERCOT grid snapshot"
+          git add _data/ercot.json _data/ercot_history.json
+          git commit -m "Update ERCOT grid data"
           git push
           echo "changed=true" >> "$GITHUB_OUTPUT"
 

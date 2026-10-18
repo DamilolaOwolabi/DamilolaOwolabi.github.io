@@ -4,7 +4,7 @@ permalink: /publications/
 title: publications
 description: Peer-reviewed research from my time in the Rice University polymer engineering lab.
 nav: true
-nav_order: 3
+nav_order: 4
 ---
 
 <!-- _pages/publications.md -->

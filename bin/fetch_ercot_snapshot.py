@@ -72,6 +72,7 @@ def pick_day(data):
 
 def summarize(fm):
     day, readings = pick_day(fm.get("data", {}))
+    summarize.last_day = (day, readings)
     rows = []
     for ts, fuels in readings.items():
         if not isinstance(fuels, dict) or "Natural Gas" not in fuels:
@@ -131,6 +132,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="_data/ercot.json")
     ap.add_argument("--fuel-mix", default=FUEL_MIX_URL)
+    ap.add_argument("--no-history", action="store_true", help="don't append the day to ercot_history.json")
     args = ap.parse_args()
 
     try:
@@ -149,6 +151,16 @@ def main():
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(snapshot, indent=2) + "\n", encoding="utf-8")
+
+    # Also log the day into the dashboard history (skipped for days already
+    # covered by ERCOT's settlement report, and for incomplete days).
+    if summary["complete_day"] and not args.no_history:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import ercot_history
+
+        day, readings = summarize.last_day
+        if ercot_history.add_dashboard_day(day, readings, out.parent / "ercot_history.json"):
+            print(f"Logged {day} to ercot_history.json")
     print(
         f"Wrote {out} for {summary['day']}: peak {summary['peak_gen_mw']} MW at {summary['peak_time']}, "
         f"wind {summary['wind_share_pct']}%, solar {summary['solar_share_pct']}%"

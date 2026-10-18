@@ -314,7 +314,32 @@
     bar.hidden = false;
   }
 
+  /* ---------------------------------------------------------------------
+   * 4. Copy email button (shown only where the Clipboard API exists)
+   * ------------------------------------------------------------------- */
+  function initCopyEmail() {
+    if (!navigator.clipboard) return;
+    document.querySelectorAll(".copy-email").forEach(function (btn) {
+      var label = btn.querySelector("span");
+      btn.hidden = false;
+      btn.addEventListener("click", function () {
+        navigator.clipboard.writeText(btn.getAttribute("data-email")).then(
+          function () {
+            label.textContent = "Copied!";
+            setTimeout(function () {
+              label.textContent = "Copy email";
+            }, 1800);
+          },
+          function () {
+            label.textContent = btn.getAttribute("data-email");
+          }
+        );
+      });
+    });
+  }
+
   function init() {
+    initCopyEmail();
     var canvas = document.querySelector(".hero-grid");
     if (canvas) initGrid(canvas);
     var bar = document.querySelector(".project-filter");

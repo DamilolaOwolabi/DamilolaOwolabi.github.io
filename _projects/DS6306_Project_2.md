@@ -8,9 +8,7 @@ category: school
 tools: [R, Regression, Naive Bayes, KNN]
 ---
 
-
 Please try out my interactive Rshinyapp to experience my model’s prediction rate : [RShiny](https://oluwadamilolaowolabi.shinyapps.io/DS_6372_Project_2/)
-
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -22,21 +20,15 @@ Please try out my interactive Rshinyapp to experience my model’s prediction ra
     Here is the Youtube Video of my presentation.
 </div>
 
-
-
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
         <iframe src="https://smu365-my.sharepoint.com/personal/oowolabi_smu_edu/_layouts/15/Doc.aspx?sourcedoc={57ab9aa8-cdc7-4ce6-b06c-692dd7b14265}&amp;action=embedview&amp;wdAr=1.7777777777777777" width="800px" height="400px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
     </div>
 </div>
 
-
-
 <div class="caption">
     Here is my powerpoint presentation.
 </div>
-
-
 
 # INTRODUCTION
 
@@ -45,7 +37,6 @@ Good afternoon Mr. Steven Williams – CEO and Mrs. Christy Jacoby - CFO. I am h
 Our data set was extracted from the company's AWS bucket. Where we interviewed 870 random employees, question related to their possibility of attrition.We got 36 answers from each employee. 34 of those factors (answers) were used for our dependent variables. hle 2 of them were used for our predictions: The monthly income for our Regression prediction, and the Attrition for our Classification prediction.
 
 My aim is to provide valuable insight on what factors affects attrition rate and Monthly Income
-
 
 ## LOADING LIBRARIES
 
@@ -60,59 +51,57 @@ My aim is to provide valuable insight on what factors affects attrition rate and
     library(class) #calling the knn function
     library(e1071)  # for naiveBayes function
     ~~~
-    
-    
-##  GETTING THE CSV FILE FROM AWS USING AWS.S3 PACKAGES
+
+## GETTING THE CSV FILE FROM AWS USING AWS.S3 PACKAGES
 
     ~~~ R
     Sys.setenv("AWS_ACCESS_KEY_ID" = "MY_ACCESS_ID",
                "AWS_SECRET_ACCESS_KEY" = MY_SECRET_ACCESS_KEY",
                "AWS_DEFAULT_REGION" = "MY_DEFAULT_REGION")
-    
-    
+
+
     # Using aws.s3
     aws.s3::bucketlist()
     aws.s3::get_bucket("msdsds6306")
-    
-    
+
+
     # read and write from ojbect
-    
-    #Read in the train data 
+
+    #Read in the train data
     Talent_Train = s3read_using(FUN = read.csv,
                         bucket = "msdsds6306",
                         object = "CaseStudy2-data.csv")
-    
+
     #Reading in  the Test Data for Attrition
     Talent_Test_Attrition = s3read_using(FUN = read.csv,
                         bucket = "msdsds6306",
                         object = "CaseStudy2CompSet No Attrition.csv")
-    
+
     #Reading in  the Test Data for monthly income
     Talent_Test_Salary = s3read_using(FUN = read.csv,
                         bucket = "msdsds6306",
                         object = "CaseStudy2CompSet No Salary.csv")
-    
+
     #Reading in  an example of prediction Regeression
     Example = s3read_using(FUN = read.csv,
                         bucket = "msdsds6306",
                         object = "Case2PredictionsRegressEXAMPLE.csv")
-    
+
     #Reading in  an example of prediction classification
     Example2 = s3read_using(FUN = read.csv,
                         bucket = "msdsds6306",
                         object = "Case2PredictionsClassifyEXAMPLE.csv")
-    
-    
+
+
     #How many variables in the dataset ? 36
-    
+
     #Our response variable will be based on the attrition variable
-    
+
     ~~~
 
 From the Train talent data, there are 870 random employees (rows), all ordered by IDD, and 36 variables (columns).
 
-
-## LOOKING AT THE DATASET 
+## LOOKING AT THE DATASET
 
     ~~~ R
     set.seed(1234)
@@ -120,48 +109,44 @@ From the Train talent data, there are 870 random employees (rows), all ordered b
     # Set levels for Talent_Train
     Talent_Train$Attrition <-factor(Talent_Train$Attrition, levels=c('Yes','No')) #factoring the response variable
     Talent_Train <- Talent_Train %>% mutate(Over18_binary = ifelse(Over18 == "Y", 1, 0)) # breaking the Over18 variable into 2, because it has only one level, and keeps throwing an error.
-    
+
     Talent_Train <- subset(Talent_Train, select = -c(Over18)) #removing the over18 column
-    
+
     # Set levels for Talent_Test_Salary
     Talent_Test_Salary$Attrition <-factor(Talent_Test_Salary$Attrition, levels=c('No','Yes')) #factoring the response variable
     Talent_Test_Salary <- Talent_Test_Salary %>% mutate(Over18_binary = ifelse(Over18 == "Y", 1, 0)) # breaking the Over18 variable into 2, because it has only one level.
     Talent_Test_Salary <- subset(Talent_Test_Salary , select = -c(Over18)) #removing the over18 column
-    
+
     yes_data <- Talent_Train[Talent_Train$Attrition == 'Yes',] # 4250
     no_data <- Talent_Train[Talent_Train$Attrition == 'No',] # 31918
     ~~~
-    
+
 The rate of Yes Attrition to no Attrition is 140: 730. Which presents the issue of an unbalanced data. This might be costly to sensitivity metric. Thankfully, i come equipped with knowledge from my Data Science professor (Prof. Bivin Sadler) on how to resolve this.
 
-
 ## ADDRESSING MISSING VALUES
+
 It is important to look at missing values earlier on, as it might be affect our models
 
     ```R
     NaSum <- sum(is.na(Talent_Train)) #check for missing values in the Talent Dataset
-    
+
     # Print the total count of missing values
     print(paste("Total missing values:", NaSum))
     ```
-    
+
 > [1] "Total missing values: 0"
 
 From the results above, there appears to be no missing values in the Dataset (thank God!!)
 
-
-
-
 # SALARY
 
-
-## Looking at the Summary Statistics 
+## Looking at the Summary Statistics
 
     ~~~ R
-        
+
     # Using a for loop to get the summary statistics
-    
-    # Initialize an empty list 
+
+    # Initialize an empty list
     numerical_count <- 0 # There are 27
     categorical_count <- 0 # There are 9
     summary_stats_numerical <- list() # Storing summary statistics for the numerical variables
@@ -169,7 +154,7 @@ From the results above, there appears to be no missing values in the Dataset (th
     summary_stats2_categorical <- list() # Storing summary statistics for the categorical variables
     categorical_variables <- list() #Storing categorical variables
     numerical_variables <- list() #Storing numerical variables
-    
+
     # Iterate over each column in the data frame
     for (Variable in names(Talent_Train)) {
       # Calculate summary statistics for numeric variables
@@ -185,7 +170,7 @@ From the results above, there appears to be no missing values in the Dataset (th
         categorical_count <- categorical_count + 1
       }
     }
-    
+
     cat("There are  ", numerical_count, " numerical variables \n")
     cat("The numerical variables are: ")
     #Printing the numerical variables
@@ -193,7 +178,7 @@ From the results above, there appears to be no missing values in the Dataset (th
       print(numerical_variables[[variable]])
     }
     cat("\n")
-    
+
     cat("There are  ", categorical_count, " categorical variables \n")
     cat("The categorical variables are: ")
     #Printing the categorical variables
@@ -201,14 +186,14 @@ From the results above, there appears to be no missing values in the Dataset (th
       print(categorical_variables[[variable]])
     }
     cat("\n")
-    
+
     # Print summary statistics for each numerical variable
     for (col_name in names(summary_stats_numerical)) {
       cat("Summary statistics for", col_name, ":\n")
       print(summary_stats_numerical[[col_name]])
       cat("\n")
     }
-    
+
     # Print summary statistics for each categorical variable
     for (col_name in names(summary_stats_categorical)) {
       cat("Summary statistics for", col_name, ":\n")
@@ -217,13 +202,12 @@ From the results above, there appears to be no missing values in the Dataset (th
       cat("\n")
     }
     ~~~
-    
-> There are   28  numerical variables 
-> There are   8  categorical variables
-    
-From our summary Statistics, there are 28 numerical variables and 8 categorical variables. All adding to 36 variables. Some variables that swtood out were the EmployeeCount, which have a constant 1 values, and the Job Involvement, which values ranges between 1 and 4, hence providing a really low variance,.    
-    
-    
+
+> There are 28 numerical variables
+> There are 8 categorical variables
+
+From our summary Statistics, there are 28 numerical variables and 8 categorical variables. All adding to 36 variables. Some variables that swtood out were the EmployeeCount, which have a constant 1 values, and the Job Involvement, which values ranges between 1 and 4, hence providing a really low variance,.
+
 ## VISUALIZING THE NUMERICAL VARIABLES SUMMARY STATISTICS
 
 Since the variables are a lot, and i plan on saving time, I plan using a for loop to iterate through the variables and plot their box plots to visualize their summary statistics
@@ -235,16 +219,16 @@ Since the variables are a lot, and i plan on saving time, I plan using a for loo
         # Create a box plot for numeric variables
        plot <-  ggplot(Talent_Train, aes_string(x = , y = Variable)) +
           geom_boxplot(color = "black", fill = "lightblue") +
-          labs(title = paste("Box Plot of", Variable)) + 
-          geom_text(aes(label = paste("Median:", median(Talent_Train[[Variable]]), "\n", 
-                                      "Mean: ", mean(Talent_Train[[Variable]]), "\n", 
+          labs(title = paste("Box Plot of", Variable)) +
+          geom_text(aes(label = paste("Median:", median(Talent_Train[[Variable]]), "\n",
+                                      "Mean: ", mean(Talent_Train[[Variable]]), "\n",
                                       "SD: ", sd(Talent_Train[[Variable]]),
                                       "1st Quarter: ", summary(Talent_Train[[Variable]])[2], "\n",
                                       "3rd Quarter: ", summary(Talent_Train[[Variable]])[4], "\n",
                                       "Min: ", summary(Talent_Train[[Variable]])[1], "\n",
                                       "Max: ", summary(Talent_Train[[Variable]])[5], "\n")),
-                    x = 0.4, y = max(Talent_Train[[Variable]]), hjust = 1, vjust = 1, size = 3, color = "blue") 
-       
+                    x = 0.4, y = max(Talent_Train[[Variable]]), hjust = 1, vjust = 1, size = 3, color = "blue")
+
        # Print the plot
         print(plot)
       }
@@ -341,9 +325,8 @@ Since the variables are a lot, and i plan on saving time, I plan using a for loo
 <div class="caption">
     List of summary statistics for the numerical variables (Please scroll through to look at the plots.)
 </div>
-    
-From the box plots, 4 variables have really bad spread of data. They are : EmployeeCount, Over_18_Binary, PerformanceRating, and StandardHours
 
+From the box plots, 4 variables have really bad spread of data. They are : EmployeeCount, Over_18_Binary, PerformanceRating, and StandardHours
 
 ## VISUALIZING THE VARIABLES INTERACTIONS WITH THE RESPONSE VARIABLE (MONTHLY INCOME)
 
@@ -354,23 +337,23 @@ Since the variables are a lot, and i plan on saving time, I plan using a for loo
     for (Variable in names(Talent_Train)){
       # Check if the column is numeric
       if (!(Variable == "MonthlyIncome")) {
-        
+
         # Construct the bunch of commands with the current variable
-        
+
       command <- paste0(
         "Talent_Train %>% ggplot(aes(x=", Variable, ",y= MonthlyIncome, fill = ", Variable, ")) + geom_bar(stat='identity')  + \n",
         "ylab('Monthly Income') + xlab('", Variable, "') + ggtitle('", Variable, " Distribution Based on Monthly Income') + theme_minimal() \n"
       )
-        
+
         # Execute the command
         plot <- eval(parse(text = command))
-        
+
         print(plot)
       }
     }
 
     ~~~
-    
+
  <div style="overflow-x: auto; white-space: nowrap; padding: 5px;">
     <div class="col-sm mt-3 mt-md-0" style="display: inline-block;">
         {% include figure.liquid loading="eager" path="assets/img/DS_6306_Project_2/Group_B/pic_1.PNG" title="example image" class="img-fluid rounded z-depth-1" %}
@@ -479,55 +462,54 @@ Since the variables are a lot, and i plan on saving time, I plan using a for loo
 <div class="caption">
     List of plots of the response variable (Salary) vs. the various dependent variables (Please scroll through to look at the plots.)
 </div>
-    
+
 - Employees in Job Level 2 seems to be paid the best
 - Sales Executive seems to be the highest paid in the company.
 - The employees with around 10 years seem to be paid the highest.
 - Employees with Job involvement rate of 3 are the highest paid in the company.
 - The employees with Stock option level 1 seem to have the highest monthly salary.
 - Human Resources Employees seem to be the lowest paid
-  
 
 ## LOOKING AT THE PVALUE DISTRIBUTIONS FOR THE MONTHLY INCOME
 
 Looking at how each variable in the model, significantly impacts our response variable (MonthlyIncome)
 
     ~~~ R
-    
+
     model <-lm(MonthlyIncome ~ ., data = Talent_Train)
 
     # Extract variable names
     variable_names <- rownames(summary(model)$coefficients)
-    
+
     # getting the  p-values from the model3
     p_values <- summary(model)$coefficients[, 4]  # Assuming p-values are in the 4th column of the summary table
     p_values <- data.frame(p_values)$p_values
-    
+
     df <- data.frame(variable_names, p_values) #combining the pvalues and variable names into a dataframe
-    
+
     df <- df[!df$p_value == 0 , ] #removing varaiables with pvalue = 0
     df$p_values <- log(df$p_values)  * -1
-    
+
     # Rank p-values in the dataset from max to min
     df$rank <- rank(-df$p_value)
-    
+
     sorted_df <- df[order(df$rank), ]
-    
-    
-    barplot(df$p_values, 
-            main = "P-values of Regression Coefficients less than the significance level 0.05", 
-            xlab = "Variables", 
+
+
+    barplot(df$p_values,
+            main = "P-values of Regression Coefficients less than the significance level 0.05",
+            xlab = "Variables",
             ylab = "P-value",
             names.arg = df$variable_names,
             las = 2,  # Rotate x-axis labels vertically for better readability
             col = "steelblue",  # Set color of bars
             ylim = c(exp(0.05) * -1, max(sorted_df$p_values) * 1.2)  # Set ylim from the significance level to the max p-values
-            
+
     )
-    
+
     library(ggplot2)
     ggplot(sorted_df,aes(variable_names,p_values, fill = ifelse(p_values > (exp(0.05) * -1), "Positive", "Negative"))) + #filtering just the highly significant p-values
-      geom_bar(stat="identity", fill = "skyblue") + 
+      geom_bar(stat="identity", fill = "skyblue") +
       #geom_text(aes(label = variable_names), vjust = -0.5) +  # Add text labels on top of bars
       scale_fill_manual(values = c("Positive" = "skyblue", "Negative" = "salmon")) +
       labs(x = "Variables", y = "P-values", title = "P-values of Regression Coefficients less than the significance level 0.05") +
@@ -547,13 +529,11 @@ Looking at how each variable in the model, significantly impacts our response va
     2 different plots of the p-value distribution
 </div>
 
-From the plot above, we can see that the top 5 highly significant values with respect to the response variable y in terms of its relative most significant to least significant variables are JobLevel, JobRole, 	TotalWorkingYears, BusinessTravel, YearsSinceLastPromotion
-
+From the plot above, we can see that the top 5 highly significant values with respect to the response variable y in terms of its relative most significant to least significant variables are JobLevel, JobRole, TotalWorkingYears, BusinessTravel, YearsSinceLastPromotion
 
 ## USING FORWARD SELECTION TO GET THE BEST REGRESSION MODEL WITH THE LOWEST RMSE FOR THE MONTHLY INCOME
 
 My plan is to iterate through finding the logistic regression with the min rmse value when interacting our response variable with various predictors. Then ill pick the variable with the min rmse. Ill add my min rmse variable to the model, then use the next iteration to get the min rmse when add another variable with our prior variable, then interact them with our response variable. Then i repeat the steps again to get my optimum model.
-
 
 ## GETTING THE FIRST VARIABLE
 
@@ -579,7 +559,7 @@ Im looking for the perfect (MonhlyIncome ~ dependent variable) combination to ge
         test_indices <- unlist(folds[i])
         train <- Talent_Train[train_indices, ]
         test <- Talent_Train[test_indices, ]
-        form <- as.formula(paste("MonthlyIncome ~ ",var,sep="")) 
+        form <- as.formula(paste("MonthlyIncome ~ ",var,sep=""))
         model <-lm(form, data = train) #fit a linear regression model
         predictions <- predict(model, newdata = test) #Make Predictiions
         residuals <- predictions - test$MonthlyIncome # Calculate residuals
@@ -588,16 +568,15 @@ Im looking for the perfect (MonhlyIncome ~ dependent variable) combination to ge
       }
       var_rmse$rmse[var_rmse$var == var] <- mean(rmse_scores)
     }
-    
+
     min_rmse = min(var_rmse$rmse) #finding the max_rmse
     min_rmse_variable <- var_rmse$vars[which.min(var_rmse$rmse)]
-    
+
     #printing out rresult
     cat("optimum Variable is ", min_rmse_variable, " with a minimum rmse of ", min_rmse)
     ~~~
-    
-> optimum Variable is  JobLevel  with a minimum rmse of  1409.276
 
+> optimum Variable is JobLevel with a minimum rmse of 1409.276
 
 ## GETTING THE SECOND VARIABLE
 
@@ -624,7 +603,7 @@ Next ill look for the optimumm variable to add to our regression model (Monthly 
         test_indices <- unlist(folds[i])
         train <- Talent_Train[train_indices, ]
         test <- Talent_Train[test_indices, ]
-        form <- as.formula(paste("MonthlyIncome ~ JobLevel +  ",var,sep="")) 
+        form <- as.formula(paste("MonthlyIncome ~ JobLevel +  ",var,sep=""))
         model <-lm(form, data = train) #fit a linear regression model
         predictions <- predict(model, newdata = test) #Make Predictiions
         residuals <- predictions - test$MonthlyIncome # Calculate residuals
@@ -633,15 +612,14 @@ Next ill look for the optimumm variable to add to our regression model (Monthly 
       }
       var_rmse$rmse[var_rmse$var == var] <- mean(rmse_scores)
     }
-    
+
     min_rmse = min(var_rmse$rmse) #finding the max_rmse
     min_rmse_variable <- var_rmse$vars[which.min(var_rmse$rmse)]
-    
+
     cat("optimum Variable is ", min_rmse_variable, " with a minimum rmse of ", min_rmse)
     ~~~
 
-> optimum Variable is  JobRole  with a minimum rmse of  1085.182
-
+> optimum Variable is JobRole with a minimum rmse of 1085.182
 
 ## GETTING THE THIRD VARIABLE
 
@@ -669,7 +647,7 @@ Next ill look for the optimumm variable to add to our regression model (Monthly 
         test_indices <- unlist(folds[i])
         train <- Talent_Train[train_indices, ]
         test <- Talent_Train[test_indices, ]
-        form <- as.formula(paste("MonthlyIncome ~ JobLevel +  JobRole + ",var,sep="")) 
+        form <- as.formula(paste("MonthlyIncome ~ JobLevel +  JobRole + ",var,sep=""))
         model <-lm(form, data = train) #fit a linear regression model
         predictions <- predict(model, newdata = test) #Make Predictiions
         residuals <- predictions - test$MonthlyIncome # Calculate residuals
@@ -678,15 +656,14 @@ Next ill look for the optimumm variable to add to our regression model (Monthly 
       }
       var_rmse$rmse[var_rmse$var == var] <- mean(rmse_scores)
     }
-    
+
     min_rmse = min(var_rmse$rmse) #finding the max_rmse
     min_rmse_variable <- var_rmse$vars[which.min(var_rmse$rmse)]
-    
+
     cat("optimum Variable is ", min_rmse_variable, " with a minimum rmse of ", min_rmse)
     ~~~
-    
-> optimum Variable is  TotalWorkingYears  with a minimum rmse of  1061.89
 
+> optimum Variable is TotalWorkingYears with a minimum rmse of 1061.89
 
 ## TESTING THE RMSE WITH THE TEST DATASET
 
@@ -697,35 +674,33 @@ Next, ill test our optimum model, wit out dataset, splitting the dataset as test
     trainIndices = sample(seq(1:length(Talent_Train$Age)),round(.7*length(Talent_Train$MonthlyIncome))) #split is 70% and 30%
     train = Talent_Train[trainIndices,] #train datset
     test = Talent_Train[-trainIndices,] #test dataset
-    
+
     # Fit the linear regression model
     model <- lm(MonthlyIncome ~ JobLevel + JobRole + TotalWorkingYears, data = train)
-    
+
     # Make predictions
     predictions <- predict(model, newdata = test)
-    
+
     # Calculate residuals
     residuals <- predictions - test$MonthlyIncome
-    
+
     # Compute RMSE
     rmse <- sqrt(mean(residuals^2))
-    
+
     # Print RMSE
     print(rmse)
-    ~~~ 
+    ~~~
 
 > [1] 1091.637
 
 the RMSE is 1091.37, which is far lower than our expected RMSE of 3000. Hence proving this is an optimum dataset.
 
-
-
-
 # ATTRITION RATE
+
 Next, i will try finding the best variables for our predictive classification model with Attrition as ou response variable
 
+## VISUALIZING THE CATEGORICAl VARIABLEs INTERACTIONS WITH THE RESPONSE VARIABLE (ATTRITION)
 
-## VISUALIZING THE CATEGORICAl VARIABLEs INTERACTIONS WITH THE RESPONSE VARIABLE (ATTRITION) 
 Looking at the Exploratory data analysis to visualize the relation ship between the attrition rate and other dependent variables
 
     ~~~ R
@@ -734,9 +709,9 @@ Looking at the Exploratory data analysis to visualize the relation ship between 
     for (Variable in names(Talent_Train)){
       # Check if the column is numeric
       if  (!(Variable == "Attrition")) { #(!is.numeric(Talent_Train[[Variable]]) &&
-        
+
         # Construct the bunch of commands with the current variable
-        
+
       command <- paste0(
         "summary <- Talent_Train %>% \n",
         "group_by(", Variable, ", Attrition) %>% \n",
@@ -747,15 +722,15 @@ Looking at the Exploratory data analysis to visualize the relation ship between 
         "summary %>% ggplot(aes(x=", Variable, ",y=perc,fill=Attrition)) + geom_bar(stat='identity') + facet_wrap(~Attrition) + \n",
         "ylab('Percentage') + xlab('", Variable, "') + ggtitle('", Variable, " Distribution Based on Attrition Value') + theme_minimal() \n"
       )
-        
+
         # Execute the command
         plot <- eval(parse(text = command))
-        
+
         print(plot)
       }
     }
     ~~~
-    
+
  <div style="overflow-x: auto; white-space: nowrap; padding: 5px;">
     <div class="col-sm mt-3 mt-md-0" style="display: inline-block;">
         {% include figure.liquid loading="eager" path="assets/img/DS_6306_Project_2/Group_D/Pic1.PNG" title="example image" class="img-fluid rounded z-depth-1" %}
@@ -866,16 +841,15 @@ Looking at the Exploratory data analysis to visualize the relation ship between 
 
 <div class="caption">
     List of plots of the response variable (Attrition) vs. the various dependent variables (Please scroll through to look at the plots.)
-</div>  
-    
+</div>
+
 - There seems to be a high turnover rate among employees with zero stock options level.
-- There is a higher level of Employee turnover Rate among the employees in Job Level 
+- There is a higher level of Employee turnover Rate among the employees in Job Level
 - There is a similar distribution overall between the monthly salary and employees that didn’t leave in terms of JobLevel.
 - There are similarities among the yes and no distributions.
 - There seems to be high turnover rate among employees with 10 years of in the company.
 - There seems to be a low turn over rate among employees with 1-3 years in the company.
 - There are similar distribution among the monthly income and the no attrition rates.
-
 
 ## LOOKING AT THE PVALUE DISTRIBUTIONS FOR THE ATTRITION
 
@@ -886,43 +860,43 @@ Looking at how each variable in the model, significantly impacts our response va
 
     # Extract variable names
     variable_names <- rownames(summary(model)$coefficients)
-    
+
     # getting the  p-values from the model3
     p_values <- summary(model)$coefficients[, 4]  # Assuming p-values are in the 4th column of the summary table
     p_values <- data.frame(p_values)$p_values
-    
+
     df <- data.frame(variable_names, p_values) #combining the pvalues and variable names into a dataframe
-    
+
     df <- df[!df$p_value == 0 , ] #removing varaiables with pvalue = 0
     df$p_values <- log(df$p_values)  * -1
-    
+
     # Rank p-values in the dataset from max to min
     df$rank <- rank(-df$p_value)
-    
+
     sorted_df <- df[order(df$rank), ]
-    
+
     sorted_df
-    
-    
-    barplot(df$p_values, 
-            main = "P-values of Regression Coefficients less than the significance level 0.05", 
-            xlab = "Variables", 
+
+
+    barplot(df$p_values,
+            main = "P-values of Regression Coefficients less than the significance level 0.05",
+            xlab = "Variables",
             ylab = "P-value",
             names.arg = df$variable_names,
             las = 2,  # Rotate x-axis labels vertically for better readability
             col = "steelblue",  # Set color of bars
             ylim = c(exp(0.05) * -1, max(sorted_df$p_values) * 1.2)  # Set ylim from the significance level to the max p-values
-            
+
     )
-    
+
     library(ggplot2)
     ggplot(sorted_df,aes(variable_names,p_values, fill = ifelse(p_values > (exp(0.05) * -1), "Positive", "Negative"))) + #filtering just the highly significant p-values
-      geom_bar(stat="identity", fill = "skyblue") + 
+      geom_bar(stat="identity", fill = "skyblue") +
       #geom_text(aes(label = variable_names), vjust = -0.5) +  # Add text labels on top of bars
       scale_fill_manual(values = c("Positive" = "skyblue", "Negative" = "salmon")) +
       labs(x = "Variables", y = "P-values", title = "P-values of Regression Coefficients less than the significance level 0.05") +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))  # Rotate x-axis labels for better readability
-    ~~~ 
+    ~~~
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-6 mt-3 mt-md-0">
@@ -939,15 +913,13 @@ Looking at how each variable in the model, significantly impacts our response va
 
 From the plot above, we can see that the top 5 highly significant values with respect to the response variable Attrition in terms of its relative most significant to least significant variables are OverTime, JobInvolvement, JobSatisfaction, NumCompaniesWorked, YearsSinceLastPromotion
 
-
 ## USING FORWARD SELECTION TO GET THE VARIABLE WITH THE BEST AUC METRIC FOR THE PREDICTION MODEL ON THE ATTRITION VARIABLE I pLAN TO USE ONLY NUMERIC VARIABLES FOR KNN
 
 I plan on using the same strategy as for our regression model. This time i shall look at the Area under the curve (AUROC), which represents of the trade-off between the true positive rate (sensitivity) and the false positive rate (1 - specificity) as the classification threshold is varied. Ill be looking for the variables that provides the maximum auroc using a general logistiic model
 
+## GETTING THE 1ST VARIABLE:
 
-## GETTING THE 1ST VARIABLE: 
-
-Im looking for the perfect (Attrition ~ dependent variable) combination to get the maximum auroc score 
+Im looking for the perfect (Attrition ~ dependent variable) combination to get the maximum auroc score
 
     ~~~ R
     Talent_Clean <- Talent_Train %>% select(Age, DailyRate, DistanceFromHome, Education, EmployeeCount, EmployeeNumber, EnvironmentSatisfaction, HourlyRate, JobInvolvement, JobLevel, JobSatisfaction, MonthlyIncome, MonthlyRate, NumCompaniesWorked, PercentSalaryHike, PerformanceRating, RelationshipSatisfaction, StandardHours, StockOptionLevel, TotalWorkingYears, TrainingTimesLastYear, WorkLifeBalance, YearsAtCompany, YearsInCurrentRole, YearsSinceLastPromotion, YearsWithCurrManager, Over18_binary, Attrition) #selecting only numeric variables
@@ -978,15 +950,14 @@ Im looking for the perfect (Attrition ~ dependent variable) combination to get t
       }
       var_aucs$auc[var_aucs$var == var] <- mean(auc_scores)
     }
-    
+
     max_auc = max(var_aucs$auc) #finding the max_auc
     max_auc_variable <- var_aucs$vars[which.max(var_aucs$auc)]
-    
+
     cat("optimum Variable is ", max_auc_variable, " with a maximum auc of ", max_auc)s
-    ~~~ 
+    ~~~
 
-> optimum Variable is  StockOptionLevel  with a maximum auc of  0.6940313
-
+> optimum Variable is StockOptionLevel with a maximum auc of 0.6940313
 
 ## GETTIONG THE THIRD VARIABLE
 
@@ -1021,15 +992,14 @@ Next ill look for the optimumm variable to add to our classification model (Attr
       }
       var_aucs$auc[var_aucs$var == var] <- mean(auc_scores)
     }
-    
+
     max_auc = max(var_aucs$auc) #finding the max_auc
     max_auc_variable <- var_aucs$vars[which.max(var_aucs$auc)]
-    
-    cat("optimum Variable is ", max_auc_variable, " with a maximum auc of ", max_auc) 
+
+    cat("optimum Variable is ", max_auc_variable, " with a maximum auc of ", max_auc)
     ~~~
 
-> optimum Variable is  StockOptionLevel  with a maximum auc of  0.6940313
-
+> optimum Variable is StockOptionLevel with a maximum auc of 0.6940313
 
 ## GETTIONG THE THIRD VARIABLE
 
@@ -1065,107 +1035,103 @@ Next ill look for the optimumm variable to add to our classification model (Attr
       }
       var_aucs$auc[var_aucs$var == var] <- mean(auc_scores)
     }
-    
+
     max_auc = max(var_aucs$auc) #finding the max_auc
     max_auc_variable <- var_aucs$vars[which.max(var_aucs$auc)]
-    
-    cat("optimum Variable is ", max_auc_variable, " with a maximum auc of ", max_auc)
-    ~~~ 
-    
-> optimum Variable is  JobInvolvement  with a maximum auc of  0.7157045
 
+    cat("optimum Variable is ", max_auc_variable, " with a maximum auc of ", max_auc)
+    ~~~
+
+> optimum Variable is JobInvolvement with a maximum auc of 0.7157045
 
 ## Looking at the Sensitivity & Specificity Metric FOR NB
 
 Next ill be looking at the sensitivity and specificity metric of our classification model using k- Nearest Neigbors (KNN) and Naive Bayes
 
-
 ## NAIVE BAYES
-
 
 #### FINDING THE THRESHOLD
 
- finding the best threshold for our Naive Bayes Model, in order to provide the best metric. The threshold will be gotten from the maximum F1 score, which is a metric used to evaluate the performance of a binary classification model. It combines both precision and recall into a single metric and is particularly useful when the classes are imbalanced.
- 
+finding the best threshold for our Naive Bayes Model, in order to provide the best metric. The threshold will be gotten from the maximum F1 score, which is a metric used to evaluate the performance of a binary classification model. It combines both precision and recall into a single metric and is particularly useful when the classes are imbalanced.
+
     ~~~ R
     set.seed(123)
     Talent_Clean <- Talent_Train %>% select(Attrition, TotalWorkingYears, StockOptionLevel, JobInvolvement) #selecting our variables
     trainIndices <- sample(seq(1:length(Talent_Clean$Attrition)), round(0.7 * length(Talent_Clean$Attrition)))
     train <- Talent_Clean[trainIndices, ]
     test <- Talent_Clean[-trainIndices, ]
-    
+
     train$Attrition <-factor(train$Attrition, levels=c('Yes','No')) #factoring the response variable
     test$Attrition <-factor(test$Attrition, levels=c('Yes','No')) #factoring the response variable
-    
+
     naive_bayes_model <- naiveBayes(Attrition ~ TotalWorkingYears  + StockOptionLevel + JobInvolvement, data = train)
-      
+
     # Make predictions on the test set
     predictions <- predict(naive_bayes_model, test)
-    
+
     # Evaluate model performance
     conf_matrix <- confusionMatrix(predictions, test$Attrition)
-    
+
     # Print the confusion matrix
     #print(conf_matrix)
-    
+
     # Adjust label levels for better interpretation
     test$Attrition <- relevel(test$Attrition, ref = "No")
-    
+
     # Make predictions with probabilities
     predictions_with_probs <- predict(naive_bayes_model, test, type = "raw")
-    
+
     # Get probabilities of the positive class ("Yes")
     probs <- predictions_with_probs[, "Yes"]
-    
+
     # Define a new threshold
     new_threshold <- 0.5
-    
+
     # Create new labels based on the new threshold
     new_labels <- ifelse(probs > new_threshold, "Yes", "No")
-    
+
     # Convert the predicted labels to a factor with the same levels as the actual labels
     new_labels_factor <- factor(new_labels, levels = levels(test$Attrition))
-    
+
     # Evaluate model performance with the new threshold
     new_conf_matrix <- confusionMatrix(new_labels_factor, test$Attrition)
-    
+
     # Print the confusion matrix with the new threshold
     #print(new_conf_matrix)
-    
+
     # Calculate the macro F1 score with the new threshold
     macro_f1_new_threshold <- mean(c(new_conf_matrix[4]$byClass["F1"], conf_matrix[4]$byClass["F1"]))
-    ~~~ 
+    ~~~
 
 > Our optimum threshold is 0.5725983
-
 
 #### Looking at the Metrics
 
     ~~~ R
     test$Attrition = relevel(test$Attrition, ref = 'Yes')
-    
+
     # Train a Naive Bayes model
     naive_bayes_model <- naiveBayes(Attrition ~ TotalWorkingYears  + StockOptionLevel + JobInvolvement, data = train)
-    
+
     # Get predicted probabilities for the positive class (assuming 'Yes' is the positive class)
     predicted_probabilities <- predict(naive_bayes_model, test, type = "raw")[, "Yes"]
-    
+
     # Define threshold
     threshold <- macro_f1_new_threshold  # Adjust as needed
-    
+
     # Adjust predictions based on threshold
     adjusted_predictions <- ifelse(predicted_probabilities > threshold, "Yes", "No")
-    
+
     # Evaluate model performance
     adjusted_predictions <- factor(adjusted_predictions, levels = levels(test$Attrition))
-    
+
     conf_matrix <- confusionMatrix(table(adjusted_predictions, test$Attrition))
     print(conf_matrix)
-    
+
     accuracy_nb <- conf_matrix$overall["Accuracy"]
     sensitivity_nb <- conf_matrix$byClass["Sensitivity"]
     specificity_nb <- conf_matrix$byClass["Specificity"]
-    ~~~ 
+    ~~~
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -1176,12 +1142,10 @@ Next ill be looking at the sensitivity and specificity metric of our classificat
 <div class="caption">
     The confusion Matrix for the Naive Bayes Model
 </div>
-  
-The sensitivity and specificity were pretty low, past our target of > 0.6 for both sensitivity and specificity. We got sensitivity to be :  0.1153846 (This is due to the low amount of Nos.) , and specificity as : 0.9856459. Accuracy is 0.5505 and Pvalue is 1.94e-09 < sig level, which is Highly significant
 
+The sensitivity and specificity were pretty low, past our target of > 0.6 for both sensitivity and specificity. We got sensitivity to be : 0.1153846 (This is due to the low amount of Nos.) , and specificity as : 0.9856459. Accuracy is 0.5505 and Pvalue is 1.94e-09 < sig level, which is Highly significant
 
 ##KNN MODEL
-
 
 #### Looking at the Sensitivity & Specificity Metric FOR KNN using undersampling
 
@@ -1193,35 +1157,34 @@ I plan on using undersampling to get our metrics, due to the imbalance between Y
     trainIndices <- sample(seq(1:length(Talent_Clean$Attrition)), round(0.7 * length(Talent_Clean$Attrition)))
     train <- Talent_Clean[trainIndices, ]
     test <- Talent_Clean[-trainIndices, ]
-    
+
     # Sample only a subset of 'No' instances to balance the classes
     OnlyNoAttrition <- train %>% filter(Attrition == "No")
     numYesAttrition <- sum(train$Attrition == "Yes")
     sampled_NoAttrition <- OnlyNoAttrition[sample(seq(1, nrow(OnlyNoAttrition), 1), numYesAttrition),]
-    
+
     # Combine sampled 'No' instances with 'Yes' instances to create a balanced dataset
     balanced_data <- rbind(train %>% filter(Attrition == "Yes"), sampled_NoAttrition)
-    
+
     classifications = knn(balanced_data[,2:4],train[,2:4], balanced_data[,1], prob = TRUE, k = 5) # using the F (original dataset) as the test set
-    
+
     table(classifications,train[,1])
     CM = confusionMatrix(table(classifications,train[,1]), mode = "everything")
-    
+
     #Get Macro F1
     train$Attrition = relevel(train$Attrition, ref = 'Yes')
     classifications = knn(train[,2:4],train[2:4],train[,1], prob = TRUE, k = 5)
     CM_Yes = confusionMatrix(table(classifications,train[,1]), mode = "everything") # Note F1
-    
+
     train$Attrition = relevel(train$Attrition, ref = 'No')
     classifications = knn(train[,2:4],train[2:4],train[,1], prob = TRUE, k = 5)
     CM_No = confusionMatrix(table(classifications,train[,1]), mode = "everything") # Note F1
-    
-    Macro_F1_Under = mean(c(CM_Yes[4]$byClass["F1"],CM_No[4]$byClass["F1"])) 
+
+    Macro_F1_Under = mean(c(CM_Yes[4]$byClass["F1"],CM_No[4]$byClass["F1"]))
     Macro_F1_Under
-    ~~~ 
+    ~~~
 
 > The threshold is 0.5892183
-
 
 #### TESTING THE METRIC
 
@@ -1229,26 +1192,26 @@ Testing for sensitivity and specificity
 
     ~~~ R
     test$Attrition = relevel(test$Attrition, ref = 'Yes')
-    
+
     knn_model <- knn(balanced_data[,2:4], test[, c(2,3,4)], balanced_data[,1], prob = TRUE,  k = 5)
-    
+
     CM = confusionMatrix(table(knn_model,test[,1]), mode = "everything")
     CM
-    
+
     # Evaluate model performance
-    
+
     accuracy_knn <- CM$overall["Accuracy"]
     sensitivity_knn <- CM$byClass["Sensitivity"]
     specificity_knn <- CM$byClass["Specificity"]
-    
+
     test$predictions <- knn_model
-    
+
     # Generation our regression for the test dataset
     new_data <- test %>% select(predictions, ID)
-    
+
     new_data <- new_data[order(new_data$ID), ]
-    ~~~ 
-   
+    ~~~
+
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/DS_6306_Project_2/Conf_Matrix/KNN.PNG" title="example image" class="img-fluid rounded z-depth-1" %}
@@ -1257,11 +1220,9 @@ Testing for sensitivity and specificity
 
 <div class="caption">
     The confusion Matrix for the KNN Model
-</div> 
-
+</div>
 
 ## MORE EDAS
-
 
 #### METRICS COMPARISON
 
@@ -1271,33 +1232,33 @@ comparing accuracy, sensitivity and specificity metric for both KNN and naive ba
     results_nb <- data.frame(Accuracy = accuracy_nb, Sensitivity = sensitivity_nb, Specificity =  specificity_nb, total = sensitivity_nb + specificity_nb)
     avg_nb = colMeans(results_nb[, c("Accuracy", "Sensitivity", "Specificity", "total")])
     avg_nb
-    
+
     results_knn <- data.frame(Accuracy = accuracy_knn, Sensitivity = sensitivity_knn, Specificity = specificity_knn, total = sensitivity_knn + specificity_knn)
     avg_knn = colMeans(results_knn[, c("Accuracy", "Sensitivity", "Specificity", "total")])
     avg_knn
-    
-    
+
+
     #Getting the barchart plots for average analysis
     combined_results <- cbind(data.frame(avg_nb), data.frame(avg_knn))
-    
-    
+
+
     barplot(t(combined_results[1, ]), beside = TRUE, col = rainbow(2),
             main = "Accuracy Comparison of both knn and nb models",
             ylab = "Accuracy (%)", legend.text = names(combined_results[1, ]))
-    
+
     barplot(t(combined_results[2, ]), beside = TRUE, col = rainbow(2),
             main = "Sensitivity Comparison of both knn and nb models",
             ylab = "Sensitivity (%)", legend.text = names(combined_results[2, ]))
-    
+
     barplot(t(combined_results[3, ]), beside = TRUE, col = rainbow(2),
             main = "Specificity Comparison of both knn and nb models",
             ylab = "Specificity (%)", legend.text = names(combined_results[3, ]))
-    
+
     barplot(t(combined_results[4, ]), beside = TRUE, col = rainbow(2),
             main = "Specificity Comparison of both knn and nb models",
             ylab = "Specificity + Sensitivity (%)", legend.text = names(combined_results[4, ]))
     ~~~
-    
+
 <div class="row justify-content-sm-center">
     <div class="col-sm-4 mt-3 mt-md-0" >
         {% include figure.liquid loading="eager" path="assets/img/DS_6306_Project_2/Group_F/pic1.PNG" title="example image" class="img-fluid rounded z-depth-1" %}
@@ -1315,11 +1276,10 @@ comparing accuracy, sensitivity and specificity metric for both KNN and naive ba
 
 <div class="caption">
    Plots comparing the accuracy, sensitivity, specificity, and specificity + sensitivity metrics for noth kNN and NaiveBayes model. 
-</div> 
+</div>
 
-- Knn has a higher sensitivity and specificity +  sensitivity.
+- Knn has a higher sensitivity and specificity + sensitivity.
 - Naïve Bayes has higher specificity and accuracy.
-
 
 # CONCLUSION
 
@@ -1328,17 +1288,16 @@ comparing accuracy, sensitivity and specificity metric for both KNN and naive ba
 - Try providing more incentives to employees to improve retention rate
 - Let the stock options match the amount of years the employees worked
 
-
 ## FUTURE WORK
 
 - Try to improve sensitivity values for the classification model.
 - Explore other variables that might affect the classification and prediction model.
 - Try using other classification techniques to predict my model likeSupport Vector Machine (SVM) or RandomForest
 
-
 ## RELEVANT FILES
 
 Here are the list of relevant files related to the project
+
 - [Project Description](https://github.com/DamilolaOwolabi/DS_6306_Project_2/blob/main/CaseStudy2%20Spring%202024.docx)
 - csv files
   - [Attrition.csv file](https://github.com/DamilolaOwolabi/DS_6306_Project_2/blob/main/Case2PredictionsOwolabi%20Attrition.csv)

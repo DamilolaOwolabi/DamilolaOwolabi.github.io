@@ -85,7 +85,9 @@ layout: default
           <div class="skill-group">
             <h3>{{ group.group }}</h3>
             <ul class="tool-chips">
-              {% for item in group.items %}<li>{{ item }}</li>{% endfor %}
+              {% for item in group.items %}
+                <li>{{ item }}</li>
+              {% endfor %}
             </ul>
           </div>
         {% endfor %}

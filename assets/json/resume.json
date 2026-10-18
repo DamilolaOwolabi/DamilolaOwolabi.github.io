@@ -110,10 +110,7 @@
       "startDate": "2018-01-01",
       "endDate": "",
       "summary": "Active member of the Houston Food Bank, RCCG POR division",
-      "highlights": [
-        "Been an active member for 6 years and counting.",
-        "Distributed food to over 400 families"
-      ]
+      "highlights": ["Been an active member for 6 years and counting.", "Distributed food to over 400 families"]
     },
     {
       "organization": "Arm Ltd",
@@ -234,52 +231,25 @@
       "name": "Data & Programming",
       "level": "",
       "icon": "fa-solid fa-code",
-      "keywords": [
-        "Python",
-        "SQL",
-        "R",
-        "C++",
-        "Excel (pivot tables, XLOOKUP, Power Query, VBA)"
-      ]
+      "keywords": ["Python", "SQL", "R", "C++", "Excel (pivot tables, XLOOKUP, Power Query, VBA)"]
     },
     {
       "name": "Analytics & Visualization",
       "level": "",
       "icon": "fa-solid fa-chart-line",
-      "keywords": [
-        "Power BI",
-        "Tableau",
-        "D3.js",
-        "Statistical modeling",
-        "Machine learning"
-      ]
+      "keywords": ["Power BI", "Tableau", "D3.js", "Statistical modeling", "Machine learning"]
     },
     {
       "name": "Power Systems",
       "level": "",
       "icon": "fa-solid fa-bolt",
-      "keywords": [
-        "Load calculations",
-        "Short circuit analysis",
-        "Underground duct bank design",
-        "PowerWorld",
-        "PSS/E",
-        "PSCAD",
-        "MATLAB/Simulink"
-      ]
+      "keywords": ["Load calculations", "Short circuit analysis", "Underground duct bank design", "PowerWorld", "PSS/E", "PSCAD", "MATLAB/Simulink"]
     },
     {
       "name": "Engineering & Enterprise Tools",
       "level": "",
       "icon": "fa-solid fa-screwdriver-wrench",
-      "keywords": [
-        "AutoCAD",
-        "GIS/ESRI",
-        "SAP",
-        "Jira",
-        "AWS (EC2, S3, Lambda, SageMaker)",
-        "Git/GitHub"
-      ]
+      "keywords": ["AutoCAD", "GIS/ESRI", "SAP", "Jira", "AWS (EC2, S3, Lambda, SageMaker)", "Git/GitHub"]
     }
   ],
   "languages": [
@@ -298,12 +268,7 @@
     {
       "name": "Focus areas",
       "icon": "fa-solid fa-tag",
-      "keywords": [
-        "Energy analytics",
-        "Grid analytics",
-        "Energy markets",
-        "Machine learning"
-      ]
+      "keywords": ["Energy analytics", "Grid analytics", "Energy markets", "Machine learning"]
     }
   ],
   "references": [],
@@ -311,22 +276,13 @@
     {
       "name": "AI-Driven Optimization of Wind Energy Distribution in Texas (SMU capstone, first author)",
       "summary": "Built a Python multi-agent reinforcement learning environment with wind, load, and flywheel storage agents trained with Deep Q-Networks on 2.7M+ ERCOT demand and wind generation records (2014 to 2025) to reduce wind curtailment and transmission congestion. Paper in draft.",
-      "highlights": [
-        "Python",
-        "Reinforcement learning",
-        "DQN",
-        "ERCOT data"
-      ],
+      "highlights": ["Python", "Reinforcement learning", "DQN", "ERCOT data"],
       "url": "https://damilolaowolabi.github.io/projects/Wind_Energy_MARL/"
     },
     {
       "name": "House Price Analysis",
       "summary": "Predicted the sales price of homes in Ames, Iowa from existing data utilizing R, SAS, and statistical techniques.",
-      "highlights": [
-        "R",
-        "SAS",
-        "Statistical Techniques"
-      ],
+      "highlights": ["R", "SAS", "Statistical Techniques"],
       "startDate": "2023-08-01",
       "endDate": "2023-12-01",
       "url": "https://github.com/DamilolaOwolabi/DS-6372-PROJECT-1"
@@ -334,11 +290,7 @@
     {
       "name": "Predicting Medical Expenses Among Smokers and Non-Smokers",
       "summary": "Regression analysis of medical expenses for smokers and non-smokers.",
-      "highlights": [
-        "R",
-        "SAS",
-        "Statistical Techniques"
-      ],
+      "highlights": ["R", "SAS", "Statistical Techniques"],
       "startDate": "2023-08-01",
       "endDate": "2023-12-01",
       "url": "https://github.com/DamilolaOwolabi/DS-6372_PROJECT_2"
@@ -346,12 +298,7 @@
     {
       "name": "Budweiser EDA",
       "summary": "Presented and analyzed multiple variables of different beers and breweries from different US states using R, and t-tests.",
-      "highlights": [
-        "EDA",
-        "Linear Regression",
-        "KNN",
-        "Ensemble techniques"
-      ],
+      "highlights": ["EDA", "Linear Regression", "KNN", "Ensemble techniques"],
       "startDate": "2024-01-01",
       "endDate": "2024-05-01",
       "url": "https://github.com/DamilolaOwolabi/DS-6306-PROJECT-1"
@@ -359,13 +306,7 @@
     {
       "name": "GamerPedia",
       "summary": "Created a comprehensive database to help users select games based on their preferences",
-      "highlights": [
-        "MySQL",
-        "Django",
-        "Python",
-        "ChatGPT AI",
-        "Videogame APIs"
-      ],
+      "highlights": ["MySQL", "Django", "Python", "ChatGPT AI", "Videogame APIs"],
       "startDate": "2024-05-02",
       "endDate": "2024-08-16",
       "url": ""
@@ -373,12 +314,7 @@
     {
       "name": "Cotton Drone Analysis (Texas A&M senior design, project lead)",
       "summary": "Collaborated with a team of 4 engineering students to automate a process of data collection in cotton crops using drones.",
-      "highlights": [
-        "Python",
-        "Django",
-        "Front End & Backend Design",
-        "Google Cloud Services"
-      ],
+      "highlights": ["Python", "Django", "Front End & Backend Design", "Google Cloud Services"],
       "startDate": "2021-08-01",
       "endDate": "2022-05-01",
       "url": "https://github.com/DamilolaOwolabi/ECEN-403-GROUP-66"

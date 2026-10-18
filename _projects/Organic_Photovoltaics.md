@@ -21,12 +21,16 @@ tools: [Research, Python, Excel, Publication]
 </div>
 
 ### **Objective**
+
 The objective of this study is to:
+
 - Measure the **stress**, **strain**, and **elastic modulus** of the active layer blended with varying percentages of thiolene.
 - Optimize the mechanical and electronic properties of OPVs by leveraging thiolene crosslinking.
 
 ### **Motivation**
+
 Organic photovoltaics are attractive for their:
+
 - **Flexibility**: Easily integrated into wearable and portable electronics.
 - **Low Manufacturing Costs**: Economical production with scalable methods.
 - **Versatility**: Potential applications in soft robotics and electronic textiles.
@@ -38,6 +42,7 @@ However, their mechanical fragility poses a challenge for practical deployment. 
 ## **Research Highlights**
 
 ### **Key Components**
+
 1. **Active Layer Materials**:
    - **P3HT**: A donor material for charge separation and light absorption.
    - **PCBM**: An acceptor material for charge transfer.
@@ -51,15 +56,18 @@ However, their mechanical fragility poses a challenge for practical deployment. 
 ## **Methodology**
 
 ### **1. Device Fabrication**
+
 1. **Blend**: Mix P3HT and PCBM to form the active layer.
 2. **Deposit**: Coat the blended active layer onto the substrate.
 3. **Crosslink**: Use UV radiation to form the thiolene network.
 
 ### **2. Device Calibration**
+
 - **Syringe Pump Calibration**: Displacement velocity recorded to calibrate volumetric rate.
 - **Load Cell Calibration**: Measures force by correlating cell voltage with applied weight.
 
 ### **3. Floating Device Testing**
+
 - Floating tests measure the crack onset strain of thiolene crosslinked active layers.
 - Films held in place by PDMS and stretched until cracking occurs.
 
@@ -78,6 +86,7 @@ However, their mechanical fragility poses a challenge for practical deployment. 
 ---
 
 ## **Future Work**
+
 1. Simulate thiolene interactions at the molecular level.
 2. Perform additional tests with pristine P3HT and PCBM films.
 3. Optimize thiolene content for maximum mechanical and electronic performance.
@@ -85,7 +94,9 @@ However, their mechanical fragility poses a challenge for practical deployment. 
 ---
 
 ## **Acknowledgments**
+
 This project was conducted in collaboration with:
+
 - **Dr. Rafael Verduzco**: Department of Chemical and Biomolecular Engineering, Rice University.
 - **REEMS Program, Houston Community College**.
 - Financial Support: NSF Grant DMR 1460564.

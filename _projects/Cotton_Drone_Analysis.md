@@ -21,10 +21,12 @@ tools: [Python, Django, Raspberry Pi, Google Cloud, Machine learning]
 </div>
 
 ### **Objective**
+
 - Automate the process of collecting and analyzing data for cotton fields using a drone-mounted imaging system and machine learning algorithms.
 - Provide farmers with insights into **crop yield predictions** and **harvest timelines** via a user-friendly web application.
 
 ### **Motivation**
+
 - Traditional methods of crop monitoring are labor-intensive, error-prone, and time-consuming.
 - By integrating drones and machine learning, the system aims to reduce costs, improve accuracy, and streamline decision-making in agriculture.
 

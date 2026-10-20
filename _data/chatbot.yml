@@ -1,0 +1,29 @@
+# Facts for the site's AI assistant (the chat bubble in the corner).
+#
+# The assistant already knows everything on the site: the home page, CV,
+# projects, and publications. Use this file for things that AREN'T on the
+# site but that recruiters often ask. Edit it in Pages CMS ("AI assistant")
+# or here; changes reach the assistant within about 10 minutes of deploying.
+#
+# Everything in this file is public: the assistant may repeat it to anyone.
+
+name: Oluwadamilola "Dammy" Owolabi
+pronouns: he/him
+headline: Electrical Engineer · Data Scientist
+
+roles_sought: Electrical engineering, data science, and analytics roles, especially where the two meet (energy, utilities, power systems, infrastructure analytics).
+
+location: Based in Houston, Texas. Open to Houston-area onsite or hybrid roles, and to remote roles.
+
+contact: The best way to reach Dammy is email at owolabidamilola2014@gmail.com or LinkedIn at https://www.linkedin.com/in/oluwadamilola-owolabi-ebenezer-345800137. His resume is at https://damilolaowolabi.github.io/assets/pdf/Oluwadamilola_Owolabi_Resume.pdf.
+
+# Short, true statements the assistant can use. One fact per line.
+extra_facts:
+  - At Leidos he works on distribution design for major investor-owned utility clients; client names are kept confidential.
+
+# Topics the assistant should NOT answer itself; it will point people to Dammy directly.
+refer_to_dammy:
+  - Salary expectations or compensation
+  - Start dates and notice period
+  - Work authorization or visa questions
+  - Interview scheduling

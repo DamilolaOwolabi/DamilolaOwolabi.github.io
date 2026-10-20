@@ -23,7 +23,12 @@ layout: default
         {%- endif %}
       </h1>
       {% if page.hero.tagline %}
-        <p class="hero-tagline">{{ page.hero.tagline }}</p>
+        <p class="hero-tagline">
+          <span class="nowrap">{{ page.hero.tagline | replace: ' · ', '</span> <span class="tagline-sep">·</span> <span class="nowrap">' }}</span>
+        </p>
+      {% endif %}
+      {% if page.hero.subline %}
+        <p class="hero-subline">{{ page.hero.subline }}</p>
       {% endif %}
       {% if page.hero.buttons %}
         <div class="hero-actions">

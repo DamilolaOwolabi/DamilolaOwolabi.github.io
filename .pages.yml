@@ -102,7 +102,11 @@ content:
             label: Small label above your name
             type: string
           - name: tagline
-            label: Tagline
+            label: Title line
+            description: 'Shown under your name, e.g. "Electrical Engineer · Data Scientist".'
+            type: string
+          - name: subline
+            label: One-sentence summary
             type: string
           - name: buttons
             label: Buttons
@@ -150,3 +154,40 @@ content:
         type: rich-text
         options:
           format: markdown
+
+  # ---------------------------------------------------------------- AI assistant
+  - name: chatbot
+    label: AI assistant
+    description: Facts for the chat assistant that aren't already on the site. Everything here is public.
+    type: file
+    path: _data/chatbot.yml
+    format: yaml
+    fields:
+      - name: name
+        label: Name
+        type: string
+      - name: pronouns
+        label: Pronouns
+        type: string
+      - name: headline
+        label: Headline
+        type: string
+      - name: roles_sought
+        label: Roles you're open to
+        type: text
+      - name: location
+        label: Location and work arrangement
+        type: text
+      - name: contact
+        label: How to contact you
+        type: text
+      - name: extra_facts
+        label: Extra facts
+        description: Short, true statements the assistant may share (one per item).
+        type: string
+        list: true
+      - name: refer_to_dammy
+        label: Topics to send to you directly
+        description: The assistant won't answer these; it points people to your email.
+        type: string
+        list: true

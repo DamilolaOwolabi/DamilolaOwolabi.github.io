@@ -121,11 +121,19 @@ git push
 
 ---
 
+## The AI assistant (chat bubble)
+
+- **What it knows:** everything on the site (home page, CV, projects, publications), plus the extra facts in **Pages CMS → AI assistant** (`_data/chatbot.yml`). Update either one and the assistant catches up within about 10 minutes of the site redeploying.
+- **Setup and settings:** see `chatbot-worker/README.md`. The bubble appears once `chatbot.endpoint` in `_config.yml` points to your Cloudflare Worker.
+- **Teaser text, suggested questions, and delay:** the `chatbot:` section of `_config.yml`.
+- **Turn it off:** set `enabled: false` under `chatbot:` in `_config.yml`.
+
 ## Where things live
 
 | What                              | File                                           |
 | --------------------------------- | ---------------------------------------------- |
 | Projects                          | `_projects/*.md` (one file per project)        |
+| AI assistant facts                | `_data/chatbot.yml`                            |
 | Home page text, timeline, skills  | `_pages/about.md`                              |
 | CV page                           | `assets/json/resume.json`                      |
 | Publications                      | `_bibliography/papers.bib`                     |

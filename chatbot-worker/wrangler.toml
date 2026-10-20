@@ -1,0 +1,19 @@
+# Cloudflare Worker for the site's AI assistant. See README.md in this folder.
+# Deploy with `wrangler deploy`, then set the key with `wrangler secret put ANTHROPIC_API_KEY`.
+
+name = "dammy-chat"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+ALLOWED_ORIGINS = "https://damilolaowolabi.github.io,http://localhost:4000,http://127.0.0.1:4000"
+MODEL = "claude-haiku-5-5"
+
+# Per-visitor rate limit (20 requests per minute per IP).
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 20
+  period = 60

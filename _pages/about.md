@@ -2,11 +2,12 @@
 layout: about
 title: about
 permalink: /
-description: Oluwadamilola (Dammy) Owolabi, electrical engineer and data scientist in Houston, TX, focused on energy and grid analytics.
+description: Oluwadamilola (Dammy) Owolabi, Electrical Engineer and Data Scientist in Houston, TX. Power distribution design, machine learning, and data analytics.
 
 hero:
   eyebrow: Dammy · Houston, TX
-  tagline: Energy & grid analytics. Electrical engineer with an MS in Data Science.
+  tagline: Electrical Engineer · Data Scientist
+  subline: I design power distribution systems and build models from the data they produce.
   buttons:
     - label: View projects
       url: /projects/
@@ -27,7 +28,7 @@ glance:
   - label: Education
     value: MS Data Science, SMU · BS Electrical Engineering, Texas A&M
   - label: Focus
-    value: Energy analytics, grid analytics, quantitative roles
+    value: Electrical engineering, data science, and analytics roles
   - label: Based in
     value: Houston, TX
 
@@ -72,7 +73,7 @@ skills:
 
 contact:
   heading: Let's talk
-  text: I'm interested in energy analytics, grid analytics, and data science work. The fastest way to reach me is email.
+  text: I'm open to electrical engineering, data science, and analytics roles. The fastest way to reach me is email.
   email: owolabidamilola2014@gmail.com
   linkedin: https://www.linkedin.com/in/oluwadamilola-owolabi-ebenezer-345800137
 
@@ -85,4 +86,4 @@ I'm an Associate Distribution Engineer at **Leidos** in Houston, where I support
 
 I hold a **BS in Electrical Engineering** from Texas A&M University and an **MS in Data Science** from Southern Methodist University. That pairing is where I do my best work: I know how the grid is built, and I know how to model the data it produces.
 
-I'm focused on **energy analytics, grid analytics, and quantitative roles** where engineering judgment meets data science. My [projects](/projects/) include a multi-agent reinforcement learning capstone on wind energy curtailment in ERCOT, predictive modeling, and drone-based crop analytics, and I co-authored a [peer-reviewed paper](/publications/) on organic photovoltaics.
+I'm open to **electrical engineering, data science, and analytics roles**, and I'm at my best where the two meet: energy, utilities, and infrastructure. My [projects](/projects/) include a multi-agent reinforcement learning capstone on wind energy curtailment in ERCOT, predictive modeling, and drone-based crop analytics, and I co-authored a [peer-reviewed paper](/publications/) on organic photovoltaics.

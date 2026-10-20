@@ -1,0 +1,82 @@
+---
+layout: null
+permalink: /chatbot/knowledge.txt
+sitemap: false
+---
+{%- comment -%}
+  Knowledge file for the site's AI assistant. Built automatically from the
+  home page, CV data, projects, publications and _data/chatbot.yml, so the
+  assistant always matches what's published. Don't edit by hand.
+{%- endcomment -%}
+{%- assign bot = site.data.chatbot -%}
+{%- assign home = site.pages | where: "url", "/" | first -%}
+{%- assign r = site.data.resume -%}
+{%- assign base = site.url | downcase -%}
+PROFILE
+Name: {{ bot.name }}
+Pronouns: {{ bot.pronouns }}
+Headline: {{ bot.headline }}
+Roles sought: {{ bot.roles_sought }}
+Location and work arrangement: {{ bot.location }}
+Contact: {{ bot.contact }}
+Website: {{ base }}
+{% if r.basics.summary %}Summary: {{ r.basics.summary }}{% endif %}
+
+ABOUT (from the home page, in Dammy's own words)
+{{ home.content | replace: "</p>", " </p>" | replace: "</h2>", ". </h2>" | replace: "</h3>", ". </h3>" | replace: "</dt>", ": </dt>" | replace: "</dd>", ". </dd>" | replace: "</li>", "; </li>" | strip_html | strip_newlines | normalize_whitespace | replace: "&amp;", "&" | replace: "&quot;", '"' | replace: "&#39;", "'" }}
+
+QUICK FACTS
+{% for f in home.glance %}- {{ f.label }}: {{ f.value }}
+{% endfor %}
+CAREER TIMELINE (newest first)
+{% for t in home.timeline %}- {{ t.when }}: {{ t.title }}, {{ t.org }}{% if t.note %} ({{ t.note }}){% endif %}{% if t.current %} (current){% endif %}
+{% endfor %}
+SKILLS
+{% for g in home.skills %}- {{ g.group }}: {{ g.items | join: ", " }}
+{% endfor %}{% for g in r.skills %}- {{ g.name }} (from CV): {{ g.keywords | join: ", " }}
+{% endfor %}
+WORK EXPERIENCE (from the CV)
+{% for w in r.work %}- {{ w.position }}, {{ w.name }}{% if w.location %} ({{ w.location }}){% endif %}, {{ w.startDate | slice: 0, 7 }} to {% if w.endDate and w.endDate != "" %}{{ w.endDate | slice: 0, 7 }}{% else %}present{% endif %}.{% if w.summary %} {{ w.summary }}{% endif %}
+{% for h in w.highlights %}  * {{ h }}
+{% endfor %}{% endfor %}
+EDUCATION
+{% for e in r.education %}- {{ e.studyType }}, {{ e.area }}, {{ e.institution }} ({{ e.location }}), {{ e.startDate | slice: 0, 4 }} to {{ e.endDate | slice: 0, 7 }}.{% if e.courses %} Courses: {{ e.courses | join: "; " }}.{% endif %}
+{% endfor %}
+CERTIFICATIONS
+{% for c in r.certificates %}- {{ c.name }}{% if c.issuer %}, {{ c.issuer }}{% endif %}
+{% endfor %}
+AWARDS
+{% for a in r.awards %}- {{ a.title }}, {{ a.awarder }} ({{ a.date | slice: 0, 4 }})
+{% endfor %}
+PUBLICATIONS
+{% for p in r.publications %}- "{{ p.name }}". {{ p.publisher }} Published {{ p.releaseDate | slice: 0, 4 }}. {{ p.url }}. {{ p.summary }}
+{% endfor %}
+VOLUNTEERING
+{% for v in r.volunteer %}- {{ v.position }}, {{ v.organization }}{% if v.summary %}. {{ v.summary }}{% endif %}
+{% endfor %}
+LANGUAGES
+{% for l in r.languages %}- {{ l.language }}: {{ l.fluency }}
+{% endfor %}
+PROJECTS (title, category, tools, link, then a summary of the project page)
+{% assign projects = site.projects | sort: "importance" %}{% for p in projects %}
+## {{ p.title }}
+Category: {{ p.category }}{% if p.featured %} (featured){% endif %}
+Tools: {{ p.tools | join: ", " }}
+Link: {% if p.redirect %}{{ p.redirect }}{% else %}{{ base }}{{ p.url }}{% endif %}
+Short description: {{ p.description }}
+Details: {{ p.content | replace: "</p>", " </p>" | replace: "</h2>", ". </h2>" | replace: "</h3>", ". </h3>" | replace: "</dt>", ": </dt>" | replace: "</dd>", ". </dd>" | replace: "</li>", "; </li>" | strip_html | strip_newlines | normalize_whitespace | replace: "&amp;", "&" | replace: "&quot;", '"' | replace: "&#39;", "'" | truncatewords: 260 }}
+{% endfor %}
+OTHER PAGES ON THE SITE
+- Projects: {{ base }}/projects/
+- CV: {{ base }}/cv/
+- Resume PDF: {{ base }}/assets/pdf/Oluwadamilola_Owolabi_Resume.pdf
+- Texas grid dashboard (ERCOT fuel mix, updated daily by a Python job Dammy wrote): {{ base }}/grid/
+- Transformer sizing and fault current calculator Dammy built: {{ base }}/tools/
+- Publications: {{ base }}/publications/
+
+ADDITIONAL FACTS
+{% for f in bot.extra_facts %}- {{ f }}
+{% endfor %}
+TOPICS TO REFER TO DAMMY DIRECTLY (do not answer these yourself)
+{% for t in bot.refer_to_dammy %}- {{ t }}
+{% endfor %}

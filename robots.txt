@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://DamilolaOwolabi.github.io/sitemap.xml
+Sitemap: https://damilolaowolabi.github.io/sitemap.xml

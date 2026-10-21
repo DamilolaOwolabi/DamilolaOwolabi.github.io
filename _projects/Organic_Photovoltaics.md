@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Understanding the Mechanical Properties of Thiolene Blended Active Layer Films for Organic Photovoltaics
-description: This research project focuses on improving the mechanical properties of organic photovoltaics (OPVs) by blending thiolene crosslinked networks with the active layer.
+title: Thiolene Blends for Tougher Organic Solar Cells
+description: "Rice research internship: blending thiolene networks into organic solar cell films so they crack less under strain. Led to a co-authored paper."
 img: assets/img/Organic_Photovoltaics/thumbnail.jpg
 importance: 2
 category: research
@@ -27,7 +27,7 @@ Organic photovoltaics (OPVs) are thin, flexible, and cheap to make, which makes 
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Organic_Photovoltaics/Presentation.PNG" title="Poster presentation" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/Organic_Photovoltaics/Presentation.PNG" alt="Research poster: mechanical properties of thiolene blended active layer films" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 

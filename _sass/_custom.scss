@@ -2338,3 +2338,289 @@ html[data-theme="dark"] .chat-launcher {
     display: none !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * Project pages: embeds, link buttons, collapsible code (Oct 2026 polish)
+ * ------------------------------------------------------------------------- */
+
+/* Nothing on a page may be wider than the screen */
+.post iframe,
+.post video,
+.post img {
+  max-width: 100%;
+}
+
+.case-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  margin: 0 0 var(--space-8);
+}
+
+.case-links .hero-btn {
+  margin: 0;
+}
+
+/* YouTube and other 16:9 video embeds */
+.video-embed {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin: var(--space-4) 0 var(--space-8);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #0f172a;
+  box-shadow: var(--shadow-sm);
+}
+
+.video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Live visualizations (D3, Plotly) shown in a frame */
+.viz-embed {
+  height: var(--viz-h, 600px);
+  max-height: 80vh;
+  margin: var(--space-4) 0 var(--space-6);
+  border: 1px solid var(--global-divider-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--global-card-bg-color);
+}
+
+.viz-embed iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-figure {
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.video-figure video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  background: #0f172a;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Collapsible code: findings first, code one click away */
+.code-fold {
+  margin: var(--space-3) 0 var(--space-6);
+  border: 1px solid var(--global-divider-color);
+  border-radius: var(--radius-md, 10px);
+  background: var(--surface-muted, var(--global-code-bg-color));
+}
+
+.code-fold > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--global-theme-color);
+  user-select: none;
+}
+
+.code-fold > summary::-webkit-details-marker {
+  display: none;
+}
+
+.code-fold > summary::before {
+  content: "\25B8";
+  display: inline-block;
+  margin-right: var(--space-2);
+  transition: transform 0.15s ease;
+}
+
+.code-fold[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.code-fold[open] > summary {
+  border-bottom: 1px solid var(--global-divider-color);
+}
+
+.code-fold > div,
+.code-fold > figure,
+.code-fold pre {
+  margin: 0 !important;
+  border-radius: 0 0 var(--radius-md, 10px) var(--radius-md, 10px);
+}
+
+.code-fold pre {
+  max-height: 480px;
+  overflow: auto;
+  font-size: 0.8rem;
+}
+
+/* Wide tables in write-ups scroll sideways instead of stretching the page */
+.post article table:not(.table-cv) {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* ---------------------------------------------------------------------------
+ * Home: keep the network graphic behind the photo, away from the text
+ * ------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  .hero-grid {
+    -webkit-mask-image: radial-gradient(ellipse 34% 75% at 84% 48%, #000 35%, transparent 80%);
+    mask-image: radial-gradient(ellipse 34% 75% at 84% 48%, #000 35%, transparent 80%);
+  }
+
+  .glance {
+    grid-template-columns: 1.05fr 1.45fr 1.1fr 0.75fr;
+  }
+}
+
+/* Publication venue badge stays on one line when there's room */
+@media (min-width: 576px) {
+  .publications abbr.badge {
+    white-space: nowrap;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * CV
+ * ------------------------------------------------------------------------- */
+.cv-subhead {
+  margin: var(--space-6) 0 var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--global-divider-color);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--global-text-color-light);
+}
+
+/* ---------------------------------------------------------------------------
+ * Chat button on phones: slides away while scrolling down (see chatbot.js)
+ * ------------------------------------------------------------------------- */
+#site-chat {
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+#site-chat.is-tucked:not(.is-open) {
+  transform: translateY(calc(100% + 40px));
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  /* Room at the end of every page so the button never covers the last lines */
+  .has-site-chat footer {
+    padding-bottom: 72px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #site-chat {
+    transition: none;
+  }
+}
+
+/* CV entries: no stray list bullets or rules beside the date badges */
+.cv .list-group-item {
+  list-style: none;
+}
+
+.cv .date-column .table-cv td {
+  border-top: 0 !important;
+  padding: 0 0 var(--space-1) 0;
+}
+
+.cv .date-column {
+  text-align: left !important;
+}
+
+.cv .date-column .table-cv {
+  margin: 0;
+}
+
+.cv .date-column .location {
+  margin: var(--space-1) 0 0;
+  white-space: normal;
+}
+
+/* CV title: a labeled download button instead of a bare icon */
+.post-title .cv-pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  padding: 6px 12px;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--global-theme-color);
+  background: var(--global-card-bg-color);
+}
+
+.post-title .cv-pdf-btn:hover {
+  border-color: var(--global-theme-color);
+  text-decoration: none;
+}
+
+/* CV contact details: label above value on phones, so the email fits on one line */
+@media (max-width: 575px) {
+  .cv > .card:first-of-type .table-cv tr {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--space-2);
+  }
+
+  .cv > .card:first-of-type .table-cv td {
+    padding: 0 !important;
+  }
+
+  .cv > .card:first-of-type .table-cv td:first-child {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--global-text-color-light);
+  }
+
+  .cv > .card:first-of-type .table-cv td:last-child {
+    overflow-wrap: anywhere;
+  }
+}
+
+.cv .list-group-item .text-center {
+  text-align: left !important;
+}
+
+.cv .date-column .location {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+/* "Full analysis" divides a case study's summary from the detailed write-up */
+.post article h2#full-analysis {
+  margin-top: var(--space-12, 3rem);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--global-divider-color);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--global-text-color-light);
+}

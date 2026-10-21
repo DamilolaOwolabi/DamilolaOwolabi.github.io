@@ -1,6 +1,6 @@
 ---
 layout: page
-title: projects
+title: Projects
 permalink: /projects/
 description: Data science, engineering, and research work, from predictive models to interactive visualizations.
 nav: true
@@ -43,8 +43,10 @@ display_categories: [work, research, school, personal, other]
   {% endfor %}
   </div>
 </section>
-<h2 class="section-label all-projects-label">All projects</h2>
+<h2 class="section-label all-projects-label">More projects</h2>
 {% endif %}
+{% comment %} Projects already shown in Featured are not repeated below. {% endcomment %}
+{% assign featured_urls = featured_projects | slice: 0, 3 | map: "url" %}
 
 {% assign used_categories = site.projects | map: "category" | compact | uniq %}
 {% assign category_order = page.display_categories %}
@@ -55,7 +57,9 @@ display_categories: [work, research, school, personal, other]
 
 <div class="projects">
   {% for category in category_order %}
-    {% assign categorized_projects = site.projects | where: "category", category | sort: "importance" %}
+    {% assign in_category = site.projects | where: "category", category | sort: "importance" %}
+    {% assign categorized_projects = "" | split: "" %}
+    {% for p in in_category %}{% unless featured_urls contains p.url %}{% assign categorized_projects = categorized_projects | push: p %}{% endunless %}{% endfor %}
     {% if categorized_projects.size > 0 %}
   <a id="{{ category }}" href=".#{{ category }}">
     <h2 class="category">{{ category }}</h2>

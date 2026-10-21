@@ -1,6 +1,6 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
 description: Oluwadamilola (Dammy) Owolabi, Electrical Engineer and Data Scientist in Houston, TX. Power distribution design, machine learning, and data analytics.
 
@@ -26,9 +26,9 @@ glance:
   - label: Current role
     value: Associate Distribution Engineer, Leidos
   - label: Education
-    value: MS Data Science, SMU · BS Electrical Engineering, Texas A&M
+    value: MS Data Science (SMU), BS Electrical Engineering (Texas A&M)
   - label: Focus
-    value: Electrical engineering, data science, and analytics roles
+    value: Power distribution, grid data, and analytics
   - label: Based in
     value: Houston, TX
 

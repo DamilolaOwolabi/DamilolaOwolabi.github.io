@@ -130,10 +130,58 @@
       });
       themeDefaults();
 
+      // Evenly spaced date labels that always include the latest day.
+      var lastIdx = labels.length - 1;
+      var step = Math.max(1, Math.ceil(labels.length / (window.innerWidth < 576 ? 5 : 8)));
       var dateTicks = {
-        maxTicksLimit: 8,
+        autoSkip: false,
+        maxRotation: 0,
         callback: function (v) {
-          return fmtDate(labels[v]);
+          if (v === lastIdx || (v % step === 0 && lastIdx - v >= step * 0.6)) return fmtDate(labels[v]);
+          return "";
+        },
+      };
+
+      // Days with data on both sides missing would be invisible as a line, so draw them as dots.
+      function loneDot(ctx) {
+        var d = ctx.dataset.data,
+          i = ctx.dataIndex;
+        return d[i] != null && d[i - 1] == null && d[i + 1] == null ? 2.5 : 0;
+      }
+
+      // Shade the days still waiting on ERCOT's monthly report.
+      var gapShade = {
+        id: "gapShade",
+        beforeDatasetsDraw: function (chart) {
+          var x = chart.scales.x,
+            area = chart.chartArea,
+            c = chart.ctx;
+          if (!x || !area) return;
+          var runs = [],
+            start = null;
+          cal.forEach(function (d, i) {
+            if (d.missing && start === null) start = i;
+            if (!d.missing && start !== null) {
+              runs.push([start, i - 1]);
+              start = null;
+            }
+          });
+          if (start !== null) runs.push([start, cal.length - 1]);
+          c.save();
+          runs.forEach(function (r) {
+            var x0 = x.getPixelForValue(r[0] - 0.5),
+              x1 = x.getPixelForValue(r[1] + 0.5);
+            c.fillStyle = "rgba(148, 163, 184, 0.16)";
+            c.fillRect(x0, area.top, x1 - x0, area.bottom - area.top);
+            if (x1 - x0 > 54) {
+              c.fillStyle = cssVar("--global-text-color-light", "#475569");
+              c.font = "11px " + cssVar("--font-body", "sans-serif");
+              c.textAlign = "center";
+              c.fillText("Awaiting", (x0 + x1) / 2, area.top + 14);
+              c.fillText("ERCOT report", (x0 + x1) / 2, area.top + 28);
+            }
+          });
+          c.restore();
         },
       };
       var common = {
@@ -171,11 +219,12 @@
               borderColor: f.color,
               backgroundColor: f.color,
               borderWidth: 2,
-              pointRadius: 0,
+              pointRadius: loneDot,
               tension: 0.3,
             };
           }),
         },
+        plugins: [gapShade],
         options: Object.assign({}, common, {
           scales: {
             x: { ticks: dateTicks, grid: { display: false } },
@@ -263,7 +312,7 @@
               borderColor: theme,
               backgroundColor: theme,
               borderWidth: 1,
-              pointRadius: 0,
+              pointRadius: loneDot,
               tension: 0.2,
               fill: false,
               spanGaps: false,
@@ -274,11 +323,12 @@
               borderColor: "#f59e0b",
               backgroundColor: "#f59e0b",
               borderWidth: 2.5,
-              pointRadius: 0,
+              pointRadius: loneDot,
               tension: 0.3,
             },
           ],
         },
+        plugins: [gapShade],
         options: Object.assign({}, common, {
           scales: {
             x: { ticks: dateTicks, grid: { display: false } },

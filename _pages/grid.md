@@ -1,6 +1,6 @@
 ---
 layout: page
-title: grid
+title: Grid
 permalink: /grid/
 description: Texas (ERCOT) fuel mix and peak generation, day by day. Updated automatically every morning.
 nav: true

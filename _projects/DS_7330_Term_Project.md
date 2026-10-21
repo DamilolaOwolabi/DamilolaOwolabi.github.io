@@ -1,22 +1,31 @@
 ---
 layout: page
 title: Gamerpedia
-description: Gamerpedia is a project designed to simplify the process of video game selection for beginners and enthusiasts alike.
-img: assets/img/DS_7330_Final_Term_Project/download.png
+description: A Django web app that recommends video games from your preferences, backed by a 1.17-million-row MySQL game database and ChatGPT ranking.
+img: assets/img/projects/covers/gamerpedia.jpg
 importance: 11
 category: school
 tools: [Python, Django, MySQL, Machine learning]
 ---
 
-## **Project Overview**
+<dl class="case-glance">
+  <div><dt>Context</dt><dd>SMU MS in Data Science, DS 7330 term project</dd></div>
+  <div><dt>Team</dt><dd>Oluwadamilola Owolabi and Kosi Okeke</dd></div>
+  <div><dt>Stack</dt><dd>Python, Django, MySQL, IGDB and GiantBomb APIs, ChatGPT API</dd></div>
+  <div><dt>Data</dt><dd>1.17 million rows of game data from Kaggle</dd></div>
+</dl>
 
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        <iframe width="1000" height="400" src="https://www.youtube.com/embed/qwOkIqizxDA?si=d8P5HAhsVyqnJcgG&amp;start=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div>
+<div class="case-links">
+<a class="hero-btn hero-btn-secondary" href="{{ '/assets/pdf/projects/Gamerpedia_Presentation.pdf' | relative_url }}" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i><span>View the slides (PDF)</span></a>
+<a class="hero-btn hero-btn-secondary" href="https://github.com/DamilolaOwolabi/DS_7330_Term_Project/blob/master/DS%207330%20PROJECT%20FINAL%20RESEARCH%20PAPER.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines" aria-hidden="true"></i><span>Read the paper</span></a>
+<a class="hero-btn hero-btn-secondary" href="https://github.com/DamilolaOwolabi/DS_7330_Term_Project" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i><span>Code on GitHub</span></a>
 </div>
 
-### **Objective**
+## Project Overview
+
+<div class="video-embed"><iframe src="https://www.youtube-nocookie.com/embed/qwOkIqizxDA" title="Gamerpedia demo" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+
+### Objective
 
 The goal of Gamerpedia is to enhance the gaming experience by:
 
@@ -26,20 +35,14 @@ The goal of Gamerpedia is to enhance the gaming experience by:
    - Popularity and reviews
    - News, trailers, and top streamers
 
-### **Motivation**
+### Motivation
 
 - With a vast array of games available, users often hesitate to explore new titles due to the fear of wasting money on unappealing games.
 - Gamerpedia aims to address this issue by offering personalized recommendations and relevant game details, making the process easier and more enjoyable.
 
-### **Powerpoint Presentation**
-
-Here’s the powerpoint presentation of the Project:
-
-<iframe src="https://smu365-my.sharepoint.com/personal/oowolabi_smu_edu/_layouts/15/Doc.aspx?sourcedoc={160c1808-2ba8-46d8-a7df-cc1761c17f63}&amp;action=embedview&amp;wdAr=1.7777777777777777" width="1000px" height="800px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
-
 ---
 
-## **Key Features**
+## Key Features
 
 1. **Game Recommendation Engine**:
    - Suggests games based on user preferences (e.g., genre, platform, multiplayer options).
@@ -54,7 +57,7 @@ Here’s the powerpoint presentation of the Project:
    - Data sourced from Kaggle datasets, cleaned, and optimized for efficient queries.
 
 4. **Web Application**:
-   - Built using **Python Django** for backend and **HTML/CSS** for frontend.
+   - Built using **Python Django** for backend and**HTML/CSS** for frontend.
    - Features include:
      - User authentication (login/sign-up).
      - Preference selection via a user-friendly interface.
@@ -62,7 +65,7 @@ Here’s the powerpoint presentation of the Project:
 
 ---
 
-## **Methodology**
+## Methodology
 
 1. **Web Development**:
    - Developed using Python Django for backend operations and HTML/CSS for frontend design.
@@ -82,14 +85,14 @@ Here’s the powerpoint presentation of the Project:
 
 ---
 
-## **Results**
+## Results
 
 1. **User Interface**:
    - Visually appealing and intuitive design.
    - Features easy navigation, user authentication, and preference selection.
 
 2. **Database**:
-   - Successfully implemented a schema with over **1.17 million rows** and **39 attributes**, optimized for performance.
+   - Successfully implemented a schema with over **1.17 million rows** and**39 attributes**, optimized for performance.
 
 3. **Recommendation Engine**:
    - Provides accurate and personalized recommendations.
@@ -101,7 +104,7 @@ Here’s the powerpoint presentation of the Project:
 
 ---
 
-## **Future Work**
+## Future Work
 
 1. Replace missing values with accurate data.
 2. Optimize the game encyclopedia for web usage.
@@ -111,26 +114,26 @@ Here’s the powerpoint presentation of the Project:
 
 ---
 
-## **Files**
+## Files
 
-### 1. **Project Proposal**
+### 1. Project Proposal
 
 - File: [Project Proposal](https://github.com/DamilolaOwolabi/DS_7330_Term_Project/blob/master/OwolabiProjectProposal.pdf)
 - Outlines the problem, objectives, methodology, and timeline for Gamerpedia.
 
-### 2. **Final Research Paper**
+### 2. Final Research Paper
 
 - File: [Final Research Paper](https://github.com/DamilolaOwolabi/DS_7330_Term_Project/blob/master/DS%207330%20PROJECT%20FINAL%20RESEARCH%20PAPER.pdf)
 - Details the solution methodology, database implementation, recommendation engine, and analysis.
 
-### 3. **Final Presentation**
+### 3. Final Presentation
 
 - File: [Final Term Presentation](https://github.com/DamilolaOwolabi/DS_7330_Term_Project/blob/master/Owolabi_Final_Term_Presentation.pptx)
 - Highlights key results, future work, and project demo.
 
 ---
 
-## **Technologies Used**
+## Technologies Used
 
 - **Languages**: Python, HTML, CSS, JavaScript
 - **Frameworks**: Django, MySQL Workbench
@@ -141,19 +144,16 @@ Here’s the powerpoint presentation of the Project:
 
 ---
 
-## **References**
+## References
 
 1. Quantic Foundry: [Video Game Recommendation Engine](https://apps.quanticfoundry.com/recommendations/gamerprofile/videogame/)
 2. Games Finder: [Game Recommendations](https://gameslikefinder.com/)
 3. Twitch: [Streaming Service](https://www.twitch.tv/)
 4. IGN: [Game News](https://www.ign.com/)
 5. YouTube: [Game Playthroughs](https://www.youtube.com/)
-6. Digital Trends: [Gaming Insights](https://www.digitaltrends.com/gaming/game-ownership-digital-media-players-weigh/)
 
 ---
 
-## **Conclusion**
+## Conclusion
 
 Gamerpedia is an innovative platform that streamlines the video game selection process for beginners and enthusiasts. By combining advanced recommendation algorithms, a rich game encyclopedia, and an intuitive web application, Gamerpedia empowers users to discover and select games tailored to their preferences. Future iterations will focus on optimizing the app and expanding its features for a global audience.
-
-For questions or feedback, feel free to reach out!

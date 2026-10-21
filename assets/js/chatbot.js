@@ -170,6 +170,30 @@
   root.appendChild(launcher);
   document.documentElement.classList.add("has-site-chat");
 
+  // On phones, tuck the chat button away while the visitor scrolls down through content
+  // and bring it back when they scroll up, stop scrolling, or reach the end of the page.
+  (function () {
+    var small = window.matchMedia("(max-width: 767px)");
+    var lastY = window.scrollY;
+    var idle = null;
+    function show() {
+      root.classList.remove("is-tucked");
+    }
+    window.addEventListener(
+      "scroll",
+      function () {
+        var y = window.scrollY;
+        var atEnd = window.innerHeight + y >= document.documentElement.scrollHeight - 80;
+        if (small.matches && !isOpen && y > lastY + 4 && y > 160 && !atEnd) root.classList.add("is-tucked");
+        else if (y < lastY - 4 || atEnd) show();
+        lastY = y;
+        clearTimeout(idle);
+        idle = setTimeout(show, 1200);
+      },
+      { passive: true }
+    );
+  })();
+
   // ---------- rendering ----------
   function addBubble(role, text, extraClass) {
     var b = el("div", { class: "chat-msg chat-" + role + (extraClass ? " " + extraClass : "") });

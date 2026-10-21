@@ -7,6 +7,10 @@
 #    and capitalizes page names ("projects | ..." -> "Projects | ...").
 # 2. AI assistant: adds the chat widget to every page when
 #    `chatbot.endpoint` is set in _config.yml.
+# 3. Navbar: the theme leaves the site name out of the navbar on the home
+#    page; this adds it back so every page has the same top bar.
+# 4. CV: turns the bare PDF icon next to the CV title into a labeled
+#    "Download PDF" button (the theme's icon has no text for screen readers).
 #
 # Kept as a plugin so it doesn't require copying (and maintaining) the
 # theme's own head/footer templates.
@@ -67,6 +71,34 @@ module SiteExtras
     end
   end
 
+  def navbar_brand(doc, site)
+    out = doc.output
+    nav = out.index('<nav id="navbar"')
+    return unless nav
+
+    nav_end = out.index("</nav>", nav) || out.length
+    return if out[nav...nav_end].include?("navbar-brand")
+
+    toggler = out.index("<button", nav)
+    return unless toggler && toggler < nav_end
+
+    name = CGI.escapeHTML(site.config["title"].to_s)
+    href = "#{site.config['baseurl']}/"
+    brand = %(<a class="navbar-brand title font-weight-lighter" href="#{href}" aria-current="page">#{name}</a>\n      )
+    doc.output = out.dup.insert(toggler, brand)
+  end
+
+  def cv_pdf_button(doc)
+    return unless doc.url == "/cv/"
+
+    doc.output = doc.output.sub(
+      %r{<a href="([^"]+\.pdf)" target="_blank" rel="noopener noreferrer" class="float-right">\s*<i class="fa-solid fa-file-pdf"></i>\s*</a>}
+    ) do
+      %(<a href="#{Regexp.last_match(1)}" target="_blank" rel="noopener noreferrer" class="float-right cv-pdf-btn">) +
+        %(<i class="fa-solid fa-file-pdf" aria-hidden="true"></i><span>Download PDF</span></a>)
+    end
+  end
+
   def inject_widget(doc, site)
     snippet = chat_widget(site)
     return unless snippet && doc.output.include?("</body>")
@@ -81,6 +113,8 @@ end
     next unless SiteExtras.html_page?(doc)
 
     SiteExtras.fix_titles(doc, doc.site)
+    SiteExtras.navbar_brand(doc, doc.site)
+    SiteExtras.cv_pdf_button(doc)
     SiteExtras.inject_widget(doc, doc.site)
   end
 end

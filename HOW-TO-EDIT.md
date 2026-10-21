@@ -63,6 +63,12 @@ To add images inside the write-up, use the image button in the editor. Files go 
 - **New job?** Add it at the top of **Career timeline** and tick **Current role** (untick the old one), then update **Quick facts → Current role**.
 - **New resume?** Use **Media → PDFs and documents → Upload**, then in **Home page → Hero → Buttons** change the "Download resume" link to `/assets/pdf/<your-file>.pdf`.
 
+### Add a PDF to a project (slides, a report)
+
+Upload it with **Media → PDFs and documents**, then link to it in the write-up as `/assets/pdf/<file>.pdf`.
+
+The Cotton Drone page has a "Read the final report" button that appears automatically once a file named exactly `Cotton_Drone_Final_Report.pdf` is uploaded there.
+
 ### Remove or hide a project
 
 Open it in **Projects** and use **Delete**. To keep it but move it down, raise its **Sort order** or untick **Featured**.

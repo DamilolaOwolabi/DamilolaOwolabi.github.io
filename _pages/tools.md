@@ -1,6 +1,6 @@
 ---
 layout: page
-title: tools
+title: Tools
 permalink: /tools/
 description: Small engineering calculators from my day-to-day distribution design work.
 nav: true

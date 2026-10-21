@@ -4,7 +4,7 @@
     "label": "Electrical Engineer | Data Scientist",
     "image": "",
     "email": "owolabidamilola2014@gmail.com",
-    "url": "https://DamilolaOwolabi.github.io",
+    "url": "https://damilolaowolabi.github.io",
     "summary": "Electrical engineer with an MS in Data Science who designs medium- and low-voltage distribution systems for major utilities. I combine power systems fundamentals (load calculations, short circuit analysis, underground duct bank design) with Python, SQL, R, and BI tools to turn engineering and operational data into decisions. Open to electrical engineering, data science, and analytics roles.",
     "location": {
       "city": "Houston",
@@ -135,7 +135,6 @@
       "studyType": "Master of Science",
       "startDate": "2023-08-16",
       "endDate": "2025-08-02",
-      "score": "",
       "courses": [
         "Introduction to Data Science",
         "Statistical Foundations for Data Science",
@@ -152,7 +151,6 @@
       "studyType": "Bachelor of Science",
       "startDate": "2019-08-16",
       "endDate": "2022-05-02",
-      "score": "",
       "courses": [
         "Python Programming",
         "Scientific and Technical Writing",
@@ -168,8 +166,7 @@
       "area": "Engineering Science",
       "studyType": "Associate of Science",
       "startDate": "2017-05-10",
-      "endDate": "2019-05-12",
-      "score": ""
+      "endDate": "2019-05-12"
     }
   ],
   "awards": [
@@ -229,25 +226,21 @@
   "skills": [
     {
       "name": "Data & Programming",
-      "level": "",
       "icon": "fa-solid fa-code",
       "keywords": ["Python", "SQL", "R", "C++", "Excel (pivot tables, XLOOKUP, Power Query, VBA)"]
     },
     {
       "name": "Analytics & Visualization",
-      "level": "",
       "icon": "fa-solid fa-chart-line",
       "keywords": ["Power BI", "Tableau", "D3.js", "Statistical modeling", "Machine learning"]
     },
     {
       "name": "Power Systems",
-      "level": "",
       "icon": "fa-solid fa-bolt",
       "keywords": ["Load calculations", "Short circuit analysis", "Underground duct bank design", "PowerWorld", "PSS/E", "PSCAD", "MATLAB/Simulink"]
     },
     {
       "name": "Engineering & Enterprise Tools",
-      "level": "",
       "icon": "fa-solid fa-screwdriver-wrench",
       "keywords": ["AutoCAD", "GIS/ESRI", "SAP", "Jira", "AWS (EC2, S3, Lambda, SageMaker)", "Git/GitHub"]
     }
@@ -317,7 +310,7 @@
       "highlights": ["Python", "Django", "Front End & Backend Design", "Google Cloud Services"],
       "startDate": "2021-08-01",
       "endDate": "2022-05-01",
-      "url": "https://github.com/DamilolaOwolabi/ECEN-403-GROUP-66"
+      "url": "https://damilolaowolabi.github.io/projects/Cotton_Drone_Analysis/"
     }
   ]
 }

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Cotton Drone Analysis
-description: This project involves the development of a drone-based precision agriculture system to automate data collection and analysis for cotton crops.
+description: "Senior design project I led: a $400 drone and Raspberry Pi system that photographs cotton fields and uses ML to estimate crop health."
 img: assets/img/Cotton_Drone_Analysis/cotton_drone.jpg
 importance: 1
 category: school
@@ -17,7 +17,11 @@ featured: true
   <div><dt>Budget</dt><dd>$400, excluding the drone</dd></div>
 </dl>
 
-<a class="hero-btn hero-btn-secondary" href="https://github.com/DamilolaOwolabi/ECEN-403-GROUP-66/blob/master/404_Final_Report.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i><span>Read the final report</span></a>
+{% comment %} The "Read the final report" button appears automatically once the report is uploaded to assets/pdf/ with this exact name. {% endcomment %}
+{% assign report = site.static_files | where: "path", "/assets/pdf/Cotton_Drone_Final_Report.pdf" | first %}
+{% if report %}
+<a class="hero-btn hero-btn-secondary" href="{{ report.path | relative_url }}" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i><span>Read the final report</span></a>
+{% endif %}
 
 ## The problem
 
@@ -27,7 +31,7 @@ Monitoring cotton fields by hand is slow, labor-intensive, and error-prone, and 
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Cotton_Drone_Analysis/PowerPoint_Presentation-1.png" title="Poster presentation" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/Cotton_Drone_Analysis/PowerPoint_Presentation-1.png" alt="Cotton Drone Analysis senior design poster" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 

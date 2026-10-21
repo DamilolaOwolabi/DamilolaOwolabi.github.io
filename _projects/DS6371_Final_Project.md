@@ -1,33 +1,50 @@
 ---
 layout: page
-title: House Prices Analysis
-description: The project aims to predict the sale prices of homes in Ames, Iowa using existing data, and programs like R and SAS.
-img: assets/img/DS_6371_Final_Project/Thumbnail/DS_6371_Final_Project_Thumbnail.jpeg
+title: Ames House Price Prediction
+description: Regression models in R and SAS to predict home sale prices in Ames, Iowa. The best model reached an adjusted R² of 0.748.
+img: assets/img/projects/covers/house-prices.jpg
 importance: 2
 category: school
 tools: [R, SAS, Regression, Shiny]
 ---
 
-Please try out my interactive Rshinyapp to experience my model’s prediction rate : [RShiny](https://iachavez97.shinyapps.io/RealEstateApp/)
+<dl class="case-glance">
+  <div><dt>Context</dt><dd>SMU MS in Data Science, DS 6371 team project</dd></div>
+  <div><dt>Data</dt><dd>Ames, Iowa home sales (Kaggle), 79 explanatory variables</dd></div>
+  <div><dt>Stack</dt><dd>R, SAS, linear regression, R Shiny</dd></div>
+  <div><dt>Result</dt><dd>Best model: adjusted R² 0.748, Kaggle score 0.2281</dd></div>
+</dl>
 
-Here is the link to other files related to the project in my GitHub Repository: [GitHub](https://github.com/DamilolaOwolabi/DS-6371-Project)
+<div class="case-links">
+<a class="hero-btn hero-btn-secondary" href="https://iachavez97.shinyapps.io/RealEstateApp/" target="_blank" rel="noopener"><i class="fa-solid fa-chart-line" aria-hidden="true"></i><span>Try the team's Shiny app</span></a>
+<a class="hero-btn hero-btn-secondary" href="https://github.com/DamilolaOwolabi/DS-6371-Project" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i><span>Code on GitHub</span></a>
+</div>
 
-# INTRODUCTION
+## Overview
 
-The goal of this project is to predict the sale price of homes in Ames, Iowa using existing data. We strive
-to utilize various statistical and data analytical techniques in order to derive the best predictive model for
-the sale price
+**The question.** Predict the sale price of homes in Ames, Iowa, and explain how price relates to living area in three neighborhoods (North Ames, Edwards and Brookside).
 
-## DATA DESCRIPTIONS
+**What we did.**
 
-We received this data from a study of residential homes in Ames, Iowa. The data set contains 383 rows of values with 79 different explanatory variable columns. You can find out more regarding the dataset and
-how it was pulled in the kaggle for house prices - advanced regression techniques. For respect to the
+- **Question 1:** a log-log multiple linear regression of sale price on living area and neighborhood. Two influential outliers, found with Cook's D and leverage plots, were removed before fitting (adjusted R² 0.50).
+- **Question 2:** compared simple, multiple and custom regression models, each tuned with forward, backward and stepwise selection, and scored them on adjusted R², cross-validated PRESS and Kaggle submissions.
+
+**Key findings**
+
+- Sale price rises with living area in all three neighborhoods, but at different rates, with confidence intervals reported for each.
+- The custom model (living area plus overall quality, backward selection) was the best predictor: adjusted R² 0.748 and the lowest Kaggle score, 0.2281.
+
+## Full analysis
+
+### The data
+
+We received this data from a study of residential homes in Ames, Iowa. The data set contains 383 rows of values with 79 different explanatory variable columns. You can find out more regarding the dataset and how it was pulled in the Kaggle competition "House Prices: Advanced Regression Techniques". For the
 analysis of question 1 the three main variables that I assessed were the Neighborhood, sales price, and GrLivArea variables. The variables used in the second analysis are SalePrice, GrLivArea, and the
 OverallQual.
 
-# Analysis Question 1
+## Question 1: price vs living area by neighborhood
 
-## Restatement of Problem
+### The problem
 
 For our first analysis our objective was to get an estimate of sale prices of houses are related to sq
 footage of living area in houses for three neighborhoods which are NAmes, Edwards, and BrkSide.
@@ -35,16 +52,16 @@ Additionally, we were requested to provide the estimates if they differ based on
 provide confidence intervals for each of the different neighborhoods. We will also be providing evidence
 that our model fits the assumptions and how we observed outliers/influential observations.
 
-## Build and Fit the Mode
+### Building the model
 
 In building my model for the analysis I used a multiple linear regression model with Sale price being the response variable and GrLivArea and neighborhood being the explanatory variables. Below we see a scatterplot of living area for the 3 neighborhood vs the sale price of each home. I created this scatterplot to get an idea for the distribution of the points and see if there are any outliers, and we can see that there are two outliers from the same neighborhood Edwards. After analysis and looking at residual plots we decided to remove these two outlier points that are in the edwards neighborhood because they appear to be incorrectly assigned and the fact that they are in the same neighborhood helps us come to that conclusion as well.
 
 <div class="row justify-content-sm-center">
   <div class="col-sm-6 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/DS_6371_Final_Project/pictures/pic1.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    {% include figure.liquid alt="Build and Fit the Mode (figure 1)" path="assets/img/DS_6371_Final_Project/pictures/pic1.png" class="img-fluid rounded z-depth-1" %}
   </div>
   <div class="col-sm-6 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/DS_6371_Final_Project/pictures/pic2.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    {% include figure.liquid alt="Build and Fit the Mode (figure 2)" path="assets/img/DS_6371_Final_Project/pictures/pic2.png" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
 
@@ -52,13 +69,13 @@ In building my model for the analysis I used a multiple linear regression model 
     Scatterplots before transformations vs. post log transformation and removal of outliers.
 </div>
 
-## Checking Assumptions
+### Checking Assumptions
 
 #### Residual Plots
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic36.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="Residual Plots (figure 1)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic36.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -68,7 +85,7 @@ In building my model for the analysis I used a multiple linear regression model 
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic37.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="Residual Plots (figure 2)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic37.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -82,10 +99,10 @@ The residual plots will be in the index, through the cooks d plots we were able 
 
 <div class="row justify-content-sm-center">
   <div class="col-sm-6 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/DS_6371_Final_Project/pictures/pic3.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    {% include figure.liquid alt="Influential point analysis (Cook’s D and Leverage) (figure 1)" path="assets/img/DS_6371_Final_Project/pictures/pic3.png" class="img-fluid rounded z-depth-1" %}
   </div>
   <div class="col-sm-6 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/DS_6371_Final_Project/pictures/pic4.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    {% include figure.liquid alt="Influential point analysis (Cook’s D and Leverage) (figure 2)" path="assets/img/DS_6371_Final_Project/pictures/pic4.png" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
 
@@ -93,16 +110,16 @@ The residual plots will be in the index, through the cooks d plots we were able 
     Original cooks D plot vs. New cooks D plot. We can see that the cooks D levels have gone down significantly.
 </div>
 
-## Make sure to address each assumption.
+### Assumptions after the fixes
 
 We can see that after our removing of outliers and transformations that the cooks d as well as our residuals look much better compared to the original model. So we are now able to move forward with this model and show how sale price is related to GrLivArea compared to each neighborhood.
 
-## Comparing Competing Models
+### Comparing Competing Models
 
 Adj R - the adjusted R^2 I got for my final model is .5002
 Internal CV Press - the internal CV press number I got was 1437833896.
 
-## Parameters
+### Parameters
 
 #### Estimates
 
@@ -110,7 +127,7 @@ Here we see the summary of our model.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic5.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="Estimates (figure 1)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic5.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -128,68 +145,72 @@ Above we can see the table for our multiple linear regression model. Since we ra
 - The confidence interval for NeighborhoodNAmes is (.072, .19)
 - The confidence interval for NeighborhoodBrkSide is (.53, .66)
 
-## Conclusion
+### Conclusion
 
 We can see from our original graphs that the residuals and the plot had outliers so we assessed them and were able to get more normally distributed plots after assessing the outliers and performing our transformations. We can see from our graphs as well that there appears to be a positive relationship between the GrLivArea and the sales price of homes and we were able to quantify the percent increase of the homes sales price based on the GrLivArea. We can see as well that the NAmes neighborhood has the highest value homes with BrkSide being in second and Edwards being the least valuable of the three neighborhoods.
 
-## R Shiny: Price v. Living Area Chart
+### R Shiny: Price v. Living Area Chart
 
 In our [Rshiny app](https://iachavez97.shinyapps.io/RealEstateApp/) we are showing a scatterplot of the relation between sales price of homes and the living area. Additionally, it is able to be separated by each of the 3 different neighborhoods NAmes, BrkSide, and Edwards.
 
-# Analysis Question 2
+## Question 2: the best predictive model
 
-## Restatement of Problem
+### The problem
 
 This analysis hopes to build the best predictive model needed to predict future sale prices of homes in Ames, Iowa. We plan on doing that by looking at different types of regression models (Simple Linear Regression, Multiple Linear Regression, and Custom Multiple Regression), choosing the best model for each regression type by analyzing the various model selections and making a final decision based on the adjusted r-squared, CVpress and Kaggle score.
 
-## Model Selection
+### Model Selection
 
 #### 1. Simple Linear Regression
 
-    ~~~ SAS
+<details class="code-fold" markdown="1">
+<summary>Show SAS code</summary>
 
-    data NewtrainData;
-    set trainData;
-    if _n_ = 1299 then delete;
-    if _n_ = 524 then delete;
-    run;
+```sas
+data NewtrainData;
+set trainData;
+if _n_ = 1299 then delete;
+if _n_ = 524 then delete;
+run;
 
-    proc print data = NewtrainData;
-    run;
+proc print data = NewtrainData;
+run;
 
-    proc reg data = NewtrainData;
-    model SalePrice = GrLivArea;
-    run;
+proc reg data = NewtrainData;
+model SalePrice = GrLivArea;
+run;
 
-    *Running the model selection with the train/test split;
-    *running the forward selection;
-    proc glmselect data = NewtrainData plots = all;
-    partition fraction(test= 0.2);
-    model SalePrice = GrLivArea /selection = Forward(stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
-    run;
+*Running the model selection with the train/test split;
+*running the forward selection;
+proc glmselect data = NewtrainData plots = all;
+partition fraction(test= 0.2);
+model SalePrice = GrLivArea /selection = Forward(stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
+run;
 
-    *running the Backward selection;
-    proc glmselect data = NewtrainData plots = all;
-    partition fraction(test= 0.2);
-    model SalePrice = GrLivArea /selection = Backward(stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
-    run;
+*running the Backward selection;
+proc glmselect data = NewtrainData plots = all;
+partition fraction(test= 0.2);
+model SalePrice = GrLivArea /selection = Backward(stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
+run;
 
-    *running the Stepwise selection;
-    proc glmselect data = NewtrainData plots = all;
-    partition fraction(test= 0.2);
-    model SalePrice = GrLivArea /selection = Stepwise(stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
-    run;
-    ~~~
+*running the Stepwise selection;
+proc glmselect data = NewtrainData plots = all;
+partition fraction(test= 0.2);
+model SalePrice = GrLivArea /selection = Stepwise(stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
+run;
+```
+
+</details>
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic6.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="1. Simple Linear Regression (figure 1)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic6.PNG" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic7.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="1. Simple Linear Regression (figure 2)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic7.PNG" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic8.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="1. Simple Linear Regression (figure 3)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic8.PNG" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -201,58 +222,63 @@ This analysis hopes to build the best predictive model needed to predict future 
 
 #### 2. Multiple Linear Regression
 
-    ~~~ SAS
-    *Multiple Linear Regression;
-    proc corr; run;
-    symbol c=blue v= dot;
-    proc sgscatter data = trainData;
-    matrix SalePrice GrLivArea FullBath;
+<details class="code-fold" markdown="1">
+<summary>Show SAS code</summary>
 
-    proc reg data = trainData;
-    model SalePrice = GrLivArea FullBath;
-    run;
+```sas
+*Multiple Linear Regression;
+proc corr; run;
+symbol c=blue v= dot;
+proc sgscatter data = trainData;
+matrix SalePrice GrLivArea FullBath;
 
-    data NewtrainData2;
-    set trainData;
-    if _n_ = 1299 then delete;
-    if _n_ = 524 then delete;
-    run;
+proc reg data = trainData;
+model SalePrice = GrLivArea FullBath;
+run;
 
-    proc print data = NewtrainData2;
-    run;
+data NewtrainData2;
+set trainData;
+if _n_ = 1299 then delete;
+if _n_ = 524 then delete;
+run;
 
-    proc reg data = NewtrainData2;
-    model SalePrice = GrLivArea FullBath;
-    run;
+proc print data = NewtrainData2;
+run;
 
-    *running the forward selection;
-    proc glmselect data = NewtrainData2 plots = all;
-    partition fraction(test= 0.2);
-    model SalePrice = GrLivArea FullBath /selection = Forward(select=CV choose=CV stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
-    run;
+proc reg data = NewtrainData2;
+model SalePrice = GrLivArea FullBath;
+run;
 
-    *running the Backward selection;
-    proc glmselect data = NewtrainData2 plots = all;
-    partition fraction(test= 0.2);
-    model SalePrice = GrLivArea FullBath /selection = Backward(stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
-    run;
+*running the forward selection;
+proc glmselect data = NewtrainData2 plots = all;
+partition fraction(test= 0.2);
+model SalePrice = GrLivArea FullBath /selection = Forward(select=CV choose=CV stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
+run;
 
-    *running the Stepwise selection;
-    proc glmselect data = NewtrainData2 plots = all;
-    partition fraction(test= 0.2);
-    model SalePrice = GrLivArea FullBath /selection = Stepwise(stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
-    run;
-    ~~~
+*running the Backward selection;
+proc glmselect data = NewtrainData2 plots = all;
+partition fraction(test= 0.2);
+model SalePrice = GrLivArea FullBath /selection = Backward(stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
+run;
+
+*running the Stepwise selection;
+proc glmselect data = NewtrainData2 plots = all;
+partition fraction(test= 0.2);
+model SalePrice = GrLivArea FullBath /selection = Stepwise(stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
+run;
+```
+
+</details>
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic9.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="2. Multiple Linear Regression (figure 1)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic9.PNG" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic10.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="2. Multiple Linear Regression (figure 2)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic10.png" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic11.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="2. Multiple Linear Regression (figure 3)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic11.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -264,58 +290,63 @@ This analysis hopes to build the best predictive model needed to predict future 
 
 #### 3. Custom Multiple Linear Regression (SalePrice ~ GrLivArea + OverallQual)
 
-    ~~~ SAS
-    *Custom Multiple Linear Regression (SalePrice ~ GrLivArea + OverallQual);
-    proc corr; run;
-    symbol c=blue v= dot;
-    proc sgscatter data = trainData;
-    matrix SalePrice GrLivArea OverallQual;
+<details class="code-fold" markdown="1">
+<summary>Show SAS code</summary>
 
-    proc reg data = trainData;
-    model SalePrice = GrLivArea OverallQual;
-    run;
+```sas
+*Custom Multiple Linear Regression (SalePrice ~ GrLivArea + OverallQual);
+proc corr; run;
+symbol c=blue v= dot;
+proc sgscatter data = trainData;
+matrix SalePrice GrLivArea OverallQual;
 
-    data NewtrainData3;
-    set trainData;
-    if _n_ = 1299 then delete;
-    if _n_ = 524 then delete;
-    run;
+proc reg data = trainData;
+model SalePrice = GrLivArea OverallQual;
+run;
 
-    proc print data = NewtrainData3;
-    run;
+data NewtrainData3;
+set trainData;
+if _n_ = 1299 then delete;
+if _n_ = 524 then delete;
+run;
 
-    proc reg data = NewtrainData3;
-    model SalePrice = GrLivArea OverallQual;
-    run;
+proc print data = NewtrainData3;
+run;
 
-    *running the forward selection;
-    proc glmselect data = NewtrainData3 plots = all;
-    partition fraction(test= 0.2);
-    model SalePrice = GrLivArea OverallQual /selection = Forward(select=CV choose=CV stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
-    run;
+proc reg data = NewtrainData3;
+model SalePrice = GrLivArea OverallQual;
+run;
 
-    *running the Backward selection;
-    proc glmselect data = NewtrainData3 plots = all;
-    partition fraction(test= 0.2);
-    model SalePrice = GrLivArea OverallQual /selection = Backward(stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
-    run;
+*running the forward selection;
+proc glmselect data = NewtrainData3 plots = all;
+partition fraction(test= 0.2);
+model SalePrice = GrLivArea OverallQual /selection = Forward(select=CV choose=CV stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
+run;
 
-    *running the Stepwise selection;
-    proc glmselect data = NewtrainData3 plots = all;
-    partition fraction(test= 0.2);
-    model SalePrice = GrLivArea OverallQual /selection = Stepwise(stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
-    run;
-    ~~~
+*running the Backward selection;
+proc glmselect data = NewtrainData3 plots = all;
+partition fraction(test= 0.2);
+model SalePrice = GrLivArea OverallQual /selection = Backward(stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
+run;
+
+*running the Stepwise selection;
+proc glmselect data = NewtrainData3 plots = all;
+partition fraction(test= 0.2);
+model SalePrice = GrLivArea OverallQual /selection = Stepwise(stop=CV) cvmethod=random(5) stats = adjrsq CVDETAILS;
+run;
+```
+
+</details>
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic12.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="3. Custom Multiple Linear Regression (SalePrice ~ GrLivArea + OverallQual) (figure 1)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic12.png" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic13.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="3. Custom Multiple Linear Regression (SalePrice ~ GrLivArea + OverallQual) (figure 2)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic13.png" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic14.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="3. Custom Multiple Linear Regression (SalePrice ~ GrLivArea + OverallQual) (figure 3)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic14.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -325,7 +356,7 @@ This analysis hopes to build the best predictive model needed to predict future 
 
 **Decision:** Given that the adjusted R-squared for the backward model selection is higher (0.7480). We will go ahead with that instead.
 
-## Checking Assumptions
+### Checking Assumptions
 
 #### 1. Simple Linear Regression
 
@@ -333,19 +364,19 @@ This analysis hopes to build the best predictive model needed to predict future 
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic15.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="1. Simple Linear Regression (figure 4)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic15.png" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic16.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="1. Simple Linear Regression (figure 5)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic16.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic17.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="1. Simple Linear Regression (figure 6)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic17.png" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic18.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="1. Simple Linear Regression (figure 7)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic18.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -359,10 +390,10 @@ Judging from the scatterplot of residuals, there is no evidence against the norm
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic19.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="1. Simple Linear Regression (figure 8)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic19.png" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic20.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="1. Simple Linear Regression (figure 9)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic20.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -372,16 +403,16 @@ Judging from the scatterplot of residuals, there is no evidence against the norm
 
 Initial: The data points 1299 and 524 are 2 high values in the model that might affect the regression fit, which should be removed.
 
-Final: The cook’s D plot hows the influence of each individual point on the fitted regression line. The previous 2 points with extremely high values have been identified and removed. The two highest values of the line (691, and 1182) have been identified on the residual plot and verified to not affect the model’s p-value.
+Final: The cook’s D plot shows the influence of each individual point on the fitted regression line. The previous 2 points with extremely high values have been identified and removed. The two highest values of the line (691, and 1182) have been identified on the residual plot and verified to not affect the model’s p-value.
 
 **Leverage Plot**
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic21.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="1. Simple Linear Regression (figure 10)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic21.png" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic22.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="1. Simple Linear Regression (figure 11)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic22.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -389,7 +420,7 @@ Final: The cook’s D plot hows the influence of each individual point on the fi
     Initial vs. Final Leverage Plot
 </div>
 
-Initial: The leverage shows that there 2 really high influentual points in the data (524, and 1299) that are affecting the plot to veer towards Rstudent > 0 instead of being spread apart.
+Initial: The leverage shows that there 2 really high influential points in the data (524, and 1299) that are affecting the plot to veer towards Rstudent > 0 instead of being spread apart.
 
 Final: After the 2 influential plots were removed, the plots show to be more spread apart, hence providing a better fit.
 
@@ -399,10 +430,10 @@ Final: After the 2 influential plots were removed, the plots show to be more spr
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic23.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="2. Multiple Linear Regression (figure 4)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic23.png" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic24.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="2. Multiple Linear Regression (figure 5)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic24.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -416,10 +447,10 @@ Judging from the scatterplot of residuals, there is no evidence against the norm
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic25.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="2. Multiple Linear Regression (figure 6)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic25.png" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic26.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="2. Multiple Linear Regression (figure 7)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic26.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -429,16 +460,16 @@ Judging from the scatterplot of residuals, there is no evidence against the norm
 
 Initial: The data points 1299 and 524 are 2 high values in the model that might affect the regression fit, which should be removed.
 
-Final: The cook’s D plot hows the influence of each individual point on the fitted regression line. The previous 2 points with extremely high values have been identified and removed. The two highest values of the line (691, and 1182) have been identified on the residual plot and verified to not affect the model’s p-value.
+Final: The cook’s D plot shows the influence of each individual point on the fitted regression line. The previous 2 points with extremely high values have been identified and removed. The two highest values of the line (691, and 1182) have been identified on the residual plot and verified to not affect the model’s p-value.
 
 **Leverage Plot**
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic27.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="2. Multiple Linear Regression (figure 8)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic27.png" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic28.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="2. Multiple Linear Regression (figure 9)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic28.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -446,7 +477,7 @@ Final: The cook’s D plot hows the influence of each individual point on the fi
     Initial vs. Final Cook's Leverage Plot
 </div>
 
-Initial: The leverage shows that there 2 really high influentual points in the data (524, and 1299) that are affecting the plot to veer towards Rstudent > 0 instead of being spread apart.
+Initial: The leverage shows that there 2 really high influential points in the data (524, and 1299) that are affecting the plot to veer towards Rstudent > 0 instead of being spread apart.
 
 Final: After the 2 influential plots were removed, the plots show to be more spread apart, hence providing a better fit.
 
@@ -456,10 +487,10 @@ Final: After the 2 influential plots were removed, the plots show to be more spr
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic29.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="3. Custom Multiple Linear Regression (figure 1)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic29.png" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic30.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="3. Custom Multiple Linear Regression (figure 2)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic30.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -473,10 +504,10 @@ Judging from the scatterplot of residuals, there is no evidence against the norm
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic31.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="3. Custom Multiple Linear Regression (figure 3)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic31.png" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic32.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="3. Custom Multiple Linear Regression (figure 4)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic32.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -486,16 +517,16 @@ Judging from the scatterplot of residuals, there is no evidence against the norm
 
 Initial: The data points 1299 and 524 are 2 high values in the model that might affect the regression fit, which should be removed.
 
-Final: The cook’s D plot hows the influence of each individual point on the fitted regression line. The previous 2 points with extremely high values have been identified and removed. The two highest values of the line (691, and 1182) have been identified on the residual plot and verified to not affect the model’s p-value.
+Final: The cook’s D plot shows the influence of each individual point on the fitted regression line. The previous 2 points with extremely high values have been identified and removed. The two highest values of the line (691, and 1182) have been identified on the residual plot and verified to not affect the model’s p-value.
 
 **Leverage Plot**
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic33.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="3. Custom Multiple Linear Regression (figure 5)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic33.png" class="img-fluid rounded z-depth-1" %}
     </div>
         <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic34.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="3. Custom Multiple Linear Regression (figure 6)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic34.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -503,15 +534,15 @@ Final: The cook’s D plot hows the influence of each individual point on the fi
     Initial vs. Final Leverage Plot
 </div>
 
-Initial: The leverage shows that there 2 really high influentual points in the data (524, and 1299) that are affecting the plot to veer towards Rstudent > 0 instead of being spread apart.
+Initial: The leverage shows that there 2 really high influential points in the data (524, and 1299) that are affecting the plot to veer towards Rstudent > 0 instead of being spread apart.
 
 Final: After the 2 influential plots were removed, the plots show to be more spread apart, hence providing a better fit.
 
-## Comparing Competing Models
+### Comparing Competing Models
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic35.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid alt="Comparing Competing Models (figure 1)" loading="eager" path="assets/img/DS_6371_Final_Project/pictures/pic35.PNG" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -521,7 +552,7 @@ Final: After the 2 influential plots were removed, the plots show to be more spr
 
 From the comparison above we can see that the custom MLR model of (SalePrice ~ GrLivArea + OverallQual) has the best and lowest Kaggle score of 0.2281. This is because the model has a high adjusted R-squared and a lower CV press compared to the rest.
 
-# Conclusion
+## Conclusion
 
 Based on the model selection analysis, the Kaggle scores, and the adjusted R-squared of each model shown in the table above, the custom MLR Model with a backward model selection is the best model to predict sale prices for homes in Ames, Iowa.
 

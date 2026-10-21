@@ -1,11 +1,12 @@
-github_users:
-  - DamilolaOwolabi
+# Repositories shown on the Repositories page (owner/name), in display order.
+# Each card pulls its description from GitHub, so edit the description on GitHub to change it here.
 
 github_repos:
-  - DamilolaOwolabi/DS-6372-PROJECT-1
+  - DamilolaOwolabi/DS_7330_Term_Project
+  - DamilolaOwolabi/CaseStudyDDS
   - DamilolaOwolabi/DS-6371-PROJECT
   - DamilolaOwolabi/DS-6306-PROJECT-1
-  - DamilolaOwolabi/CaseStudyDDS
+  - DamilolaOwolabi/DS-6372-PROJECT-1
   - DamilolaOwolabi/DS-6372_PROJECT_2
-  - DamilolaOwolabi/DS_7330_Term_Project
-  - stedua22/6372-Project-2
+  - DamilolaOwolabi/DS_6390_HW11
+  - DamilolaOwolabi/Ranking_Animation_D3js

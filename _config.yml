@@ -183,7 +183,7 @@ external_sources: []
 
 chatbot:
   enabled: true
-  endpoint: # e.g. https://dammy-chat.<your-subdomain>.workers.dev
+  endpoint: https://dammy-chat.owolabidamilola2014.workers.dev
   assistant_name: Dammy's AI assistant
   teaser: Hi! I'm Dammy's AI assistant. Ask me about his experience, skills, or projects.
   teaser_delay_seconds: 6

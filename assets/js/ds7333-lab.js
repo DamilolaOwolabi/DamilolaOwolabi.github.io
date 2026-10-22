@@ -10,6 +10,7 @@
   var base = root.getAttribute("data-base") || "";
   var nav = root.querySelector(".lab-weeks");
   var stage = root.querySelector(".lab-stage");
+  var single = +root.getAttribute("data-week") || 0;
   var DATA = null;
   var current = null; // { week, api }
   var dataReady = fetch(base + "/assets/data/ds7333/lab-data.json")
@@ -271,9 +272,21 @@
     opts = opts || {};
     var wrap = add(parent, el("div", { class: "lab-canvas" }));
     var cv = add(wrap, el("canvas", { role: "img", "aria-label": opts.label || "Chart" }));
-    if (opts.height) cv.style.height = opts.height + "px";
-    else cv.style.aspectRatio = opts.aspect || "16 / 9";
-    if (opts.maxWidth) wrap.style.maxWidth = opts.maxWidth + "px";
+    // keep every chart inside the visible screen height
+    if (opts.height) {
+      cv.style.height = "min(" + opts.height + "px, 72vh)";
+      cv.style.height = "min(" + opts.height + "px, 72svh)";
+      if (opts.maxWidth) wrap.style.maxWidth = opts.maxWidth + "px";
+    } else {
+      var asp = opts.aspect || "16 / 9",
+        parts = asp.split("/"),
+        ratio = (+parts[0] / +parts[1]).toFixed(4);
+      cv.style.aspectRatio = asp;
+      ["vh", "svh"].forEach(function (u) {
+        var fit = "calc(" + ratio + " * 72" + u + ")";
+        wrap.style.maxWidth = opts.maxWidth ? "min(" + opts.maxWidth + "px, " + fit + ")" : fit;
+      });
+    }
     canvases.push(cv);
     return cv;
   }
@@ -533,8 +546,10 @@
   }
   function header(parent, w) {
     var h = add(parent, el("header", { class: "lab-head" }));
-    add(h, el("p", { class: "lab-kicker", text: "Week " + w.week + " · " + w.topic }));
-    add(h, el("h2", { text: w.title }));
+    if (!single) {
+      add(h, el("p", { class: "lab-kicker", text: "Week " + w.week + " · " + w.topic }));
+      add(h, el("h2", { text: w.title }));
+    }
     var q = add(h, el("blockquote", { class: "lab-question" }));
     add(q, el("span", { class: "lab-q-label", text: "My question that week" }));
     add(q, el("p", { text: w.question }));
@@ -642,6 +657,7 @@
         var f = frame(cv1, { x0: -maxAbs, x1: maxAbs, y0: 0, y1: 30, l: 150, t: 6, b: 30, yticks: [], xlabel: "" });
         var ctx = f.ctx,
           bh = (f.sy(0) - f.sy(1)) * 0.7;
+        ctx.font = Math.max(8, Math.min(12, Math.floor(f.sy(0) - f.sy(1)) - 2)) + "px Inter, ui-sans-serif, system-ui, sans-serif";
         ctx.strokeStyle = c.muted;
         ctx.beginPath();
         ctx.moveTo(f.sx(0) + 0.5, f.T);
@@ -3547,6 +3563,7 @@
   /* ================================================================ router */
   var btns = {};
   WEEKS.forEach(function (w) {
+    if (!nav || single) return;
     var b = add(
       nav,
       el("button", {
@@ -3620,6 +3637,11 @@
   } else window.addEventListener("resize", redraw);
   new MutationObserver(redraw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
+  if (single) {
+    root.classList.add("is-ready");
+    show(single, false);
+    return;
+  }
   window.addEventListener("hashchange", function () {
     var h = /week-(\d+)/.exec(location.hash);
     if (h && (!current || +h[1] !== current.week)) show(+h[1], false);

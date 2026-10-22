@@ -3800,3 +3800,38 @@ html[data-theme="dark"] .lab-cm td.bad {
     padding: var(--space-4);
   }
 }
+
+/* DS 7333 week pages: links to the other weeks */
+.lab-series {
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+.lab-series .lab-week {
+  flex: 1 1 220px;
+  max-width: 320px;
+  text-decoration: none;
+}
+
+.lab-series .lab-week-t {
+  white-space: normal;
+  line-height: 1.3;
+}
+
+.lab-series .lab-week[aria-current="page"] {
+  background: var(--surface-muted);
+  border-color: var(--global-divider-color);
+  color: var(--global-text-color);
+  cursor: default;
+}
+
+.lab-series .lab-week[aria-current="page"]::after {
+  content: "You are here";
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--global-text-color-light);
+}
+
+.lab-series a.lab-week:not([aria-current]):hover .lab-week-t {
+  color: var(--global-theme-color);
+}

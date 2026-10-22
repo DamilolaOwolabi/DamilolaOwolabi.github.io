@@ -1,0 +1,285 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title>Decision Trees: Gini, Entropy and Random Forests | Oluwadamilola Owolabi</title> <meta name="author" content="Oluwadamilola (Dammy) E. Owolabi"> <meta name="description" content="Slide a split across three classes and watch Gini and entropy respond, then see how random forest accuracy flattens as trees are added."> <meta name="keywords" content="electrical engineer, data scientist, electrical engineering, data science, machine learning, power distribution, power systems, energy analytics, Houston"> <meta property="og:site_name" content="Oluwadamilola Owolabi"> <meta property="og:type" content="website"> <meta property="og:title" content="Decision Trees: Gini, Entropy and Random Forests | Oluwadamilola Owolabi"> <meta property="og:url" content="https://damilolaowolabi.github.io/projects/DS_7333_Week_07/"> <meta property="og:description" content="Slide a split across three classes and watch Gini and entropy respond, then see how random forest accuracy flattens as trees are added."> <meta property="og:image" content="https://damilolaowolabi.github.io/assets/img/Profilepic.jpg"> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="Decision Trees: Gini, Entropy and Random Forests | Oluwadamilola Owolabi"> <meta name="twitter:description" content="Slide a split across three classes and watch Gini and entropy respond, then see how random forest accuracy flattens as trees are added."> <meta name="twitter:image" content="https://damilolaowolabi.github.io/assets/img/Profilepic.jpg"> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Oluwadamilola (Dammy) E. Owolabi"
+        },
+        "url": "https://damilolaowolabi.github.io/projects/DS_7333_Week_07/",
+        "@type": "WebSite",
+        "description": "Slide a split across three classes and watch Gini and entropy respond, then see how random forest accuracy flattens as trees are added.",
+        "headline": "Decision Trees: Gini, Entropy and Random Forests",
+        
+        "sameAs": ["https://github.com/DamilolaOwolabi","https://www.linkedin.com/in/oluwadamilola-owolabi-ebenezer-345800137","https://www.kaggle.com/damilolaowolabi"],
+        
+        "name": "Oluwadamilola (Dammy) E. Owolabi",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=3116ba77db9ee1581d05bb3e86fbf7f1"> <link rel="canonical" href="https://damilolaowolabi.github.io/projects/DS_7333_Week_07/"> <script src="/assets/js/theme.js?v=5286c3e4c334d0ecb8fc0c40ff4fa7ec"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav sticky-bottom-footer"> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Oluwadamilola Owolabi </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">About </a> </li> <li class="nav-item active"> <a class="nav-link" href="/projects/">Projects <span class="sr-only">(current)</span> </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item "> <a class="nav-link" href="/grid/">Grid </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">Publications </a> </li> <li class="nav-item "> <a class="nav-link" href="/tools/">Tools </a> </li> <li class="nav-item "> <a class="nav-link" href="/repositories/">Repositories </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Decision Trees: Gini, Entropy and Random Forests</h1> <p class="post-description">Slide a split across three classes and watch Gini and entropy respond, then see how random forest accuracy flattens as trees are added.</p> </header> <article> <dl class="case-glance"> <div> <dt>Context</dt> <dd>SMU MS in Data Science, DS 7333, Week 7</dd> </div> <div> <dt>Data</dt> <dd>Simulated 3-class data, plus the digits dataset from my Week 7 code</dd> </div> <div> <dt>Results</dt> <dd>Real: 5-fold CV accuracy for random forests and bagging from 1 to 200 trees</dd> </div> </dl> <div class="case-links"> <a class="hero-btn hero-btn-secondary" href="#ml-lab"><i class="fa-solid fa-sliders" aria-hidden="true"></i><span>Open the app</span></a> <a class="hero-btn hero-btn-secondary" href="https://github.com/DamilolaOwolabi/DS_7333/tree/main/Week%207" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i><span>Week 7 notes on GitHub</span></a> </div> <h2 id="why-this-app">Why this app</h2> <p>My questions were how Gini handles more than two classes and how many sub-models bagging needs. The split explorer answers the first; the forest curve answers the second with real numbers. Everything runs in your browser.</p> <div id="ml-lab" class="ml-lab" data-base="" data-week="7"> <div class="lab-stage" id="lab-stage" aria-live="polite"></div> </div> <h2 id="more-from-ds-7333">More from DS 7333</h2> <p class="dash-note">One interactive app for each week of the course, each built around a question I asked that week.</p> <nav class="lab-weeks lab-series" aria-label="DS 7333 weeks"> <a class="lab-week" href="/projects/DS_7333_Week_02/"><span class="lab-week-n">Week 2</span><span class="lab-week-t">L1 vs L2 Regularization on Real Data</span></a> <a class="lab-week" href="/projects/DS_7333_Week_03/"><span class="lab-week-n">Week 3</span><span class="lab-week-t">Logistic Regression: Train It, Then Pick the Threshold</span></a> <a class="lab-week" href="/projects/DS_7333_Week_04/"><span class="lab-week-n">Week 4</span><span class="lab-week-t">Missing Data: Mechanisms and Imputation</span></a> <a class="lab-week" href="/projects/DS_7333_Week_05/"><span class="lab-week-n">Week 5</span><span class="lab-week-t">Bag of Words, TF-IDF and k-Means</span></a> <a class="lab-week" href="/projects/DS_7333_Week_06/"><span class="lab-week-n">Week 6</span><span class="lab-week-t">Naive Bayes: Bayes Rule as a Spam Filter</span></a> <a class="lab-week" href="/projects/DS_7333_Week_07/" aria-current="page"><span class="lab-week-n">Week 7</span><span class="lab-week-t">Decision Trees: Gini, Entropy and Random Forests</span></a> <a class="lab-week" href="/projects/DS_7333_Week_08/"><span class="lab-week-n">Week 8</span><span class="lab-week-t">XGBoost Tuning on a Budget</span></a> <a class="lab-week" href="/projects/DS_7333_Week_09/"><span class="lab-week-n">Week 9</span><span class="lab-week-t">Kernel SVM Playground</span></a> <a class="lab-week" href="/projects/DS_7333_Week_10/"><span class="lab-week-n">Week 10</span><span class="lab-week-t">Gradient Descent: Batch, Mini-Batch and SGD</span></a> <a class="lab-week" href="/projects/DS_7333_Week_11/"><span class="lab-week-n">Week 11</span><span class="lab-week-t">Neural Network Playground</span></a> <a class="lab-week" href="/projects/DS_7333_Week_12/"><span class="lab-week-n">Week 12</span><span class="lab-week-t">Convolution Filter Lab</span></a> <a class="lab-week" href="/projects/DS_7333_Week_13/"><span class="lab-week-n">Week 13</span><span class="lab-week-t">Cosine Similarity and Variable-Length Sequences</span></a> <a class="lab-week" href="/projects/DS_7333_Week_14/"><span class="lab-week-n">Week 14</span><span class="lab-week-t">Ensembles: How Many Models Are Enough?</span></a> </nav> <h2 id="tools">Tools</h2> <p>JavaScript · Decision trees · Random forest · scikit-learn</p> <script defer src="/assets/js/ds7333-lab.js?v=bdc99874ce93d84e5a941b4cf493f05e"></script> </article> </div> </div> <footer class="sticky-bottom mt-5" role="contentinfo"> <div class="container"> © Copyright 2026 Oluwadamilola (Dammy) E. Owolabi. Built with <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> and <a href="https://github.com/alshedivat/al-folio" target="_blank" rel="external nofollow noopener">al-folio</a>. Hosted on <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "16c0c3e0ae104a04a1b2da0ef635ce12"}'></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "About",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-projects",
+          title: "Projects",
+          description: "Data science, engineering, and research work, from predictive models to interactive visualizations.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Highlights of my past experience, knowledge and education.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "nav-grid",
+          title: "Grid",
+          description: "Texas (ERCOT) fuel mix and peak generation, day by day. Updated automatically every morning.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/grid/";
+          },
+        },{id: "nav-publications",
+          title: "Publications",
+          description: "Peer-reviewed research from my time in the Rice University polymer engineering lab.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-tools",
+          title: "Tools",
+          description: "Small engineering calculators from my day-to-day distribution design work.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/tools/";
+          },
+        },{id: "nav-repositories",
+          title: "Repositories",
+          description: "The code behind my projects. Everything else is on my GitHub profile.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/repositories/";
+          },
+        },{id: "projects-cotton-drone-analysis",
+          title: 'Cotton Drone Analysis',
+          description: "Senior design project I led: a $400 drone and Raspberry Pi system that photographs cotton fields and uses ML to estimate crop health.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/Cotton_Drone_Analysis/";
+            },},{id: "projects-budweiser-craft-beer-eda",
+          title: 'Budweiser Craft Beer EDA',
+          description: "Exploratory analysis of US craft beers and breweries in R, plus a KNN model that tells IPAs from other ales with 86% accuracy.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS6306_Project_1/";
+            },},{id: "projects-frito-lay-talent-attrition-analysis",
+          title: 'Frito Lay Talent Attrition Analysis',
+          description: "Predicted employee attrition and monthly income for 870 employees in R, comparing Naive Bayes and KNN on imbalanced data.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS6306_Project_2/";
+            },},{id: "projects-ames-house-price-prediction",
+          title: 'Ames House Price Prediction',
+          description: "Regression models in R and SAS to predict home sale prices in Ames, Iowa. The best model reached an adjusted R² of 0.748.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS6371_Final_Project/";
+            },},{id: "projects-billionaire-rankings-animated",
+          title: 'Billionaire Rankings, Animated',
+          description: "A Processing animation of the world’s 10 richest people from 2000 to 2021, with flags and company logos for context.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_6390_Exam_1/";
+            },},{id: "projects-pokémon-data-dashboard-in-plotly",
+          title: 'Pokémon Data Dashboard in Plotly',
+          description: "An interactive Plotly dashboard of Pokémon types and stats, built in Python and Jupyter, with filters by generation and type.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_6390_HW11/";
+            },},{id: "projects-nyc-coffee-shop-sales-infographic",
+          title: 'NYC Coffee Shop Sales Infographic',
+          description: "A one-page infographic of 2023 New York City coffee shop sales: best-selling drinks, busiest days and peak months.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_6390_HW12/";
+            },},{id: "projects-easy-company-in-wwii-a-sankey-chart",
+          title: 'Easy Company in WWII: A Sankey Chart',
+          description: "A Sankey chart tracing the men of Easy Company, 506th Infantry, from basic training through D-Day, Market Garden and the Bulge to the end of WWII.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_6390_HW2/";
+            },},{id: "projects-pokémon-data-analysis-in-excel",
+          title: 'Pokémon Data Analysis in Excel',
+          description: "An Excel dashboard of Pokémon stats built with pivot tables, slicers and charts, designed around clear visual hierarchy.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_6390_HW3/";
+            },},{id: "projects-planetary-motion-visualization",
+          title: 'Planetary Motion Visualization',
+          description: "An animated D3.js model of the solar system, with planets and moons orbiting at scaled real-world distances and speeds.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_6390_HW8/";
+            },},{id: "projects-smu-banner-visualization",
+          title: 'SMU Banner Visualization',
+          description: "An animated D3.js banner for SMU MSDS: words that react on hover over a moving field of numbers and shapes.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_6390_HW9/";
+            },},{id: "projects-gamerpedia",
+          title: 'Gamerpedia',
+          description: "A Django web app that recommends video games from your preferences, backed by a 1.17-million-row MySQL game database and ChatGPT ranking.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_7330_Term_Project/";
+            },},{id: "projects-l1-vs-l2-regularization-on-real-data",
+          title: 'L1 vs L2 Regularization on Real Data',
+          description: "Watch L1 drop features and L2 shrink them on 569 breast cancer tumors, with cross-validated accuracy for every penalty strength.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_7333_Week_02/";
+            },},{id: "projects-logistic-regression-train-it-then-pick-the-threshold",
+          title: 'Logistic Regression: Train It, Then Pick the Threshold',
+          description: "Train a logistic model with gradient descent in your browser, then move the decision threshold and watch missed cancers trade against false alarms.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_7333_Week_03/";
+            },},{id: "projects-missing-data-mechanisms-and-imputation",
+          title: 'Missing Data: Mechanisms and Imputation',
+          description: "Simulate MCAR, MAR and MNAR missingness, try five ways of filling the gaps, and see which ones bias the answer.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_7333_Week_04/";
+            },},{id: "projects-bag-of-words-tf-idf-and-k-means",
+          title: 'Bag of Words, TF-IDF and k-Means',
+          description: "Edit documents and see how stop words, counts and TF-IDF change the vectors, then run k-means with Euclidean or Manhattan distance.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_7333_Week_05/";
+            },},{id: "projects-naive-bayes-bayes-rule-as-a-spam-filter",
+          title: 'Naive Bayes: Bayes Rule as a Spam Filter',
+          description: "Turn word frequencies into a spam probability with Bayes rule, see the naive independence assumption at work, and compare Naive Bayes with logistic regression on digits.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_7333_Week_06/";
+            },},{id: "projects-decision-trees-gini-entropy-and-random-forests",
+          title: 'Decision Trees: Gini, Entropy and Random Forests',
+          description: "Slide a split across three classes and watch Gini and entropy respond, then see how random forest accuracy flattens as trees are added.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_7333_Week_07/";
+            },},{id: "projects-xgboost-tuning-on-a-budget",
+          title: 'XGBoost Tuning on a Budget',
+          description: "Compare 20 XGBoost depth and learning-rate settings round by round on the digits data, and see how much early stopping saves.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_7333_Week_08/";
+            },},{id: "projects-kernel-svm-playground",
+          title: 'Kernel SVM Playground',
+          description: "Train a kernel support vector machine in your browser, switch between linear, polynomial, RBF and sigmoid kernels, and add your own points.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_7333_Week_09/";
+            },},{id: "projects-gradient-descent-batch-mini-batch-and-sgd",
+          title: 'Gradient Descent: Batch, Mini-Batch and SGD',
+          description: "Race full-batch, mini-batch and stochastic gradient descent across a loss surface, try learning rate schedules, and see the hashing trick in action.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_7333_Week_10/";
+            },},{id: "projects-neural-network-playground",
+          title: 'Neural Network Playground',
+          description: "Train a small neural network from scratch in your browser and compare SGD, Momentum, RMSprop and Adam on four datasets.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_7333_Week_11/";
+            },},{id: "projects-convolution-filter-lab",
+          title: 'Convolution Filter Lab',
+          description: "Draw an image and apply nine convolution filters or your own 3x3 kernel, then add ReLU and max pooling like a CNN layer.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_7333_Week_12/";
+            },},{id: "projects-cosine-similarity-and-variable-length-sequences",
+          title: 'Cosine Similarity and Variable-Length Sequences',
+          description: "See why cosine similarity ignores document length while Euclidean distance doesn&#39;t, and how padding, truncation and bucketing prepare text for RNNs.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_7333_Week_13/";
+            },},{id: "projects-ensembles-how-many-models-are-enough",
+          title: 'Ensembles: How Many Models Are Enough?',
+          description: "Simulate majority voting with models of any accuracy and error correlation, and find the smallest ensemble that gets nearly all the benefit.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/DS_7333_Week_14/";
+            },},{id: "projects-nintendo-eshop-pricing-and-sequel-analytics",
+          title: 'Nintendo eShop Pricing and Sequel Analytics',
+          description: "Scraped 22,123 Nintendo eShop listings to study pricing and predict sequels (AUC 0.80). Try the live explorer and sequel model.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/Nintendo_eShop_Analytics/";
+            },},{id: "projects-thiolene-blends-for-tougher-organic-solar-cells",
+          title: 'Thiolene Blends for Tougher Organic Solar Cells',
+          description: "Rice research internship: blending thiolene networks into organic solar cell films so they crack less under strain. Led to a co-authored paper.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/Organic_Photovoltaics/";
+            },},{id: "projects-soundradius",
+          title: 'SoundRadius',
+          description: "A video-calling app with a &quot;Radius Mode&quot;: your voice reaches only people whose sound radius overlaps yours. Built with friends.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/SoundRadius/";
+            },},{id: "projects-ai-driven-optimization-of-wind-energy-distribution-in-texas",
+          title: 'AI-Driven Optimization of Wind Energy Distribution in Texas',
+          description: "SMU capstone. Multi-agent reinforcement learning that coordinates wind, load, and storage agents to cut wind curtailment on the ERCOT grid.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/Wind_Energy_MARL/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%6F%77%6F%6C%61%62%69%64%61%6D%69%6C%6F%6C%61%32%30%31%34@%67%6D%61%69%6C.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/DamilolaOwolabi", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/oluwadamilola-owolabi-ebenezer-345800137", "_blank");
+        },
+      },{
+        id: 'social-kaggle',
+        title: 'Kaggle',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.kaggle.com/damilolaowolabi", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> <div id="site-chat" data-endpoint="https://dammy-chat.owolabidamilola2014.workers.dev" data-name="Dammy&#39;s AI assistant" data-teaser="Hi! I&#39;m Dammy&#39;s AI assistant. Ask me about his experience, skills, or projects." data-email="owolabidamilola2014@gmail.com" data-avatar="/assets/img/Profilepic.jpg" data-suggestions="What&#39;s Dammy&#39;s background?|What roles is he open to?|Tell me about his data science projects|What power systems experience does he have?|How can I contact him?" data-teaser-delay="6" data-headline="Electrical Engineer · Data Scientist"></div> <script defer src="/assets/js/chatbot.js?v=7a57016c62"></script> </body> </html>

@@ -3851,3 +3851,87 @@ html[data-theme="dark"] .lab-cm td.bad {
   border-style: dashed;
   color: var(--global-theme-color);
 }
+
+/* DS 7333 week pages: my pre-session notes (collapsed by default) */
+.lab-notes-fold {
+  margin: var(--space-6) 0 var(--space-8);
+}
+
+.lab-notes-fold > summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+  font-weight: 600;
+  min-height: 44px;
+  align-content: center;
+}
+
+.lab-notes-count {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--global-text-color-light);
+}
+
+.lab-notes {
+  padding: var(--space-4) var(--space-6) var(--space-6);
+}
+
+.lab-notes-intro {
+  font-size: var(--text-sm);
+  color: var(--global-text-color-light);
+  margin: 0 0 var(--space-4);
+}
+
+.lab-notes dl {
+  margin: 0;
+  display: grid;
+  gap: var(--space-4);
+}
+
+.lab-notes dl > div {
+  display: grid;
+  grid-template-columns: minmax(150px, 220px) minmax(0, 1fr);
+  gap: var(--space-4);
+}
+
+.lab-notes dt {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--global-text-color-light);
+  padding-top: 3px;
+}
+
+.lab-notes dd {
+  margin: 0;
+}
+
+.lab-notes ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.lab-notes li {
+  margin-bottom: var(--space-1);
+  max-width: 70ch;
+}
+
+.lab-notes-links {
+  margin: var(--space-6) 0 0;
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 767px) {
+  .lab-notes {
+    padding: var(--space-3) var(--space-4) var(--space-4);
+  }
+
+  .lab-notes dl > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+  }
+}

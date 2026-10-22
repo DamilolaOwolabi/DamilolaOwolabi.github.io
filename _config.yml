@@ -264,6 +264,14 @@ exclude:
   - gems/
   - migrations/
   - vendor
+  # Development-only files that shouldn't be published
+  - test/
+  - requirements.txt
+  - "**/*.pde"
+  - "**/*.zip"
+  - "**/sketch.properties"
+  - "assets/img/DS_6390_Exam_1/Image/*.txt"
+  - "assets/img/DS_6390_Exam_1/Image/*.csv"
 keep_files:
   - CNAME
   - .nojekyll

@@ -19,6 +19,7 @@ Report data wins over dashboard data for the same day.
 """
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -76,6 +77,8 @@ def records_from_report(xlsx_path):
             if not row or row[0] is None or row[1] not in REPORT_MAP:
                 continue
             date = row[0].strftime("%Y-%m-%d") if hasattr(row[0], "strftime") else str(row[0])[:10]
+            if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", date):
+                continue  # skip anything that isn't a plain date
             intervals = [v if isinstance(v, (int, float)) else 0.0 for v in row[4:]]
             d = days.setdefault(date, {"energy": {}, "intervals": [0.0] * len(intervals)})
             cat = REPORT_MAP[row[1]]

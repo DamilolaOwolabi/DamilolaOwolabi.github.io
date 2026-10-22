@@ -6,7 +6,7 @@ main = "worker.js"
 compatibility_date = "2026-10-01"
 
 [vars]
-ALLOWED_ORIGINS = "https://damilolaowolabi.github.io,http://localhost:4000,http://127.0.0.1:4000"
+ALLOWED_ORIGINS = "https://damilolaowolabi.github.io"
 MODEL = "claude-haiku-5-5"
 
 # Per-visitor rate limit (20 requests per minute per IP).

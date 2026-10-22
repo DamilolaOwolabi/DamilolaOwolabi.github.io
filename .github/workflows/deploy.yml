@@ -107,6 +107,6 @@ jobs:
           purgecss -c purgecss.config.js
       - name: Deploy 🚀
         if: github.event_name != 'pull_request'
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: JamesIves/github-pages-deploy-action@fa24774553152dd7873cd16ebd8d959b010c5445 # v4.9.0
         with:
           folder: _site

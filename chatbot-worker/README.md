@@ -51,7 +51,8 @@ chatbot:
 
 ## Safety and cost controls built in
 
-- Only your website can use the Worker. Requests from other sites are refused.
+- Only your website can use the Worker from a browser. Requests from other sites are refused. (Scripts can fake where they come from, so also set an Anthropic spend limit and the rate limit below.)
+- Every reply is signed. Earlier replies sent back without a valid signature are ignored, so visitors can't plant fake assistant lines to steer it.
 - Each visitor is limited to about 25 messages per 10 minutes. Long messages and long conversations are trimmed.
 - Answers are capped at about 700 tokens (a few paragraphs).
 - The assistant answers only about you, uses only facts from your site, refers salary, start date, visa and scheduling questions to your email, and won't share client names, your phone number, or your address.
@@ -61,11 +62,11 @@ Optional, for a firmer rate limit: in the Worker's **Settings → Bindings**, ad
 
 ## Optional settings (Worker → Settings → Variables and Secrets, type Text)
 
-| Name              | Default                                                                         | What it does                        |
-| ----------------- | ------------------------------------------------------------------------------- | ----------------------------------- |
-| `ALLOWED_ORIGINS` | `https://damilolaowolabi.github.io,http://localhost:4000,http://127.0.0.1:4000` | Sites allowed to use the assistant  |
-| `MODEL`           | `claude-haiku-5-5`                                                              | Claude model                        |
-| `KNOWLEDGE_URL`   | `https://damilolaowolabi.github.io/chatbot/knowledge.txt`                       | Where the assistant reads its facts |
+| Name              | Default                                                   | What it does                                                                                         |
+| ----------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `ALLOWED_ORIGINS` | `https://damilolaowolabi.github.io`                       | Sites allowed to use the assistant. Add `,http://localhost:4000` only while testing on your computer |
+| `MODEL`           | `claude-haiku-5-5`                                        | Claude model                                                                                         |
+| `KNOWLEDGE_URL`   | `https://damilolaowolabi.github.io/chatbot/knowledge.txt` | Where the assistant reads its facts                                                                  |
 
 ## Deploying from your computer instead (optional)
 

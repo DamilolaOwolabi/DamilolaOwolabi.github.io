@@ -359,12 +359,14 @@
           })
           .then(function (data) {
             if (!res.ok || !data.reply) throw new Error(data.error || "HTTP " + res.status);
-            return data.reply;
+            return data;
           });
       })
-      .then(function (reply) {
+      .then(function (data) {
+        var reply = data.reply;
         typing.remove();
-        state.messages.push({ role: "assistant", content: reply });
+        // The signature lets the assistant confirm, next turn, that this reply really came from it.
+        state.messages.push(data.sig ? { role: "assistant", content: reply, sig: data.sig } : { role: "assistant", content: reply });
         state.messages = state.messages.slice(-MAX_HISTORY);
         save(state);
         addBubble("assistant", reply);

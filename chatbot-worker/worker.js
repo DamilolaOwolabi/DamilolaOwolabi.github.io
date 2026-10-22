@@ -12,10 +12,16 @@
  *   KNOWLEDGE_URL      (Text, optional)    where to read the knowledge file
  *   MODEL              (Text, optional)    defaults to claude-haiku-5-5 (fast and inexpensive)
  *   RATE_LIMITER       (Rate limiting binding, optional) per-visitor limit
+ *   REPLY_SIGNING_KEY  (Secret, optional)  key for signing replies; derived from the API key if not set
+ *
+ * Tamper protection: every reply is returned with a signature. When the browser sends
+ * the conversation back, earlier assistant replies without a valid signature are
+ * dropped, so a visitor can't plant fake "assistant" lines to steer the model.
  */
 
 const DEFAULTS = {
-  ALLOWED_ORIGINS: "https://damilolaowolabi.github.io,http://localhost:4000,http://127.0.0.1:4000",
+  // Add http://localhost:4000 in the dashboard (ALLOWED_ORIGINS) only while testing locally.
+  ALLOWED_ORIGINS: "https://damilolaowolabi.github.io",
   KNOWLEDGE_URL: "https://damilolaowolabi.github.io/chatbot/knowledge.txt",
   MODEL: "claude-haiku-5-5",
   ANTHROPIC_BASE_URL: "https://api.anthropic.com",
@@ -86,10 +92,53 @@ async function allowedByRateLimit(env, key) {
   return recent.length <= LIMITS.perVisitorPer10Min;
 }
 
-function cleanMessages(raw) {
+// ---------- reply signatures ----------
+const enc = new TextEncoder();
+let signingKey = null;
+
+async function getSigningKey(env) {
+  if (signingKey) return signingKey;
+  const base = await crypto.subtle.importKey(
+    "raw",
+    enc.encode(env.REPLY_SIGNING_KEY || env.ANTHROPIC_API_KEY),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+  // Derive a separate key so the API key itself is never used directly for signing.
+  const derived = await crypto.subtle.sign("HMAC", base, enc.encode("dammy-site-assistant/reply-signing/v1"));
+  signingKey = await crypto.subtle.importKey("raw", derived, { name: "HMAC", hash: "SHA-256" }, false, ["sign", "verify"]);
+  return signingKey;
+}
+
+function toHex(buf) {
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function fromHex(hex) {
+  if (typeof hex !== "string" || !/^[0-9a-f]{64}$/.test(hex)) return null;
+  return new Uint8Array(hex.match(/../g).map((h) => parseInt(h, 16)));
+}
+
+async function signReply(env, text) {
+  return toHex(await crypto.subtle.sign("HMAC", await getSigningKey(env), enc.encode(text)));
+}
+
+async function validReply(env, text, sig) {
+  const bytes = fromHex(sig);
+  if (!bytes) return false;
+  return crypto.subtle.verify("HMAC", await getSigningKey(env), bytes, enc.encode(text));
+}
+
+async function cleanMessages(env, raw) {
   if (!Array.isArray(raw)) return null;
-  const msgs = raw
-    .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
+  const shaped = raw
+    .slice(-LIMITS.maxMessages * 2)
+    .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string");
+  // Keep only assistant replies this Worker actually wrote (checked before any trimming).
+  const checks = await Promise.all(shaped.map((m) => (m.role === "assistant" ? validReply(env, m.content, m.sig) : true)));
+  const msgs = shaped
+    .filter((_, i) => checks[i])
     .map((m) => ({ role: m.role, content: m.content.trim().slice(0, LIMITS.maxCharsPerMessage) }))
     .filter((m) => m.content.length > 0)
     .slice(-LIMITS.maxMessages);
@@ -181,13 +230,13 @@ export default {
     } catch (_) {
       return json({ error: "Invalid request." }, 400, okOrigin);
     }
-    const messages = cleanMessages(body && body.messages);
+    const messages = await cleanMessages(env, body && body.messages);
     if (!messages) return json({ error: "Invalid request." }, 400, okOrigin);
 
     try {
       const knowledge = await loadKnowledge(env);
       const reply = await askClaude(env, messages, knowledge);
-      return json({ reply }, 200, okOrigin);
+      return json({ reply, sig: await signReply(env, reply) }, 200, okOrigin);
     } catch (err) {
       console.error(err && err.message ? err.message : err);
       return json({ error: "The assistant is unavailable right now. Please email Dammy at owolabidamilola2014@gmail.com." }, 502, okOrigin);

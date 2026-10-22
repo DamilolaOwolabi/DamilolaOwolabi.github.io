@@ -1,36 +1,37 @@
 ---
 layout: page
 title: Nintendo eShop Pricing and Sequel Analytics
-description: "Scraped and cleaned 22,123 Nintendo eShop listings to study pricing and predict sequels. Try the live explorer and sequel model."
+description: "Scraped 22,123 Nintendo eShop listings to study pricing and predict sequels (AUC 0.80). Try the live explorer and sequel model."
 img: assets/img/projects/covers/nintendo-eshop.jpg
 importance: 0
 category: school
-tools: [Python, Web scraping, scikit-learn, Machine learning, Data viz]
+tools: [Python, Web scraping, scikit-learn, Machine learning, Streamlit, Data viz]
 ---
 
 <dl class="case-glance">
   <div><dt>Context</dt><dd>SMU MS in Data Science, DS 7374</dd></div>
-  <div><dt>Team</dt><dd>Two-person project</dd></div>
+  <div><dt>Team</dt><dd>Oluwadamilola Owolabi and Kosi Okeke</dd></div>
   <div><dt>Data</dt><dd>22,123 Nintendo eShop games scraped from DekuDeals</dd></div>
-  <div><dt>Stack</dt><dd>Python, scikit-learn (random forest), Plotly, Streamlit</dd></div>
-  <div><dt>Result</dt><dd>Sequel model AUC 0.76 on held-out games</dd></div>
+  <div><dt>Stack</dt><dd>Python, pandas, scikit-learn, Plotly, Streamlit, Hugging Face Spaces</dd></div>
+  <div><dt>Result</dt><dd>Tuned random forest, AUC 0.80 on held-out games</dd></div>
 </dl>
 
 <div class="case-links">
-<a class="hero-btn hero-btn-secondary" href="#explorer"><i class="fa-solid fa-sliders" aria-hidden="true"></i><span>Jump to the live explorer</span></a>
-<a class="hero-btn hero-btn-secondary" href="#sequel-model"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i><span>Try the sequel model</span></a>
+<a class="hero-btn hero-btn-secondary" href="#explorer"><i class="fa-solid fa-sliders" aria-hidden="true"></i><span>Try the live explorer</span></a>
+<a class="hero-btn hero-btn-secondary" href="https://github.com/DamilolaOwolabi/DS_7374" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i><span>Code and slides on GitHub</span></a>
+<a class="hero-btn hero-btn-secondary" href="https://huggingface.co/spaces/owolabidamilola2014/Nintendo_Sequel_Decision_Analysis" target="_blank" rel="noopener"><i class="fa-solid fa-display" aria-hidden="true"></i><span>Original Streamlit app</span></a>
 </div>
 
 ## The problem
 
-The Nintendo eShop lists tens of thousands of games, from 99-cent arcade ports to $70 first-party releases. We wanted to answer two practical questions a publisher would ask: **what do games in each segment actually sell for**, and **which listings look like franchise follow-ups** (sequels, deluxe editions and remasters) rather than original titles?
+Choosing which game gets a sequel is expensive and often comes down to gut feel. The Nintendo eShop also lists tens of thousands of games, from 99-cent arcade ports to $70 first-party releases. We asked two questions a publisher would care about: **what do games in each segment actually sell for**, and **can listing data tell franchise follow-ups (sequels, deluxe editions and remasters) apart from original titles**, as a first step toward a data-driven sequel decision tool?
 
 ## Our approach
 
-- **Data.** We scraped game listings from DekuDeals and cleaned them into one table of **22,123 games**: price (MSRP), platform, release year, genres, player counts, play modes, developer and publisher.
-- **Features.** We grouped genre labels and publishers into usable categories, split player counts into minimum and maximum, flagged multiplayer games, and counted the platforms and genre tags on each listing.
-- **Exploration.** We built an interactive dashboard (Plotly and Streamlit) with filters for genre, platform, year, price and multiplayer, plus pricing breakdowns by segment.
-- **Model.** We trained a random forest with balanced class weights to predict whether a listing is a sequel from its price, platforms, player counts, play modes, genre tags and release year.
+- **Data.** We scraped game listings from DekuDeals and cleaned them into one table of **22,123 games**: price (MSRP), platform, release year, genres, languages, player counts, play modes, developer and publisher.
+- **Features.** We grouped genre labels, developers and publishers into usable categories, one-hot encoded them, split player counts into minimum and maximum, flagged multiplayer games, and counted the platforms and genre tags on each listing (83 features in all).
+- **Model.** We split the data 60/20/20 into training, validation and test sets and tuned a class-balanced random forest with a randomized search (3-fold cross-validation, optimizing AUC), since only 16% of listings are sequels.
+- **Delivery.** We built a Streamlit dashboard with filters, sequel predictions and pricing breakdowns, deployed it on Hugging Face Spaces, and presented the work twice: a business proposal for a CEO audience and a technical review for a CTO audience.
 
 ## Results
 
@@ -40,7 +41,8 @@ The Nintendo eShop lists tens of thousands of games, from 99-cent arcade ports t
 - **Genre sets the price band.** Action is the biggest genre (4,779 games). Sports ($20.38), Music ($18.97) and Role-Playing ($18.47) have the highest average prices, while Puzzle and Arcade have the lowest medians ($7.99 and $6.99).
 - **Releases keep climbing.** New listings grew from 808 in 2017 to 3,996 in 2024.
 - **Some publishers live on franchises.** Sequels and follow-ups are 56% of KOEI TECMO America's catalog, 49% of NIS America's and 48% of BANDAI NAMCO's.
-- **The sequel model is useful but not magic.** On 4,425 held-out games it reaches an **AUC of 0.76** and catches **64% of real sequels**, but only about a third of the games it flags are actually sequels. Price is by far its strongest signal (41% of feature importance), followed by the number of platforms and release year. Because only 16% of games are sequels, a model that always says "original" would score 84% accuracy, so AUC and recall are the honest measures here.
+- **The sequel model separates the classes reasonably well.** On 4,425 held-out games the tuned forest reached an **AUC of 0.80**. It correctly flagged **410 of 728 real sequels (56%)**, and **52%** of the games it flagged were sequels. Price, release year, game age, the number of platforms and key genres carried the most weight.
+- **Accuracy alone would mislead.** The model scored 84% accuracy, but a model that always says "original" also scores 84%, so we judged it on AUC and the confusion matrix instead.
 
 ## Live explorer {#explorer}
 
@@ -120,19 +122,24 @@ Filter all 22,123 games and the charts and numbers update instantly. Everything 
   <section class="calc eshop-predict" id="sequel-model">
     <div class="calc-head">
       <h3>Sequel model: does this listing look like a follow-up?</h3>
-      <p>Describe a game and the random forest estimates how likely it is to be a sequel, deluxe edition or remaster, based on 17,698 training games.</p>
+      <p>Describe a listing and a random forest estimates how likely it is to be a sequel, deluxe edition or remaster. It uses the same features as the course model, trimmed so it loads quickly in your browser.</p>
     </div>
     <form id="predict-form" class="calc-form" autocomplete="off" onsubmit="return false">
       <fieldset>
         <legend>Listing</legend>
         <label class="field"><span>Price (MSRP)</span><span class="input-unit"><input type="number" name="price" value="19.99" min="0" max="200" step="0.01" inputmode="decimal" /><em>$</em></span></label>
+        <label class="field"><span>Publisher</span><select id="p-publisher" name="publisher"></select></label>
+        <label class="field"><span>Languages listed</span><select id="p-language" name="language"></select></label>
         <label class="field"><span>Release year</span><span class="input-unit"><input type="number" name="year" value="2024" min="2014" max="2025" step="1" inputmode="numeric" /><em>yr</em></span></label>
         <label class="field"><span>Platforms listed</span><span class="input-unit"><input type="number" name="platforms" value="2" min="1" max="7" step="1" inputmode="numeric" /><em>#</em></span></label>
       </fieldset>
       <fieldset>
         <legend>Gameplay</legend>
+        <div class="field">
+          <span>Genre tags <em class="p-hint" id="p-genre-count"></em></span>
+          <div class="p-genres" id="p-genres" role="group" aria-label="Genre tags"></div>
+        </div>
         <label class="field"><span>Max players</span><span class="input-unit"><input type="number" name="max_players" value="1" min="1" max="16" step="1" inputmode="numeric" /><em>#</em></span></label>
-        <label class="field"><span>Genre tags</span><span class="input-unit"><input type="number" name="genres" value="3" min="1" max="4" step="1" inputmode="numeric" /><em>#</em></span></label>
         <label class="check"><input type="checkbox" name="handheld" checked /> <span>Handheld mode</span></label>
         <label class="check"><input type="checkbox" name="tabletop" checked /> <span>Tabletop mode</span></label>
       </fieldset>
@@ -152,7 +159,7 @@ Filter all 22,123 games and the charts and numbers update instantly. Everything 
       </dl>
       <h4>What the model leans on</h4>
       <ul class="importance" id="importance"></ul>
-      <p class="calc-disclaimer">Scores on 4,425 held-out games. The model only sees listing details, not the title, so treat it as a pattern finder, not a verdict.</p>
+      <p class="calc-disclaimer">Scores for this in-browser version on 4,425 held-out games. It only sees listing details, not the title, so treat it as a pattern finder, not a verdict.</p>
     </div>
   </section>
 </div>
@@ -165,7 +172,7 @@ Filter all 22,123 games and the charts and numbers update instantly. Everything 
 
 ## Tools
 
-Python · web scraping · scikit-learn · Plotly · Streamlit
+Python · web scraping · pandas · scikit-learn · Plotly · Streamlit · Hugging Face Spaces
 
 <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha256-0q+JdOlScWOHcunpUk21uab1jW7C1deBQARHtKMcaB4=" crossorigin="anonymous"></script>
 <script defer src="{{ '/assets/js/nintendo-explorer.js' | relative_url | bust_file_cache }}"></script>

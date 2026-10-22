@@ -395,32 +395,72 @@
     $("#m-recall").textContent = Math.round(m.recall * 100) + "%";
     $("#m-precision").textContent = Math.round(m.precision * 100) + "%";
     $("#m-base").textContent = Math.round(m.sequel_rate * 100) + "%";
+
+    // Publisher and language choices, most common first
+    var pub = $("#p-publisher"),
+      lang = $("#p-language");
+    M.publishers.forEach(function (v) {
+      pub.add(new Option(v === "Other" ? "Other / independent" : v, v));
+    });
+    M.languages.forEach(function (v) {
+      lang.add(new Option(v, v));
+    });
+    pub.value = "Other";
+    lang.value = M.languages[0];
+
+    // Genre tag toggles (up to 4, like the listings)
+    var tags = $("#p-genres"),
+      MAX_TAGS = 4;
+    M.genre_tags.forEach(function (g) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "filter-chip";
+      b.textContent = g;
+      b.setAttribute("data-tag", g);
+      b.setAttribute("aria-pressed", g === "Action" || g === "Adventure" ? "true" : "false");
+      b.addEventListener("click", function () {
+        var on = b.getAttribute("aria-pressed") === "true";
+        if (!on && picked().length >= MAX_TAGS) return;
+        b.setAttribute("aria-pressed", on ? "false" : "true");
+        run();
+      });
+      tags.appendChild(b);
+    });
+    function picked() {
+      return Array.prototype.map.call(tags.querySelectorAll('[aria-pressed="true"]'), function (b) {
+        return b.getAttribute("data-tag");
+      });
+    }
+
+    var LABELS = {
+      languages: "Languages listed",
+      publisher_grouped: "Publisher",
+      msrp: "Price",
+      "genre tags": "Genre tags",
+      developer_grouped: "Developer",
+      genre_count: "Number of genres",
+      platform_count: "Platforms listed",
+      release_year: "Release year",
+      game_age: "Game age",
+      max_players: "Max players",
+      is_multiplayer: "Multiplayer",
+      mode_handheld: "Handheld mode",
+      mode_tabletop: "Tabletop mode",
+      min_players: "Min players",
+    };
     var imp = $("#importance");
     Object.keys(M.importance)
       .filter(function (k) {
-        return M.importance[k] > 0;
+        return M.importance[k] >= 0.01;
       })
       .forEach(function (k) {
-        var label =
-          {
-            msrp: "Price",
-            platform_count: "Platforms listed",
-            release_year: "Release year",
-            genre_count: "Genre tags",
-            game_age: "Game age",
-            max_players: "Max players",
-            is_multiplayer: "Multiplayer",
-            mode_handheld: "Handheld mode",
-            mode_tabletop: "Tabletop mode",
-            min_players: "Min players",
-          }[k] || k;
         var w = Math.round(M.importance[k] * 100);
         imp.insertAdjacentHTML(
           "beforeend",
           '<li><span class="imp-label">' +
-            label +
+            esc(LABELS[k] || k) +
             '</span><span class="imp-bar"><i style="width:' +
-            w * 2 +
+            Math.min(100, w * 3) +
             '%"></i></span><span class="imp-val">' +
             w +
             "%</span></li>"
@@ -433,6 +473,7 @@
       var age = M.age_by_year[String(year)];
       if (age === undefined) age = Math.max(0, 2024 - year);
       var maxP = Math.max(+f.get("max_players"), 1);
+      var genres = picked();
       var row = {
         msrp: +f.get("price"),
         platform_count: +f.get("platforms"),
@@ -441,20 +482,28 @@
         is_multiplayer: maxP > 1 ? 1 : 0,
         release_year: year,
         game_age: age,
-        genre_count: +f.get("genres"),
+        genre_count: genres.length,
+        "genre_count.1": genres.length,
         mode_handheld: f.get("handheld") ? 1 : 0,
         mode_docked: 0,
         mode_tabletop: f.get("tabletop") ? 1 : 0,
       };
+      genres.forEach(function (g) {
+        row["genre_" + g] = 1;
+      });
+      row["developer_grouped_Other"] = 1;
+      row["publisher_grouped_" + pub.value] = 1;
+      row["languages_" + lang.value] = 1;
       var vec = M.features.map(function (k) {
-        return row[k];
+        return row[k] || 0;
       });
       var p = predict(vec);
       var out = $("#predict-out");
       out.querySelector(".p-value").textContent = Math.round(p * 100) + "%";
       out.querySelector(".p-fill").style.width = Math.round(p * 100) + "%";
-      var verdict = p >= 0.65 ? "Looks a lot like a sequel" : p >= 0.4 ? "Could go either way" : "Looks like an original";
-      out.querySelector(".p-verdict").textContent = verdict;
+      out.querySelector(".p-verdict").textContent =
+        p >= 0.65 ? "Looks a lot like a sequel" : p >= 0.4 ? "Could go either way" : "Looks like an original";
+      $("#p-genre-count").textContent = genres.length + " of " + MAX_TAGS + " picked";
     }
     form.addEventListener("input", run);
     form.addEventListener("change", run);

@@ -3192,3 +3192,27 @@ a > .card-title {
     transition: none;
   }
 }
+
+.p-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--space-1);
+}
+
+.p-genres .filter-chip {
+  min-height: 32px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+}
+
+.p-hint {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--global-text-color-light);
+  margin-left: var(--space-2);
+}
+
+.importance li {
+  grid-template-columns: 9rem 1fr 2.5rem;
+}

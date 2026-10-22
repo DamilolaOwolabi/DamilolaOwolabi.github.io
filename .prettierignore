@@ -10,3 +10,5 @@ _data/citations.yml
 assets/img/**/*.html
 # Generated daily by bin/fetch_ercot_snapshot.py and bin/ercot_history.py
 _data/ercot*.json
+# Generated data for interactive project apps (compact on purpose)
+assets/data/**/*.json

@@ -247,6 +247,7 @@
           }
         });
     });
+    // Tools used by two or more projects show first; the rest sit behind "More tools".
     var tools = Object.keys(counts)
       .filter(function (t) {
         return counts[t] >= 2;
@@ -254,7 +255,14 @@
       .sort(function (a, b) {
         return counts[b] - counts[a] || a.localeCompare(b);
       });
-    if (!tools.length) return;
+    var extra = Object.keys(counts)
+      .filter(function (t) {
+        return counts[t] < 2;
+      })
+      .sort(function (a, b) {
+        return a.localeCompare(b);
+      });
+    if (!tools.length && !extra.length) return;
 
     var status = document.createElement("p");
     status.className = "project-filter-status";
@@ -265,7 +273,7 @@
     list.setAttribute("role", "group");
     list.setAttribute("aria-label", "Filter projects by tool");
 
-    function makeChip(label, value) {
+    function makeChip(label, value, parent) {
       var b = document.createElement("button");
       b.type = "button";
       b.className = "filter-chip";
@@ -275,15 +283,39 @@
       b.addEventListener("click", function () {
         apply(value);
       });
-      list.appendChild(b);
+      (parent || list).appendChild(b);
     }
     makeChip("All", "");
     tools.forEach(function (t) {
       makeChip(t, t);
     });
+    if (extra.length) {
+      var more = document.createElement("button");
+      more.type = "button";
+      more.className = "filter-chip filter-chip-more";
+      more.setAttribute("aria-expanded", "false");
+      more.textContent = "More tools (" + extra.length + ")";
+      list.appendChild(more);
+      var extraBox = document.createElement("div");
+      extraBox.className = "project-filter-chips project-filter-extra";
+      extraBox.setAttribute("role", "group");
+      extraBox.setAttribute("aria-label", "More tools");
+      extraBox.hidden = true;
+      more.setAttribute("aria-controls", "project-filter-extra");
+      extraBox.id = "project-filter-extra";
+      extra.forEach(function (t) {
+        makeChip(t, t, extraBox);
+      });
+      more.addEventListener("click", function () {
+        var open = extraBox.hidden;
+        extraBox.hidden = !open;
+        more.setAttribute("aria-expanded", String(open));
+        more.textContent = open ? "Fewer tools" : "More tools (" + extra.length + ")";
+      });
+    }
 
     function apply(value) {
-      list.querySelectorAll(".filter-chip").forEach(function (b) {
+      bar.querySelectorAll(".filter-chip[data-value]").forEach(function (b) {
         b.setAttribute("aria-pressed", b.getAttribute("data-value") === value ? "true" : "false");
       });
       var shown = 0,
@@ -310,6 +342,7 @@
     }
 
     bar.appendChild(list);
+    if (extraBox) bar.appendChild(extraBox);
     bar.appendChild(status);
     bar.hidden = false;
   }

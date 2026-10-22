@@ -11,6 +11,8 @@
 #    page; this adds it back so every page has the same top bar.
 # 4. CV: turns the bare PDF icon next to the CV title into a labeled
 #    "Download PDF" button (the theme's icon has no text for screen readers).
+# 5. Page titles: marks short ones ("Projects", "CV") with .is-short so they
+#    can be set very large without long project titles wrapping badly.
 #
 # Kept as a plugin so it doesn't require copying (and maintaining) the
 # theme's own head/footer templates.
@@ -97,6 +99,14 @@ module SiteExtras
       %(<a href="#{Regexp.last_match(1)}" target="_blank" rel="noopener noreferrer" class="float-right cv-pdf-btn">) +
         %(<i class="fa-solid fa-file-pdf" aria-hidden="true"></i><span>Download PDF</span></a>)
     end
+    # Same-year ranges in sections the theme renders ("2023 - 2023") read as a single year.
+    doc.output = doc.output.gsub(/>\s*(\d{4}) - \1\s*</, '>\\1<')
+  end
+
+  def short_title_class(doc)
+    doc.output = doc.output.sub(%r{<h1 class="post-title">\s*([^<]{1,16}?)\s*(<|</h1>)}) do
+      %(<h1 class="post-title is-short">#{Regexp.last_match(1)}#{Regexp.last_match(2)})
+    end
   end
 
   def inject_widget(doc, site)
@@ -115,6 +125,7 @@ end
     SiteExtras.fix_titles(doc, doc.site)
     SiteExtras.navbar_brand(doc, doc.site)
     SiteExtras.cv_pdf_button(doc)
+    SiteExtras.short_title_class(doc)
     SiteExtras.inject_widget(doc, doc.site)
   end
 end

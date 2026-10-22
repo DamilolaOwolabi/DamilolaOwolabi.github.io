@@ -10,6 +10,9 @@ layout: default
 <div class="post about-page">
   <section class="hero" aria-labelledby="hero-name">
     <canvas class="hero-grid" aria-hidden="true"></canvas>
+    {% comment %} Back plane: one oversized word behind the photo (decorative). {% endcomment %}
+    {% assign hero_backword = page.hero.backword | default: site.title | split: ' ' | last %}
+    <span class="hero-backword" aria-hidden="true">{{ hero_backword }}</span>
     <div class="hero-text">
       {% if page.hero.eyebrow %}
         <p class="hero-eyebrow">{{ page.hero.eyebrow }}</p>
@@ -58,6 +61,13 @@ layout: default
 
     {% if page.profile.image %}
       <div class="hero-photo">
+        {% if page.hero.photo_link %}
+          {% comment %} Front plane: a small tappable chip overlapping the photo. {% endcomment %}
+          <a class="hero-photo-chip" href="{{ page.hero.photo_link.url }}">
+            <span>{{ page.hero.photo_link.label }}</span>
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        {% endif %}
         {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
         {%
           include figure.liquid loading="eager" path=profile_image_path class="hero-photo-img" sizes="(min-width: 768px) 280px, 60vw"
@@ -212,7 +222,7 @@ layout: default
   {% endif %}
 
   {% if page.contact %}
-    <section class="contact-cta" aria-labelledby="contact-heading" data-reveal>
+    <section class="contact-cta" id="contact" aria-labelledby="contact-heading" data-reveal>
       <div>
         <h2 id="contact-heading">{{ page.contact.heading }}</h2>
         <p>{{ page.contact.text }}</p>

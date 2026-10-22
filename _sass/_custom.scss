@@ -2624,3 +2624,321 @@ html[data-theme="dark"] .chat-launcher {
   text-transform: uppercase;
   color: var(--global-text-color-light);
 }
+
+/* ===========================================================================
+ * Depth, signal color, and type scale
+ *  1. Signal color: blue (--global-theme-color) only ever means "you can tap this".
+ *     Everything else is ink (text colors) on paper (backgrounds).
+ *  2. Three planes on the home hero: a huge faint word at the back, the photo in
+ *     the middle, and a tappable chip on top that overlaps the photo.
+ *  3. No middle sizes: one huge thing per screen (the name, or the page title),
+ *     everything else at body size or in small labels.
+ * ========================================================================= */
+:root {
+  --ink-soft: color-mix(in srgb, var(--global-text-color) 6%, transparent);
+  --ink-chip: color-mix(in srgb, var(--global-text-color) 7%, var(--global-bg-color));
+}
+
+/* ---- 1. Signal color: take blue off everything that isn't tappable ---- */
+.hero-eyebrow {
+  color: var(--global-text-color-light);
+  background: var(--ink-chip);
+}
+
+.hero-eyebrow::before {
+  background: var(--global-text-color-light);
+}
+
+.hero-tagline,
+.about-page .hero-tagline .nowrap {
+  color: var(--global-text-color);
+}
+
+.timeline::before {
+  background: linear-gradient(var(--global-text-color-light), var(--global-divider-color));
+}
+
+.timeline-item::before {
+  border-color: var(--global-text-color-light);
+}
+
+.timeline-item.is-current::before {
+  background: var(--global-text-color);
+  border-color: var(--global-text-color);
+  box-shadow: 0 0 0 4px var(--ink-soft);
+}
+
+.spark-line {
+  stroke: var(--global-text-color);
+}
+
+.spark-area {
+  fill: var(--ink-soft);
+}
+
+.fuel-wind {
+  background: #0d9488;
+}
+
+.contact-cta {
+  background: var(--surface-muted);
+  border-color: var(--global-divider-color);
+}
+
+.dash-gap-note,
+.tag {
+  color: var(--global-text-color-light);
+  background: var(--ink-chip);
+}
+
+.result-big {
+  color: var(--global-text-color);
+}
+
+.notfound-code {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--global-text-color);
+}
+
+/* Theme badges (CV dates, publication venue) are labels, not buttons */
+.cv .badge,
+.publications abbr.badge {
+  background: var(--global-text-color) !important;
+  color: var(--global-bg-color) !important;
+}
+
+/* Static headings and labels the theme colors blue */
+.cv .card-title,
+.cv h6.title,
+.projects h2.category,
+.section-label,
+.post article h2,
+.post article h3,
+.post article h4 {
+  color: var(--global-text-color);
+}
+
+/* Linked headings stay ink until hovered; the blue appears on interaction */
+.section-label a,
+.projects a > h2.category,
+a > .card-title {
+  color: inherit;
+}
+
+/* ---- 2. Three planes on the home hero ---- */
+.about-page .hero {
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-backword {
+  position: absolute;
+  z-index: -1;
+  right: -0.04em;
+  bottom: var(--space-10, 2.5rem);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(6rem, 14vw, 12rem);
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-photo {
+  position: relative;
+  z-index: 1;
+  width: clamp(220px, 27vw, 320px);
+}
+
+.hero-photo img,
+.hero-photo-img {
+  box-shadow:
+    0 30px 60px -28px rgba(15, 23, 42, 0.45),
+    0 8px 18px -10px rgba(15, 23, 42, 0.25);
+}
+
+.hero-photo-chip {
+  position: absolute;
+  z-index: 2;
+  left: -28px;
+  bottom: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff !important;
+  background: var(--global-theme-color);
+  box-shadow:
+    0 12px 28px -10px color-mix(in srgb, var(--global-theme-color) 70%, transparent),
+    0 2px 6px rgba(15, 23, 42, 0.2);
+  text-decoration: none !important;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.hero-photo-chip:hover {
+  background: var(--global-hover-color);
+  transform: translateY(-2px);
+}
+
+.hero-photo-chip:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--global-theme-color) 45%, transparent);
+  outline-offset: 3px;
+}
+
+.hero-photo-chip i {
+  font-size: 0.8em;
+  transition: transform 0.2s ease;
+}
+
+.hero-photo-chip:hover i {
+  transform: translateX(3px);
+}
+
+/* Buttons sit on the top plane: lift them off the page */
+.hero-actions .hero-btn {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-actions .hero-btn-primary {
+  box-shadow:
+    0 12px 26px -12px color-mix(in srgb, var(--global-theme-color) 75%, transparent),
+    0 2px 5px rgba(15, 23, 42, 0.12);
+}
+
+.hero-actions .hero-btn-secondary {
+  background: var(--global-bg-color);
+  box-shadow: 0 6px 16px -10px rgba(15, 23, 42, 0.35);
+}
+
+/* ---- 3. No middle sizes ---- */
+.hero-name {
+  font-size: clamp(3rem, 5.8vw, 5.25rem);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  margin-bottom: var(--space-6);
+}
+
+.hero-tagline {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  margin-bottom: var(--space-2);
+}
+
+.hero-subline {
+  font-size: 1rem;
+  max-width: 40ch;
+}
+
+.post-title {
+  font-size: clamp(2.25rem, 4.6vw, 3.75rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-weight: 700 !important;
+}
+
+/* Short page titles (Projects, CV, Grid...) go really big */
+.post-title.is-short {
+  font-size: clamp(3.25rem, 9vw, 6.5rem);
+  line-height: 0.9;
+}
+
+.post-description {
+  font-size: 1rem;
+  margin-top: var(--space-3);
+}
+
+.post article h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.post article h3,
+.post article h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.contact-cta h2 {
+  font-size: 1.25rem;
+}
+
+@media (max-width: 767px) {
+  .hero-backword {
+    font-size: 29vw;
+    bottom: auto;
+    top: 40px;
+    right: -0.04em;
+  }
+
+  .hero-photo {
+    width: 140px;
+  }
+
+  .hero-photo-chip {
+    left: 92px;
+    bottom: 4px;
+    min-height: 40px;
+    font-size: 0.8125rem;
+    white-space: nowrap;
+  }
+
+  .hero-name {
+    font-size: clamp(2.75rem, 13vw, 3.75rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo-chip,
+  .hero-photo-chip i {
+    transition: none;
+  }
+}
+
+.cv .card .list-group-item .badge.danger-color-dark,
+.cv .card .list-group-item .badge,
+.cv span.badge {
+  background-color: var(--global-text-color) !important;
+  color: var(--global-bg-color) !important;
+}
+
+.cv .iconlocation,
+.cv .fa-location-dot {
+  color: var(--global-text-color-light) !important;
+}
+
+.post article blockquote {
+  border-left-color: var(--global-divider-color) !important;
+}
+
+.hero-photo-chip span,
+.hero-photo-chip i {
+  color: #fff !important;
+}
+
+@media (max-width: 767px) {
+  /* Phones: the three planes already give depth, so drop the network graphic */
+  .about-page .hero-grid {
+    display: none;
+  }
+}
+
+.post-title .cv-pdf-btn {
+  letter-spacing: 0;
+}

@@ -7,7 +7,7 @@
 
   var FUELS = [
     { key: "gas", label: "Natural gas", color: "#64748b" },
-    { key: "wind", label: "Wind", color: "#2563eb" },
+    { key: "wind", label: "Wind", color: "#0d9488" },
     { key: "solar", label: "Solar", color: "#f59e0b" },
     { key: "nuclear", label: "Nuclear", color: "#8b5cf6" },
     { key: "coal", label: "Coal", color: "#78716c" },
@@ -300,7 +300,7 @@
       var peaks = cal.map(function (d) {
         return d.missing ? null : d.peak_gw;
       });
-      var theme = cssVar("--global-theme-color", "#1d4ed8");
+      var theme = cssVar("--global-text-color", "#0f172a");
       charts.peak = new Chart(document.getElementById("chart-peak"), {
         type: "line",
         data: {

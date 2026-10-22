@@ -8,6 +8,12 @@ hero:
   eyebrow: Dammy · Houston, TX
   tagline: Electrical Engineer · Data Scientist
   subline: I design power distribution systems and build models from the data they produce.
+  # Huge faint word behind the photo (defaults to your last name)
+  backword: Dammy
+  # Small link that overlaps the photo (leave out to hide it)
+  photo_link:
+    label: Open to new roles
+    url: "#contact"
   buttons:
     - label: View projects
       url: /projects/

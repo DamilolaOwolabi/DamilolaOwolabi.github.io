@@ -108,6 +108,17 @@ content:
           - name: subline
             label: One-sentence summary
             type: string
+          - name: backword
+            label: Big background word
+            description: Shown very large and faint behind your photo. Defaults to your last name.
+            type: string
+          - name: photo_link
+            label: Link on the photo
+            description: 'Small button that overlaps your photo, e.g. "Open to new roles". Leave empty to hide.'
+            type: object
+            fields:
+              - { name: label, label: Label, type: string }
+              - { name: url, label: Link, type: string }
           - name: buttons
             label: Buttons
             type: object
